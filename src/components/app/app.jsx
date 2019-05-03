@@ -2,22 +2,20 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 const App = (props) => {
-  const {filmList = []} = props;
+  const {filmList} = props;
 
-  const renderFilmList = (list) => {
-    return list.map((item) => {
-      const filmNameToLower = item.replace(/:?\s/g, `-`).toLowerCase();
-      return <article className="small-movie-card catalog__movies-card" key={filmNameToLower} >
-        <button className="small-movie-card__play-btn" type="button">Play</button>
-        <div className="small-movie-card__image">
-          <img src={`img/${filmNameToLower}.jpg`} alt={`${item}`} width="280" height="175" />
-        </div>
-        <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html">{item}</a>
-        </h3>
-      </article>;
-    });
-  };
+  const filmListBlock = filmList.map((item) => {
+    const filmNameToLower = item.replace(/:?\s/g, `-`).toLowerCase();
+    return <article className="small-movie-card catalog__movies-card" key={filmNameToLower} >
+      <button className="small-movie-card__play-btn" type="button">Play</button>
+      <div className="small-movie-card__image">
+        <img src={`img/${filmNameToLower}.jpg`} alt={`${item}`} width="280" height="175" />
+      </div>
+      <h3 className="small-movie-card__title">
+        <a className="small-movie-card__link" href="movie-page.html">{item}</a>
+      </h3>
+    </article>;
+  });
 
   return <Fragment>
     <div className="visually-hidden">
@@ -143,7 +141,7 @@ const App = (props) => {
         </ul>
 
         <div className="catalog__movies-list">
-          {renderFilmList(filmList)}
+          {filmListBlock}
         </div>
 
         <div className="catalog__more">
@@ -169,7 +167,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  filmList: PropTypes.array
+  filmList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default App;

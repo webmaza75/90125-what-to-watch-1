@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import App from './components/app/app.jsx';
-
-const filmList = [`Fantastic Beasts: The Crimes of Grindelwald`, `Bohemian Rhapsody`, `Macbeth`, `Aviator`];
+import filmList from './mock/filmList.js';
 
 const init = () => {
   ReactDom.render(
