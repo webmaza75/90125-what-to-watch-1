@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 const App = (props) => {
-  const {filmList} = props;
+  const {filmList, onClick} = props;
 
   const filmListBlock = filmList.map((item) => {
     const filmNameToLower = item.replace(/:?\s/g, `-`).toLowerCase();
@@ -12,7 +12,7 @@ const App = (props) => {
         <img src={`img/${filmNameToLower}.jpg`} alt={`${item}`} width="280" height="175" />
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">{item}</a>
+        <a className="small-movie-card__link" href="movie-page.html" onClick={onClick}>{item}</a>
       </h3>
     </article>;
   });
@@ -167,7 +167,8 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  filmList: PropTypes.arrayOf(PropTypes.string).isRequired
+  filmList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func
 };
 
 export default App;
