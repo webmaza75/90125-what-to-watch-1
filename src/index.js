@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import App from './components/app/app.jsx';
-import filmList from './mock/filmList.js';
+import films from './mocks/films.js';
 
-const init = () => {
+const init = (itemList) => {
   ReactDom.render(
-      <App filmList={filmList} />,
+      <App films={itemList} />,
       document.getElementById(`root`)
   );
 };
 
-init();
+init(films);

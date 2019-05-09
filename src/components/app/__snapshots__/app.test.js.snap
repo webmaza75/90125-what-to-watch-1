@@ -381,6 +381,39 @@ Array [
         >
           <button
             className="small-movie-card__play-btn"
+            onClick={[Function]}
+            type="button"
+          >
+            Play
+          </button>
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="The Grand Budapest Hotel"
+              height="175"
+              src="img/the-grand-budapest-hotel-poster.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              The Grand Budapest Hotel
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+        >
+          <button
+            className="small-movie-card__play-btn"
+            onClick={[Function]}
             type="button"
           >
             Play
@@ -401,7 +434,7 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onClick={[MockFunction]}
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -412,6 +445,7 @@ Array [
         >
           <button
             className="small-movie-card__play-btn"
+            onClick={[Function]}
             type="button"
           >
             Play
@@ -432,7 +466,7 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onClick={[MockFunction]}
+              onClick={[Function]}
             >
               Bohemian Rhapsody
             </a>
@@ -443,6 +477,7 @@ Array [
         >
           <button
             className="small-movie-card__play-btn"
+            onClick={[Function]}
             type="button"
           >
             Play
@@ -463,7 +498,7 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onClick={[MockFunction]}
+              onClick={[Function]}
             >
               Macbeth
             </a>
@@ -474,6 +509,7 @@ Array [
         >
           <button
             className="small-movie-card__play-btn"
+            onClick={[Function]}
             type="button"
           >
             Play
@@ -494,7 +530,7 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onClick={[MockFunction]}
+              onClick={[Function]}
             >
               Aviator
             </a>
