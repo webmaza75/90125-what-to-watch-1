@@ -19,4 +19,17 @@ describe(`App correctly renders after relaunch`, () => {
     const filmsLength = films.length;
     expect(playButton).toHaveLength(filmsLength);
   });
+
+  it(`App has correctly state when user clicks play button`, () => {
+    const clickHandler = jest.fn();
+    const app = mount(<App
+      films={films}
+      onClick={clickHandler}
+    />);
+
+    const playButton = app.find(`.small-movie-card__play-btn`).first();
+    playButton.simulate(`click`);
+    const film = films[0];
+    expect(app.state(`selectedFilm`)).toEqual(film);
+  });
 });

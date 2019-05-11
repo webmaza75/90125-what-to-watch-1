@@ -1,21 +1,15 @@
 import React, {Fragment, PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import genres from '../../mocks/genres.js';
 import FilmList from '../film-list/film-list.jsx';
+import FilmItem from '../film-item/film-item.jsx';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedFilm: {
-        genre: [],
-        title: ``,
-        desc: ``,
-        picture: ``,
-        year: null
-      }
+      selectedFilm: null
     };
 
     this._handleClick = this._handleClick.bind(this);
@@ -182,13 +176,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
-    genre: PropTypes.arrayOf(PropTypes.oneOf(genres)).isRequired,
-    title: PropTypes.string.isRequired,
-    desc: PropTypes.string,
-    picture: PropTypes.string.isRequired,
-    year: PropTypes.number
-  })).isRequired
+  films: PropTypes.arrayOf(FilmItem.propTypes.item).isRequired
 };
 
 export default App;
