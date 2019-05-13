@@ -1,8 +1,6 @@
 import React, {Fragment, PureComponent} from 'react';
-import PropTypes from 'prop-types';
 
 import FilmList from '../film-list/film-list.jsx';
-import FilmItem from '../film-item/film-item.jsx';
 
 class App extends PureComponent {
   constructor(props) {
@@ -176,7 +174,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  films: PropTypes.arrayOf(FilmItem.propTypes.item).isRequired
+  films: FilmList.propTypes.films
 };
 
 export default App;
