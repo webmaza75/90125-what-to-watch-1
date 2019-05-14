@@ -1,31 +1,35 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 import App from './app.jsx';
-import filmList from '../../mock/filmList.js';
+import films from '../../mocks/films.js';
 
 Enzyme.configure({adapter: new Adapter()});
 
 describe(`App correctly renders after relaunch`, () => {
   it(`App renders all film items`, () => {
-    const app = shallow(<App
-      filmList={filmList}
-    />);
-
-    const playButton = app.find(`.small-movie-card__link`);
-    const filmListLength = filmList.length;
-    expect(playButton).toHaveLength(filmListLength);
-  });
-
-  it(`There is a clickable title into the film\`s item`, () => {
     const clickHandler = jest.fn();
-    const app = shallow(<App
-      filmList={filmList}
+    const app = mount(<App
+      films={films}
       onClick={clickHandler}
     />);
 
-    const playButton = app.find(`.small-movie-card__link`).first();
-    playButton.simulate(`click`, {preventDefault() {}});
-    expect(clickHandler).toHaveBeenCalledTimes(1);
+    const playButton = app.find(`.small-movie-card__link`);
+    const filmsLength = films.length;
+    expect(playButton).toHaveLength(filmsLength);
+  });
+
+  it(`App has correctly state when user clicks play button`, () => {
+    const clickHandler = jest.fn();
+    const app = mount(<App
+      films={films}
+      onClick={clickHandler}
+    />);
+
+    const playButton = app.find(`.small-movie-card__play-btn`).first();
+    playButton.simulate(`click`);
+    const film = films[0];
+    expect(app.state(`selectedFilm`)).toEqual(film);
   });
 });
