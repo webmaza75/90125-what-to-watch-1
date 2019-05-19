@@ -5,6 +5,9 @@ import Adapter from 'enzyme-adapter-react-16';
 import App from './app.jsx';
 import films from '../../mocks/films.js';
 
+window.HTMLMediaElement.prototype.play = () => {};
+window.HTMLMediaElement.prototype.pause = () => {};
+
 Enzyme.configure({adapter: new Adapter()});
 
 describe(`App correctly renders after relaunch`, () => {

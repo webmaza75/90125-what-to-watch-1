@@ -5,6 +5,9 @@ import Adapter from 'enzyme-adapter-react-16';
 import FilmItem from './film-item.jsx';
 import film from '../../mocks/film.js';
 
+window.HTMLMediaElement.prototype.play = () => {};
+window.HTMLMediaElement.prototype.pause = () => {};
+
 configure({adapter: new Adapter()});
 
 describe(`Film item correctly renders after relaunch`, () => {

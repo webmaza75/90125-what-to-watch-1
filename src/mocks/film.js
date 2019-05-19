@@ -3,7 +3,8 @@ const film = {
   title: `Aviator`,
   desc: ``,
   picture: `aviator.jpg`,
-  year: 2016
+  year: 2016,
+  src: ``
 };
 
 export default film;

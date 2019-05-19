@@ -1,16 +1,19 @@
-import React, {Fragment, PureComponent} from 'react';
+import React, {Fragment, Component} from 'react';
 
 import FilmList from '../film-list/film-list.jsx';
 
-class App extends PureComponent {
+class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedFilm: null
+      selectedFilm: null,
+      activePlayer: -1
     };
 
     this._handleClick = this._handleClick.bind(this);
+    this._handleHover = this._handleHover.bind(this);
+    this._handleMouseOut = this._handleMouseOut.bind(this);
   }
 
   _handleClick(film) {
@@ -19,8 +22,21 @@ class App extends PureComponent {
     });
   }
 
+  _handleHover(idx) {
+    this.setState({
+      activePlayer: this.state.activePlayer === idx ? -1 : idx
+    });
+  }
+
+  _handleMouseOut() {
+    this.setState({
+      activePlayer: -1
+    });
+  }
+
   render() {
     const {films} = this.props;
+    const {activePlayer} = this.state;
 
     return <Fragment>
       <div className="visually-hidden">
@@ -148,6 +164,9 @@ class App extends PureComponent {
           <FilmList
             films={films}
             onClick={this._handleClick}
+            onHover={this._handleHover}
+            onMouseOut={this._handleMouseOut}
+            activePlayer={activePlayer}
           />
 
           <div className="catalog__more">
