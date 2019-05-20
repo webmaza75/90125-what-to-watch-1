@@ -16,22 +16,24 @@ describe(`App correctly renders after relaunch`, () => {
     const app = mount(<App
       films={films}
       onClick={clickHandler}
+      onHover={jest.fn()}
     />);
 
-    const playButton = app.find(`.small-movie-card__link`);
+    const link = app.find(`.small-movie-card__link`);
     const filmsLength = films.length;
-    expect(playButton).toHaveLength(filmsLength);
+    expect(link).toHaveLength(filmsLength);
   });
 
-  it(`App has correctly state when user clicks play button`, () => {
-    const clickHandler = jest.fn();
+  it(`App has correctly state when user hover card`, () => {
+    const onHover = jest.fn();
     const app = mount(<App
       films={films}
-      onClick={clickHandler}
+      onClick={jest.fn()}
+      onHover={onHover}
     />);
 
-    const playButton = app.find(`.small-movie-card__play-btn`).first();
-    playButton.simulate(`click`);
+    const card = app.find(`.small-movie-card__image`).first();
+    card.simulate(`mouseOver`);
     const film = films[0];
     expect(app.state(`selectedFilm`)).toEqual(film);
   });

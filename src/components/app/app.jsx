@@ -7,13 +7,11 @@ class App extends Component {
     super(props);
 
     this.state = {
-      selectedFilm: null,
-      activePlayer: -1
+      selectedFilm: null
     };
 
     this._handleClick = this._handleClick.bind(this);
     this._handleHover = this._handleHover.bind(this);
-    this._handleMouseOut = this._handleMouseOut.bind(this);
   }
 
   _handleClick(film) {
@@ -22,21 +20,14 @@ class App extends Component {
     });
   }
 
-  _handleHover(idx) {
+  _handleHover(film) {
     this.setState({
-      activePlayer: this.state.activePlayer === idx ? -1 : idx
-    });
-  }
-
-  _handleMouseOut() {
-    this.setState({
-      activePlayer: -1
+      selectedFilm: film
     });
   }
 
   render() {
     const {films} = this.props;
-    const {activePlayer} = this.state;
 
     return <Fragment>
       <div className="visually-hidden">
@@ -165,8 +156,6 @@ class App extends Component {
             films={films}
             onClick={this._handleClick}
             onHover={this._handleHover}
-            onMouseOut={this._handleMouseOut}
-            activePlayer={activePlayer}
           />
 
           <div className="catalog__more">

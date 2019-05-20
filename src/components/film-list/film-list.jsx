@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 
 import FilmItem from '../film-item/film-item.jsx';
 
-const FilmList = ({films, onClick, onHover, onMouseOut, activePlayer}) => {
-  const itemList = films.map((item, i) => {
+const FilmList = ({films, onClick, onHover}) => {
+  const itemList = films.map((item) => {
     return <FilmItem
       item={item}
       key={item.picture}
       onClick={onClick}
       onHover={onHover}
-      onMouseOut={onMouseOut}
-      isPlaying={i === activePlayer ? true : false}
-      idx={i}
     />;
   });
 
@@ -24,9 +21,7 @@ const FilmList = ({films, onClick, onHover, onMouseOut, activePlayer}) => {
 FilmList.propTypes = {
   films: PropTypes.arrayOf(FilmItem.propTypes.item).isRequired,
   onClick: PropTypes.func,
-  onHover: PropTypes.func,
-  onMouseOut: PropTypes.func,
-  activePlayer: PropTypes.number
+  onHover: PropTypes.func
 };
 
 export default FilmList;
