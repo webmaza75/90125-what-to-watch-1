@@ -7,7 +7,6 @@ import VideoPlayer from '../video-player/video-player.jsx';
 import film from '../../mocks/film.js';
 
 window.HTMLMediaElement.prototype.play = () => {};
-window.HTMLMediaElement.prototype.pause = () => {};
 
 configure({adapter: new Adapter()});
 
@@ -38,6 +37,8 @@ describe(`Film item correctly renders after relaunch`, () => {
     const card = item.find(`.small-movie-card__image`);
     card.simulate(`mouseOver`, onMouseOver);
 
+    // TODO setTimeout заменить на метод jest, вызывающий все колбеки, объявленные в таймерах +
+    // интервал из props
     setTimeout(() => {
       const player = item.find(VideoPlayer);
       expect(player).toHaveLength(1);

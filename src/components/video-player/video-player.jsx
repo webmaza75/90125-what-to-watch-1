@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-class VideoPlayer extends Component {
+class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -10,28 +10,19 @@ class VideoPlayer extends Component {
     };
 
     this._videoRef = React.createRef();
-    this._handleButtonClick = this._handleButtonClick.bind(this);
   }
 
   componentDidMount() {
-    const {src} = this.props;
     const video = this._videoRef.current;
 
-    video.src = src;
+    if (!video) {
+      return;
+    }
 
     video.oncanplaythrough = () => this.setState({
       isLoading: false,
     });
-  }
-
-  componentDidUpdate() {
-    const video = this._videoRef.current;
-
-    if (this.props.isPlaying) {
-      video.play();
-    } else {
-      video.pause();
-    }
+    video.play();
   }
 
   componentWillUnmount() {
@@ -39,23 +30,16 @@ class VideoPlayer extends Component {
 
     video.oncanplaythrough = null;
     video.currentTime = null;
-    video.ontimeupdate = null;
-    video.pause = null;
     video.play = null;
     video.src = ``;
   }
 
-  _handleButtonClick() {
-    this.props.onPlayButtonClick();
-  }
-
   render() {
-    const {src, poster} = this.props;
+    const {src} = this.props;
 
     return (<video
       src={src}
       className="player__video"
-      poster={poster}
       ref={this._videoRef}
       muted
     />);
@@ -64,9 +48,7 @@ class VideoPlayer extends Component {
 
 VideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,
-  isPlaying: PropTypes.boolean,
-  onPlayButtonClick: PropTypes.func.isRequired,
-  poster: PropTypes.string.isRequired
+  isPlaying: PropTypes.bool
 };
 
 export default VideoPlayer;

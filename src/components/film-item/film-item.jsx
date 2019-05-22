@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import genres from '../../mocks/genres.js';
 import VideoPlayer from '../video-player/video-player.jsx';
 
-class FilmItem extends Component {
+class FilmItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,42 @@ class FilmItem extends Component {
     this._handleMouseOver = this._handleMouseOver.bind(this);
     this._handleMouseOut = this._handleMouseOut.bind(this);
     this._timeOut = null;
-    this.startTimer = null;
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._timeOut);
+  }
+
+  render() {
+    const {
+      item,
+      onClick
+    } = this.props;
+    const {
+      title,
+      picture,
+      src
+    } = item;
+    const {isPlaying = false} = this.state;
+
+    // Формирование превью отображения карточки фильма
+    const preview = isPlaying ?
+      <VideoPlayer
+        src={src}
+        isPlaying={isPlaying}
+      /> :
+      <img src={`img/${picture}`} alt={title} width="280" height="175" />;
+
+    return <article className="small-movie-card catalog__movies-card">
+      <div className="small-movie-card__image" onMouseOver={() => this._handleMouseOver(item)} onMouseOut={this._handleMouseOut}>
+        {preview}
+      </div>
+      <h3 className="small-movie-card__title">
+        <a className="small-movie-card__link" href="movie-page.html" onClick={(event) => {
+          event.preventDefault(); onClick(item);
+        }}>{title}</a>
+      </h3>
+    </article>;
   }
 
   _handleMouseOver(item) {
@@ -29,49 +64,9 @@ class FilmItem extends Component {
 
   _handleMouseOut() {
     clearTimeout(this._timeOut);
-    this._timeOut = null;
-    this.startTimer = null;
     this.setState({
       isPlaying: false
     });
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this._timeOut);
-    this._timeOut = null;
-  }
-
-  render() {
-    const {
-      item,
-      onClick
-    } = this.props;
-    const {
-      title,
-      picture,
-      src
-    } = item;
-    const {isPlaying} = this.state;
-
-    // Формирование превью отображения карточки фильма
-    const preview = isPlaying ?
-      <VideoPlayer
-        src={src}
-        isPlaying={isPlaying}
-        poster={`img/${picture}`}
-      /> :
-      <img src={`img/${picture}`} alt={title} width="280" height="175" />;
-
-    return <article className="small-movie-card catalog__movies-card">
-      <div className="small-movie-card__image" onMouseOver={() => this._handleMouseOver(item)} onMouseOut={this._handleMouseOut}>
-        {preview}
-      </div>
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html" onClick={(event) => {
-          event.preventDefault(); onClick(item);
-        }}>{title}</a>
-      </h3>
-    </article>;
   }
 }
 

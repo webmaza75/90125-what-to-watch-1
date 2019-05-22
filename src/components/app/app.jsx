@@ -1,8 +1,8 @@
-import React, {Fragment, Component} from 'react';
+import React, {Fragment, PureComponent} from 'react';
 
 import FilmList from '../film-list/film-list.jsx';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -12,18 +12,6 @@ class App extends Component {
 
     this._handleClick = this._handleClick.bind(this);
     this._handleHover = this._handleHover.bind(this);
-  }
-
-  _handleClick(film) {
-    this.setState({
-      selectedFilm: film
-    });
-  }
-
-  _handleHover(film) {
-    this.setState({
-      selectedFilm: film
-    });
   }
 
   render() {
@@ -178,6 +166,18 @@ class App extends Component {
         </footer>
       </div>
     </Fragment>;
+  }
+
+  _handleClick(film) {
+    this.setState({
+      selectedFilm: film
+    });
+  }
+
+  _handleHover(film) {
+    this.setState({
+      selectedFilm: film
+    });
   }
 }
 
