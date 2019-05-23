@@ -11,12 +11,7 @@ class App extends PureComponent {
     };
 
     this._handleClick = this._handleClick.bind(this);
-  }
-
-  _handleClick(film) {
-    this.setState({
-      selectedFilm: film
-    });
+    this._handleHover = this._handleHover.bind(this);
   }
 
   render() {
@@ -148,6 +143,7 @@ class App extends PureComponent {
           <FilmList
             films={films}
             onClick={this._handleClick}
+            onHover={this._handleHover}
           />
 
           <div className="catalog__more">
@@ -170,6 +166,18 @@ class App extends PureComponent {
         </footer>
       </div>
     </Fragment>;
+  }
+
+  _handleClick(film) {
+    this.setState({
+      selectedFilm: film
+    });
+  }
+
+  _handleHover(film) {
+    this.setState({
+      selectedFilm: film
+    });
   }
 }
 

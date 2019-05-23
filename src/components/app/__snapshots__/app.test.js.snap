@@ -379,15 +379,10 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
           <div
             className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
           >
             <img
               alt="The Grand Budapest Hotel"
@@ -411,15 +406,10 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
           <div
             className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
           >
             <img
               alt="Fantastic Beasts: The Crimes of Grindelwald"
@@ -443,15 +433,10 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
           <div
             className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
           >
             <img
               alt="Bohemian Rhapsody"
@@ -475,15 +460,10 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
           <div
             className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
           >
             <img
               alt="Macbeth"
@@ -507,15 +487,10 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
-          >
-            Play
-          </button>
           <div
             className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
           >
             <img
               alt="Aviator"

@@ -1,26 +1,74 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import genres from '../../mocks/genres.js';
+import VideoPlayer from '../video-player/video-player.jsx';
 
-const FilmItem = ({item, onClick}) => {
-  const {
-    title,
-    picture
-  } = item;
+class FilmItem extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPlaying: false
+    };
+    this._handleMouseOver = this._handleMouseOver.bind(this);
+    this._handleMouseOut = this._handleMouseOut.bind(this);
+    this._timeOut = null;
+  }
 
-  return <article className="small-movie-card catalog__movies-card">
-    <button className="small-movie-card__play-btn" type="button" onClick={() => onClick(item)}>Play</button>
-    <div className="small-movie-card__image">
-      <img src={`img/${picture}`} alt={title} width="280" height="175" />
-    </div>
-    <h3 className="small-movie-card__title">
-      <a className="small-movie-card__link" href="movie-page.html" onClick={(event) => {
-        event.preventDefault(); onClick(item);
-      }}>{title}</a>
-    </h3>
-  </article>;
-};
+  componentWillUnmount() {
+    clearTimeout(this._timeOut);
+  }
+
+  render() {
+    const {
+      item,
+      onClick
+    } = this.props;
+    const {
+      title,
+      picture,
+      src
+    } = item;
+    const {isPlaying = false} = this.state;
+
+    // Формирование превью отображения карточки фильма
+    const preview = isPlaying ?
+      <VideoPlayer
+        src={src}
+        isPlaying={isPlaying}
+      /> :
+      <img src={`img/${picture}`} alt={title} width="280" height="175" />;
+
+    return <article className="small-movie-card catalog__movies-card">
+      <div className="small-movie-card__image" onMouseOver={() => this._handleMouseOver(item)} onMouseOut={this._handleMouseOut}>
+        {preview}
+      </div>
+      <h3 className="small-movie-card__title">
+        <a className="small-movie-card__link" href="movie-page.html" onClick={(event) => {
+          event.preventDefault(); onClick(item);
+        }}>{title}</a>
+      </h3>
+    </article>;
+  }
+
+  _handleMouseOver(item) {
+    this.props.onHover(item);
+    this._timeOut = setTimeout(() => {
+      if (this._timeOut) {
+        this.setState({
+          isPlaying: true
+        });
+      }
+    }, 1000);
+  }
+
+  _handleMouseOut() {
+    clearTimeout(this._timeOut);
+    this.setState({
+      isPlaying: false
+    });
+  }
+}
 
 FilmItem.propTypes = {
   item: PropTypes.shape({
@@ -28,9 +76,11 @@ FilmItem.propTypes = {
     title: PropTypes.string.isRequired,
     desc: PropTypes.string,
     picture: PropTypes.string.isRequired,
-    year: PropTypes.number
+    year: PropTypes.number,
+    src: PropTypes.string.isRequired
   }).isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  onHover: PropTypes.func
 };
 
 export default FilmItem;

@@ -3,9 +3,13 @@ import renderer from 'react-test-renderer';
 
 import FilmList from './film-list.jsx';
 
+window.HTMLMediaElement.prototype.play = () => {};
+window.HTMLMediaElement.prototype.pause = () => {};
+
 const mock = [{
   title: `Aviator`,
-  picture: `aviator.jpg`
+  picture: `aviator.jpg`,
+  src: ``
 }];
 
 it(`Film list correctly renders`, () => {
