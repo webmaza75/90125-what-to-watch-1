@@ -5,10 +5,6 @@ class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isLoading: true
-    };
-
     this._videoRef = React.createRef();
   }
 
@@ -19,19 +15,14 @@ class VideoPlayer extends PureComponent {
       return;
     }
 
-    video.oncanplaythrough = () => this.setState({
-      isLoading: false,
-    });
     video.play();
   }
 
   componentWillUnmount() {
     const video = this._videoRef.current;
 
-    video.oncanplaythrough = null;
     video.currentTime = null;
     video.play = null;
-    video.src = ``;
   }
 
   render() {

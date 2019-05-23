@@ -1,21 +1,44 @@
 import React, {Fragment, PureComponent} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import FilmList from '../film-list/film-list.jsx';
+import FilmItem from '../film-item/film-item.jsx';
+import {ActionCreator} from '../../actions/actions.js';
+import GenreList from '../genre-list/genre-list.jsx';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedFilm: null
+      selectedFilm: null,
+      genres: []
     };
 
     this._handleClick = this._handleClick.bind(this);
     this._handleHover = this._handleHover.bind(this);
+    this._handleMenuClick = this._handleMenuClick.bind(this);
+  }
+
+  componentDidMount() {
+    const {films} = this.props;
+
+    if (films && films.length) {
+      this.setState((prevState) => ({
+        ...prevState,
+        genres: this._getMenu(films)
+      }));
+    }
   }
 
   render() {
-    const {films} = this.props;
+    const {films, filmsGroup, filter = `All genres`} = this.props;
+    const {genres} = this.state;
+
+    if (!films) {
+      return null;
+    }
 
     return <Fragment>
       <div className="visually-hidden">
@@ -107,41 +130,10 @@ class App extends PureComponent {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenreList genres={genres} filter={filter} onClick={this._handleMenuClick}/>
 
           <FilmList
-            films={films}
+            films={filmsGroup}
             onClick={this._handleClick}
             onHover={this._handleHover}
           />
@@ -179,10 +171,46 @@ class App extends PureComponent {
       selectedFilm: film
     });
   }
+
+  _handleMenuClick(genre) {
+    const {onChangeFilter, onGetFilmsByFilter, films} = this.props;
+    onChangeFilter(genre);
+    onGetFilmsByFilter(films, genre);
+  }
+
+  _getMenu(films) {
+    const allGenres = films.map(({genre}) => genre);
+    const merged = [].concat(...allGenres);
+    return [`All genres`, ...new Set(merged)];
+  }
 }
 
 App.propTypes = {
-  films: FilmList.propTypes.films
+  films: FilmList.propTypes.films,
+  filter: PropTypes.string,
+  filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
+  onChangeFilter: PropTypes.func,
+  onGetFilmsByFilter: PropTypes.func
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  filter: state.filter,
+  filmsGroup: state.filmsGroup
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeFilter: (filter) => {
+    dispatch(ActionCreator.changeFilter(filter));
+  },
+  onGetFilmsByFilter: (films, filter) => {
+    dispatch(ActionCreator.getFilmsByFilter(films, filter));
+  }
+});
+
+export {App};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

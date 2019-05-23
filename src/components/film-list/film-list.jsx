@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import FilmItem from '../film-item/film-item.jsx';
 
 const FilmList = ({films, onClick, onHover}) => {
+  if (!films) {
+    return null;
+  }
+
   const itemList = films.map((item) => {
     return <FilmItem
       item={item}
