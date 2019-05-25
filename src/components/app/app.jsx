@@ -25,20 +25,15 @@ class App extends PureComponent {
     const {films} = this.props;
 
     if (films && films.length) {
-      this.setState((prevState) => ({
-        ...prevState,
+      this.setState({
         genres: this._getMenu(films)
-      }));
+      });
     }
   }
 
   render() {
-    const {films, filmsGroup, filter = `All genres`} = this.props;
+    const {filmsGroup, filter} = this.props;
     const {genres} = this.state;
-
-    if (!films) {
-      return null;
-    }
 
     return <Fragment>
       <div className="visually-hidden">
@@ -130,7 +125,7 @@ class App extends PureComponent {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList genres={genres} filter={filter} onClick={this._handleMenuClick}/>
+          <GenreList genres={genres} activeFilter={filter} onGenreChange={this._handleMenuClick}/>
 
           <FilmList
             films={filmsGroup}
@@ -173,9 +168,9 @@ class App extends PureComponent {
   }
 
   _handleMenuClick(genre) {
-    const {onChangeFilter, onGetFilmsByFilter, films} = this.props;
-    onChangeFilter(genre);
-    onGetFilmsByFilter(films, genre);
+    const {changeFilter, getFilmsByFilter, films} = this.props;
+    changeFilter(genre);
+    getFilmsByFilter(films, genre);
   }
 
   _getMenu(films) {
@@ -189,8 +184,8 @@ App.propTypes = {
   films: FilmList.propTypes.films,
   filter: PropTypes.string,
   filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
-  onChangeFilter: PropTypes.func,
-  onGetFilmsByFilter: PropTypes.func
+  changeFilter: PropTypes.func,
+  getFilmsByFilter: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -199,18 +194,9 @@ const mapStateToProps = (state) => ({
   filmsGroup: state.filmsGroup
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeFilter: (filter) => {
-    dispatch(ActionCreator.changeFilter(filter));
-  },
-  onGetFilmsByFilter: (films, filter) => {
-    dispatch(ActionCreator.getFilmsByFilter(films, filter));
-  }
-});
-
 export {App};
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    ActionCreator
 )(App);

@@ -1,4 +1,4 @@
-import ActionTypes from './models.js';
+import ActionTypes from './action-types.js';
 import filmList from './mocks/films.js';
 
 const initialState = {

@@ -10,8 +10,8 @@ it(`GenreList correctly renders`, () => {
   const genreList = renderer
     .create(<GenreList
       genres={genres}
-      filter={filter}
-      onClick={jest.fn()}
+      activeFilter={filter}
+      onGenreChange={jest.fn()}
     />)
     .toJSON();
 

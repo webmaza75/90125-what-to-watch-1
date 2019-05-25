@@ -1,22 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GenreList = ({genres, filter, onClick}) => {
+const GenreList = ({genres, activeFilter, onGenreChange}) => {
 
   const menu = genres.map((title) => {
-    if (title === filter) {
-      return <li className="catalog__genres-item catalog__genres-item--active" key={title}>
-        <a href="#" className="catalog__genres-link" onClick={
-          (event) => {
-            event.preventDefault(); onClick(title);
-          }
-        }>{title}</a>
-      </li>;
+    let clsName = ``;
+    if (title === activeFilter) {
+      clsName = ` catalog__genres-item--active`;
     }
-    return <li className="catalog__genres-item" key={title}>
+    return <li className={`catalog__genres-item${clsName}`} key={title}>
       <a href="#" className="catalog__genres-link" onClick={
         (event) => {
-          event.preventDefault(); onClick(title);
+          event.preventDefault(); onGenreChange(title);
         }
       }>{title}</a>
     </li>;
@@ -29,8 +24,8 @@ const GenreList = ({genres, filter, onClick}) => {
 
 GenreList.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
-  filter: PropTypes.string,
-  onClick: PropTypes.func
+  activeFilter: PropTypes.string,
+  onGenreChange: PropTypes.func
 };
 
 export default GenreList;

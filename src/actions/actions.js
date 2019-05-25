@@ -1,4 +1,4 @@
-import ActionTypes from '../models.js';
+import ActionTypes from '../action-types.js';
 
 const ActionCreator = {
   changeFilter: (filter) => ({

@@ -1,5 +1,5 @@
 import reducer from './reducer.js';
-import ActionType from './models.js';
+import ActionType from './action-types.js';
 import filmList from './mocks/films.js';
 
 const initialState = {
@@ -23,18 +23,6 @@ const filmGroupWithComedy = [{
   src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`
 }];
 
-const stateWithGenreComedy = {
-  films: filmList,
-  filter: `Comedy`,
-  filmsGroup: filmGroupWithComedy
-};
-
-const stateWithChangedComedyFilterOnDefault = {
-  films: filmList,
-  filter: `All genres`,
-  filmsGroup: filmGroupWithComedy
-};
-
 describe(`Reducer works correctly`, () => {
   it(`Reducer returns initial state by default`, () => {
     expect(reducer(undefined, {})).toEqual(initialState);
@@ -48,6 +36,12 @@ describe(`Reducer works correctly`, () => {
   });
 
   it(`Reducer changes group of films by filter Comedy`, () => {
+    const stateWithGenreComedy = {
+      films: filmList,
+      filter: `Comedy`,
+      filmsGroup: filmGroupWithComedy
+    };
+
     expect(reducer(stateWithChangedDefaultFilterOnComedy, {
       type: ActionType.GET_FILMS_BY_GENRE,
       payload: {films: filmList, filter: `Comedy`}
@@ -55,6 +49,12 @@ describe(`Reducer works correctly`, () => {
   });
 
   it(`Reducer changes group of films by filter All genres`, () => {
+    const stateWithChangedComedyFilterOnDefault = {
+      films: filmList,
+      filter: `All genres`,
+      filmsGroup: filmGroupWithComedy
+    };
+
     expect(reducer(stateWithChangedComedyFilterOnDefault, {
       type: ActionType.GET_FILMS_BY_GENRE,
       payload: {films: filmList, filter: `All genres`}
