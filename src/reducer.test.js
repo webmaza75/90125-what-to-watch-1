@@ -1,10 +1,11 @@
 import reducer from './reducer.js';
 import ActionType from './action-types.js';
 import filmList from './mocks/films.js';
+import {ALL_GENRES} from './consts.js';
 
 const initialState = {
   films: filmList,
-  filter: `All genres`,
+  filter: ALL_GENRES,
   filmsGroup: filmList
 };
 
@@ -51,13 +52,13 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer changes group of films by filter All genres`, () => {
     const stateWithChangedComedyFilterOnDefault = {
       films: filmList,
-      filter: `All genres`,
+      filter: ALL_GENRES,
       filmsGroup: filmGroupWithComedy
     };
 
     expect(reducer(stateWithChangedComedyFilterOnDefault, {
       type: ActionType.GET_FILMS_BY_GENRE,
-      payload: {films: filmList, filter: `All genres`}
+      payload: {films: filmList, filter: ALL_GENRES}
     })).toEqual(initialState);
   });
 });

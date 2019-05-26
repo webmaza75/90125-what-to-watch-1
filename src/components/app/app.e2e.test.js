@@ -4,6 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import {App} from './app.jsx';
 import films from '../../mocks/films.js';
+import {ALL_GENRES} from '../../consts.js';
 
 window.HTMLMediaElement.prototype.play = () => {};
 
@@ -15,7 +16,7 @@ describe(`App correctly renders after relaunch`, () => {
     const app = mount(<App
       films={films}
       onClick={clickHandler}
-      filter={`All genres`}
+      filter={ALL_GENRES}
       filmsGroup={films}
     />);
 
@@ -28,7 +29,7 @@ describe(`App correctly renders after relaunch`, () => {
     const app = mount(<App
       films={films}
       onClick={jest.fn()}
-      filter={`All genres`}
+      filter={ALL_GENRES}
       filmsGroup={films}
     />);
 
@@ -42,12 +43,12 @@ describe(`App correctly renders after relaunch`, () => {
     const app = mount(<App
       films={films}
       onClick={jest.fn()}
-      filter={`All genres`}
+      filter={ALL_GENRES}
       filmsGroup={films}
     />);
     const genreList = app.state(`genres`);
 
-    expect(genreList[0]).toEqual(`All genres`);
+    expect(genreList[0]).toEqual(ALL_GENRES);
   });
 
   it(`App correctly renders Menu where first genre\`s element is All genres`, () => {
@@ -67,6 +68,6 @@ describe(`App correctly renders after relaunch`, () => {
     />);
     const genreList = app.state(`genres`);
 
-    expect(genreList[0]).toEqual(`All genres`);
+    expect(genreList[0]).toEqual(ALL_GENRES);
   });
 });

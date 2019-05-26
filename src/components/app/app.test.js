@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 
 import {App} from './app.jsx';
 import films from '../../mocks/films.js';
+import {ALL_GENRES} from '../../consts.js';
 
 window.HTMLMediaElement.prototype.play = () => {};
 
@@ -11,7 +12,7 @@ it(`App correctly renders after relaunch`, () => {
     .create(<App
       films={films}
       onClick={jest.fn()}
-      filter={`All genres`}
+      filter={ALL_GENRES}
       filmsGroup={films}
     />)
     .toJSON();

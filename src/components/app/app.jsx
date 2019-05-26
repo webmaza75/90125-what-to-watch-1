@@ -6,6 +6,7 @@ import FilmList from '../film-list/film-list.jsx';
 import FilmItem from '../film-item/film-item.jsx';
 import {ActionCreator} from '../../actions/actions.js';
 import GenreList from '../genre-list/genre-list.jsx';
+import {ALL_GENRES} from '../../consts.js';
 
 class App extends PureComponent {
   constructor(props) {
@@ -176,7 +177,7 @@ class App extends PureComponent {
   _getMenu(films) {
     const allGenres = films.map(({genre}) => genre);
     const merged = [].concat(...allGenres);
-    return [`All genres`, ...new Set(merged)];
+    return [ALL_GENRES, ...new Set(merged)];
   }
 }
 

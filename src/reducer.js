@@ -1,9 +1,10 @@
 import ActionTypes from './action-types.js';
 import filmList from './mocks/films.js';
+import {ALL_GENRES} from './consts.js';
 
 const initialState = {
   films: filmList,
-  filter: `All genres`,
+  filter: ALL_GENRES,
   filmsGroup: filmList
 };
 
@@ -15,7 +16,7 @@ const reducer = (state = initialState, action) => {
         filter: action.payload
       };
     case ActionTypes.GET_FILMS_BY_GENRE:
-      if (action.payload.filter === `All genres`) {
+      if (action.payload.filter === ALL_GENRES) {
         return initialState;
       }
       return {
