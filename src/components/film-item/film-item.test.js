@@ -4,7 +4,6 @@ import renderer from 'react-test-renderer';
 import FilmItem from './film-item.jsx';
 
 window.HTMLMediaElement.prototype.play = () => {};
-window.HTMLMediaElement.prototype.pause = () => {};
 
 const mock = {
   title: `Aviator`,
@@ -17,6 +16,7 @@ it(`Film item correctly renders`, () => {
     .create(<FilmItem
       item={mock}
       onClick={jest.fn()}
+      onHover={jest.fn()}
     />)
     .toJSON();
 

@@ -1,21 +1,40 @@
 import React, {Fragment, PureComponent} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import FilmList from '../film-list/film-list.jsx';
+import FilmItem from '../film-item/film-item.jsx';
+import {ActionCreator} from '../../actions/actions.js';
+import GenreList from '../genre-list/genre-list.jsx';
+import {ALL_GENRES} from '../../consts.js';
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedFilm: null
+      selectedFilm: null,
+      genres: []
     };
 
     this._handleClick = this._handleClick.bind(this);
     this._handleHover = this._handleHover.bind(this);
+    this._handleMenuClick = this._handleMenuClick.bind(this);
+  }
+
+  componentDidMount() {
+    const {films} = this.props;
+
+    if (films && films.length) {
+      this.setState({
+        genres: this._getMenu(films)
+      });
+    }
   }
 
   render() {
-    const {films} = this.props;
+    const {filmsGroup, filter} = this.props;
+    const {genres} = this.state;
 
     return <Fragment>
       <div className="visually-hidden">
@@ -107,41 +126,10 @@ class App extends PureComponent {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenreList genres={genres} activeFilter={filter} onGenreChange={this._handleMenuClick}/>
 
           <FilmList
-            films={films}
+            films={filmsGroup}
             onClick={this._handleClick}
             onHover={this._handleHover}
           />
@@ -179,10 +167,37 @@ class App extends PureComponent {
       selectedFilm: film
     });
   }
+
+  _handleMenuClick(genre) {
+    const {changeFilter, getFilmsByFilter, films} = this.props;
+    changeFilter(genre);
+    getFilmsByFilter(films, genre);
+  }
+
+  _getMenu(films) {
+    const allGenres = films.map(({genre}) => genre);
+    const merged = [].concat(...allGenres);
+    return [ALL_GENRES, ...new Set(merged)];
+  }
 }
 
 App.propTypes = {
-  films: FilmList.propTypes.films
+  films: FilmList.propTypes.films,
+  filter: PropTypes.string,
+  filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
+  changeFilter: PropTypes.func,
+  getFilmsByFilter: PropTypes.func
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  filter: state.filter,
+  filmsGroup: state.filmsGroup
+});
+
+export {App};
+
+export default connect(
+    mapStateToProps,
+    ActionCreator
+)(App);

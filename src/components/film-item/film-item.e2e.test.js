@@ -27,6 +27,8 @@ describe(`Film item correctly renders after relaunch`, () => {
   });
 
   it(`Video plays on mouseover event after 1 sec`, () => {
+    jest.useFakeTimers();
+
     const onMouseOver = jest.fn();
     const item = mount(<FilmItem
       item={film}
@@ -37,16 +39,22 @@ describe(`Film item correctly renders after relaunch`, () => {
     const card = item.find(`.small-movie-card__image`);
     card.simulate(`mouseOver`, onMouseOver);
 
-    // TODO setTimeout заменить на метод jest, вызывающий все колбеки, объявленные в таймерах +
-    // интервал из props
-    setTimeout(() => {
-      const player = item.find(VideoPlayer);
-      expect(player).toHaveLength(1);
-      expect(player.instance().props.isPlaying).toBeTruthy();
-    }, 1000);
+    jest.runAllTimers();
+    item.update();
+
+    const player = item.find(VideoPlayer);
+
+    expect(setTimeout).toHaveBeenCalledTimes(1);
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+    expect(player).toHaveLength(1);
+    expect(player.instance().props.isPlaying).toBeTruthy();
+
+    jest.clearAllTimers();
   });
 
   it(`Video does not appears on mouseover event before 1 sec`, () => {
+    jest.useFakeTimers();
+
     const onMouseOver = jest.fn();
     const item = mount(<FilmItem
       item={film}
@@ -57,13 +65,18 @@ describe(`Film item correctly renders after relaunch`, () => {
     const card = item.find(`.small-movie-card__image`);
     card.simulate(`mouseOver`, onMouseOver);
 
-    setTimeout(() => {
-      expect(item.not.find(VideoPlayer));
-      expect(item.find(`img`)).toHaveLength(1);
-    }, 500);
+    jest.advanceTimersByTime(500);
+    item.update();
+
+    expect(item.find(VideoPlayer).exists()).toBeFalsy();
+    expect(item.find(`img`)).toHaveLength(1);
+
+    jest.clearAllTimers();
   });
 
   it(`Video stops on mouseout event`, () => {
+    jest.useFakeTimers();
+
     const onMouseOver = jest.fn();
     const item = mount(<FilmItem
       item={film}
@@ -74,10 +87,13 @@ describe(`Film item correctly renders after relaunch`, () => {
     const card = item.find(`.small-movie-card__image`);
     card.simulate(`mouseOver`, onMouseOver);
 
-    setTimeout(() => {
-      card.simulate(`mouseOut`);
-      expect(item.not.find(VideoPlayer));
-      expect(item.find(`img`)).toHaveLength(1);
-    }, 1500);
+    jest.runAllTimers();
+    item.update();
+    card.simulate(`mouseOut`);
+
+    expect(item.find(VideoPlayer).exists()).toBeFalsy();
+    expect(item.find(`img`)).toHaveLength(1);
+
+    jest.clearAllTimers();
   });
 });

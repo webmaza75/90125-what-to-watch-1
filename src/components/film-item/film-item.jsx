@@ -29,7 +29,7 @@ class FilmItem extends PureComponent {
       picture,
       src
     } = item;
-    const {isPlaying = false} = this.state;
+    const {isPlaying} = this.state;
 
     // Формирование превью отображения карточки фильма
     const preview = isPlaying ?
