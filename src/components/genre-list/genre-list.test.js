@@ -11,8 +11,8 @@ it(`GenreList correctly renders`, () => {
   const genreList = renderer
     .create(<GenreList
       genres={genres}
-      activeFilter={filter}
-      onGenreChange={jest.fn()}
+      activeItem={filter}
+      onChange={jest.fn()}
     />)
     .toJSON();
 
