@@ -22,7 +22,7 @@ const withActiveItem = (Component) => {
 
     _handleChange(activeItem) {
       this.setState({
-        activeItem: activeItem
+        activeItem
       });
     }
   }
