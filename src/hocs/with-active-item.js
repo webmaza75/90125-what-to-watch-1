@@ -6,9 +6,20 @@ const withActiveItem = (Component) => {
     constructor(props) {
       super(props);
       this.state = {
-        activeItem: props.activeItem ? props.activeItem : null
+        activeItem: props.activeItem || null,
+        prevPropItemId: props.itemId
       };
       this._handleChange = this._handleChange.bind(this);
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+      if (prevState.prevPropItemId !== nextProps.itemId) {
+        return {
+          activeItem: nextProps.activeItem || null,
+          prevPropItemId: nextProps.itemId
+        };
+      }
+      return null;
     }
 
     render() {
@@ -28,7 +39,8 @@ const withActiveItem = (Component) => {
   }
 
   WithActiveItem.propTypes = {
-    activeItem: PropTypes.any
+    activeItem: PropTypes.any,
+    itemId: PropTypes.string
   };
   return WithActiveItem;
 };
