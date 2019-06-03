@@ -70,15 +70,17 @@ class FilmItem extends PureComponent {
   }
 }
 
+export const itemShape = PropTypes.shape({
+  genre: PropTypes.arrayOf(PropTypes.oneOf(genres)),
+  title: PropTypes.string.isRequired,
+  desc: PropTypes.string,
+  picture: PropTypes.string.isRequired,
+  year: PropTypes.number,
+  src: PropTypes.string.isRequired
+});
+
 FilmItem.propTypes = {
-  item: PropTypes.shape({
-    genre: PropTypes.arrayOf(PropTypes.oneOf(genres)),
-    title: PropTypes.string.isRequired,
-    desc: PropTypes.string,
-    picture: PropTypes.string.isRequired,
-    year: PropTypes.number,
-    src: PropTypes.string.isRequired
-  }).isRequired,
+  item: itemShape.isRequired,
   onClick: PropTypes.func,
   onHover: PropTypes.func
 };

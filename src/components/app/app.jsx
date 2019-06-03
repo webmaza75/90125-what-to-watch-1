@@ -7,18 +7,19 @@ import FilmItem from '../film-item/film-item.jsx';
 import {ActionCreator} from '../../actions/actions.js';
 import GenreList from '../genre-list/genre-list.jsx';
 import {ALL_GENRES} from '../../consts.js';
+import withActiveItem from '../../hocs/with-active-item.js';
+
+const GenreListWrapped = withActiveItem(GenreList);
+const FilmListWrapped = withActiveItem(FilmList);
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedFilm: null,
       genres: []
     };
 
-    this._handleClick = this._handleClick.bind(this);
-    this._handleHover = this._handleHover.bind(this);
     this._handleMenuClick = this._handleMenuClick.bind(this);
   }
 
@@ -126,12 +127,14 @@ class App extends PureComponent {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList genres={genres} activeFilter={filter} onGenreChange={this._handleMenuClick}/>
+          <GenreListWrapped
+            genres={genres}
+            actions={this._handleMenuClick}
+            activeItem={filter}
+          />
 
-          <FilmList
+          <FilmListWrapped
             films={filmsGroup}
-            onClick={this._handleClick}
-            onHover={this._handleHover}
           />
 
           <div className="catalog__more">
@@ -154,18 +157,6 @@ class App extends PureComponent {
         </footer>
       </div>
     </Fragment>;
-  }
-
-  _handleClick(film) {
-    this.setState({
-      selectedFilm: film
-    });
-  }
-
-  _handleHover(film) {
-    this.setState({
-      selectedFilm: film
-    });
   }
 
   _handleMenuClick(genre) {

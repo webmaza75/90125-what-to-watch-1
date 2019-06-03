@@ -12,10 +12,8 @@ Enzyme.configure({adapter: new Adapter()});
 
 describe(`App correctly renders after relaunch`, () => {
   it(`App renders all film items`, () => {
-    const clickHandler = jest.fn();
     const app = mount(<App
       films={films}
-      onClick={clickHandler}
       filter={ALL_GENRES}
       filmsGroup={films}
     />);
@@ -25,24 +23,9 @@ describe(`App correctly renders after relaunch`, () => {
     expect(link).toHaveLength(filmsLength);
   });
 
-  it(`App has correctly state when user hover card`, () => {
-    const app = mount(<App
-      films={films}
-      onClick={jest.fn()}
-      filter={ALL_GENRES}
-      filmsGroup={films}
-    />);
-
-    const card = app.find(`.small-movie-card__image`).first();
-    card.simulate(`mouseOver`);
-    const film = films[0];
-    expect(app.state(`selectedFilm`)).toEqual(film);
-  });
-
   it(`App correctly renders Menu where first genre\`s element is All genres`, () => {
     const app = mount(<App
       films={films}
-      onClick={jest.fn()}
       filter={ALL_GENRES}
       filmsGroup={films}
     />);
@@ -62,7 +45,6 @@ describe(`App correctly renders after relaunch`, () => {
     }];
     const app = mount(<App
       films={films}
-      onClick={jest.fn()}
       filter={`Comedy`}
       filmsGroup={filmsGroup}
     />);

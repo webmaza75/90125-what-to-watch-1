@@ -13,9 +13,9 @@ exports[`Film list correctly renders 1`] = `
       onMouseOver={[Function]}
     >
       <img
-        alt="Aviator"
+        alt="Macbeth"
         height="175"
-        src="img/aviator.jpg"
+        src="img/macbeth.jpg"
         width="280"
       />
     </div>
@@ -27,7 +27,7 @@ exports[`Film list correctly renders 1`] = `
         href="movie-page.html"
         onClick={[Function]}
       >
-        Aviator
+        Macbeth
       </a>
     </h3>
   </article>

@@ -11,7 +11,6 @@ it(`App correctly renders after relaunch`, () => {
   const tree = renderer
     .create(<App
       films={films}
-      onClick={jest.fn()}
       filter={ALL_GENRES}
       filmsGroup={films}
     />)
