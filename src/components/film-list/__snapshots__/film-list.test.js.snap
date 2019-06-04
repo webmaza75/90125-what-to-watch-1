@@ -15,7 +15,7 @@ exports[`Film list correctly renders 1`] = `
       <img
         alt="Macbeth"
         height="175"
-        src="img/macbeth.jpg"
+        src="macbeth.jpg"
         width="280"
       />
     </div>

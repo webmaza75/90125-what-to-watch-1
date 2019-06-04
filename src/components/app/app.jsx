@@ -6,8 +6,12 @@ import FilmList from '../film-list/film-list.jsx';
 import FilmItem from '../film-item/film-item.jsx';
 import {ActionCreator} from '../../actions/actions.js';
 import GenreList from '../genre-list/genre-list.jsx';
-import {ALL_GENRES} from '../../consts.js';
 import withActiveItem from '../../hocs/with-active-item.js';
+import {
+  getActiveFilter,
+  getGenreFilms,
+  getGenres
+} from '../../reducers/data/selectors.js';
 
 const GenreListWrapped = withActiveItem(GenreList);
 const FilmListWrapped = withActiveItem(FilmList);
@@ -16,26 +20,11 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      genres: []
-    };
-
     this._handleMenuClick = this._handleMenuClick.bind(this);
   }
 
-  componentDidMount() {
-    const {films} = this.props;
-
-    if (films && films.length) {
-      this.setState({
-        genres: this._getMenu(films)
-      });
-    }
-  }
-
   render() {
-    const {filmsGroup, filter} = this.props;
-    const {genres} = this.state;
+    const {filmsGroup, filter, genres} = this.props;
 
     return <Fragment>
       <div className="visually-hidden">
@@ -131,10 +120,12 @@ class App extends PureComponent {
             genres={genres}
             actions={this._handleMenuClick}
             activeItem={filter}
+            itemId={`genre`}
           />
 
           <FilmListWrapped
             films={filmsGroup}
+            itemId={`film`}
           />
 
           <div className="catalog__more">
@@ -160,30 +151,23 @@ class App extends PureComponent {
   }
 
   _handleMenuClick(genre) {
-    const {changeFilter, getFilmsByFilter, films} = this.props;
+    const {changeFilter} = this.props;
     changeFilter(genre);
-    getFilmsByFilter(films, genre);
-  }
 
-  _getMenu(films) {
-    const allGenres = films.map(({genre}) => genre);
-    const merged = [].concat(...allGenres);
-    return [ALL_GENRES, ...new Set(merged)];
   }
 }
 
 App.propTypes = {
-  films: FilmList.propTypes.films,
   filter: PropTypes.string,
   filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
   changeFilter: PropTypes.func,
-  getFilmsByFilter: PropTypes.func
+  genres: PropTypes.arrayOf(PropTypes.string)
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films,
-  filter: state.filter,
-  filmsGroup: state.filmsGroup
+  filter: getActiveFilter(state),
+  filmsGroup: getGenreFilms(state),
+  genres: getGenres(state)
 });
 
 export {App};

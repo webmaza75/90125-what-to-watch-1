@@ -1,4 +1,5 @@
 const genres = [
+  `All genres`,
   `Comedy`,
   `Crime`,
   `Documentary`,

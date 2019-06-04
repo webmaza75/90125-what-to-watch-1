@@ -1,13 +1,17 @@
-import ActionTypes from '../action-types.js';
+import ActionTypes from './action-types.js';
 
 const ActionCreator = {
   changeFilter: (filter) => ({
     type: ActionTypes.CHANGE_GENRE,
     payload: filter
   }),
-  getFilmsByFilter: (films, filter) => ({
-    type: ActionTypes.GET_FILMS_BY_GENRE,
-    payload: {films, filter}
+  loadFilms: (films) => ({
+    type: ActionTypes.LOAD_FILMS,
+    payload: films
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionTypes.REQUIRED_AUTHORIZATION,
+    payload: status
   })
 };
 

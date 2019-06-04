@@ -12,7 +12,7 @@ exports[`Film item correctly renders 1`] = `
     <img
       alt="Aviator"
       height="175"
-      src="img/aviator.jpg"
+      src="aviator.jpg"
       width="280"
     />
   </div>

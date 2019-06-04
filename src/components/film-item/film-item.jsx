@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import genres from '../../mocks/genres.js';
 import VideoPlayer from '../video-player/video-player.jsx';
 
 class FilmItem extends PureComponent {
@@ -37,7 +36,7 @@ class FilmItem extends PureComponent {
         src={src}
         isPlaying={isPlaying}
       /> :
-      <img src={`img/${picture}`} alt={title} width="280" height="175" />;
+      <img src={picture} alt={title} width="280" height="175" />;
 
     return <article className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image" onMouseOver={() => this._handleMouseOver(item)} onMouseOut={this._handleMouseOut}>
@@ -71,12 +70,23 @@ class FilmItem extends PureComponent {
 }
 
 export const itemShape = PropTypes.shape({
-  genre: PropTypes.arrayOf(PropTypes.oneOf(genres)),
-  title: PropTypes.string.isRequired,
-  desc: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  backgroundImage: PropTypes.string,
+  description: PropTypes.string,
+  director: PropTypes.string,
+  genre: PropTypes.string,
+  id: PropTypes.number,
+  isFavorite: PropTypes.bool,
+  title: PropTypes.string,
+  posterImage: PropTypes.string,
   picture: PropTypes.string.isRequired,
-  year: PropTypes.number,
-  src: PropTypes.string.isRequired
+  src: PropTypes.string.isRequired,
+  rating: PropTypes.number,
+  released: PropTypes.number,
+  runTime: PropTypes.number,
+  scoresCount: PropTypes.number,
+  starring: PropTypes.arrayOf(PropTypes.string),
+  videoLink: PropTypes.string
 });
 
 FilmItem.propTypes = {
