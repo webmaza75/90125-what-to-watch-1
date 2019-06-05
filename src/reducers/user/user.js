@@ -18,10 +18,11 @@ const reducer = (state = initialState, action) => {
 
 const Operation = {
   checkAuth: () => {
-    return (dispatch, _getState, api) => {
+    return (dispatch, getState, api) => {
       return api
         .get(`/login`)
         .then((res) => {
+          // TODO Разберусь, когда будет готова страница авторизации поользователя (модуль 7, задание 2).
           if (res.status === 200) {
             dispatch(ActionCreator.requireAuthorization(true));
           }

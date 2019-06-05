@@ -9,7 +9,7 @@ import GenreList from '../genre-list/genre-list.jsx';
 import withActiveItem from '../../hocs/with-active-item.js';
 import {
   getActiveFilter,
-  getGenreFilms,
+  getFilmsByGenre,
   getGenres
 } from '../../reducers/data/selectors.js';
 
@@ -153,7 +153,6 @@ class App extends PureComponent {
   _handleMenuClick(genre) {
     const {changeFilter} = this.props;
     changeFilter(genre);
-
   }
 }
 
@@ -166,7 +165,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   filter: getActiveFilter(state),
-  filmsGroup: getGenreFilms(state),
+  filmsGroup: getFilmsByGenre(state),
   genres: getGenres(state)
 });
 

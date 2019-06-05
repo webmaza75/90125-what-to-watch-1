@@ -85,7 +85,7 @@ export const itemShape = PropTypes.shape({
   released: PropTypes.number,
   runTime: PropTypes.number,
   scoresCount: PropTypes.number,
-  starring: PropTypes.arrayOf(PropTypes.string),
+  starring: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
   videoLink: PropTypes.string
 });
 
