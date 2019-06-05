@@ -8,7 +8,7 @@ const FilmList = ({films, onChange, activeItem}) => {
   const itemList = films.map((item) => {
     return <FilmItem
       item={item}
-      key={item.picture}
+      key={item.id}
       onClick={onChange}
       onHover={onChange}
       activeItem={activeItem}

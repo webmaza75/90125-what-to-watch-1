@@ -13,6 +13,7 @@ it(`GenreList correctly renders`, () => {
       genres={genres}
       activeItem={filter}
       onChange={jest.fn()}
+      actions={jest.fn()}
     />)
     .toJSON();
 
