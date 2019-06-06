@@ -6,56 +6,50 @@ import FilmList from '../film-list/film-list.jsx';
 import FilmItem from '../film-item/film-item.jsx';
 import {ActionCreator} from '../../actions/actions.js';
 import GenreList from '../genre-list/genre-list.jsx';
-import withActiveItem from '../../hocs/with-active-item.js';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
+import withSignInUser from '../../hocs/with-sign-in-user/with-sign-in-user.js';
 import {
   getActiveFilter,
   getFilmsByGenre,
   getGenres
-} from '../../reducers/data/selectors.js';
+} from '../../reducers/films/selectors.js';
+import {
+  isAuthorizationRequired,
+  getUser
+} from '../../reducers/user/selectors.js';
+import Header from '../header/header.jsx';
+import PreHeader from '../pre-header/pre-header.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
+import Logo from '../logo/logo.jsx';
+import {Operation} from '../../reducers/user/user.js';
 
 const GenreListWrapped = withActiveItem(GenreList);
 const FilmListWrapped = withActiveItem(FilmList);
+const SignInWrapped = withSignInUser(SignIn);
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
 
     this._handleMenuClick = this._handleMenuClick.bind(this);
+    this._handleSignInClick = this._handleSignInClick.bind(this);
+    this._handleSignInUser = this._handleSignInUser.bind(this);
   }
 
   render() {
-    const {filmsGroup, filter, genres} = this.props;
+    const {filmsGroup,
+      filter,
+      genres,
+      isRequiredAuthentication,
+      user
+    } = this.props;
+
+    if (isRequiredAuthentication) {
+      return <SignInWrapped onSubmit={this._handleSignInUser}/>;
+    }
 
     return <Fragment>
-      <div className="visually-hidden">
-        {/* <!-- inject:svg --> */}
-        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><symbol id="add" viewBox="0 0 19 20">
-          {/* <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch --> */}
-          <title>+</title>
-          <desc>Created with Sketch.</desc>
-          <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-            <polygon id="+" fill="#EEE5B5" points="10.777832 11.2880859 10.777832 19.5527344 8.41650391 19.5527344 8.41650391 11.2880859 0.627929688 11.2880859 0.627929688 8.92675781 8.41650391 8.92675781 8.41650391 0.662109375 10.777832 0.662109375 10.777832 8.92675781 18.5664062 8.92675781 18.5664062 11.2880859"/>
-          </g>
-        </symbol><symbol id="full-screen" viewBox="0 0 27 27">
-          <path fillRule="evenodd" clipRule="evenodd" d="M23.8571 0H16V3.14286H23.8571V11H27V3.14286V0H23.8571Z" fill="#FFF9D9" fillOpacity="0.7"/>
-          <path fillRule="evenodd" clipRule="evenodd" d="M27 23.8571V16H23.8571V23.8571H16V27H23.8571H27L27 23.8571Z" fill="#FFF9D9" fillOpacity="0.7"/>
-          <path fillRule="evenodd" clipRule="evenodd" d="M0 3.14286L0 11H3.14286L3.14286 3.14286L11 3.14286V0H3.14286H0L0 3.14286Z" fill="#FFF9D9" fillOpacity="0.7"/>
-          <path fillRule="evenodd" clipRule="evenodd" d="M3.14286 27H11V23.8571H3.14286L3.14286 16H0L0 23.8571V27H3.14286Z" fill="#FFF9D9" fillOpacity="0.7"/>
-        </symbol><symbol id="in-list" viewBox="0 0 18 14">
-          <path fillRule="evenodd" clipRule="evenodd" d="M2.40513 5.35353L6.1818 8.90902L15.5807 0L18 2.80485L6.18935 14L0 8.17346L2.40513 5.35353Z" fill="#EEE5B5"/>
-        </symbol><symbol id="pause" viewBox="0 0 14 21">
-          {/* <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch --> */}
-          <title>Artboard</title>
-          <desc>Created with Sketch.</desc>
-          <g id="Artboard" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-            <polygon id="Line" fill="#EEE5B5" fillRule="nonzero" points="0 -1.11910481e-13 4 -1.11910481e-13 4 21 0 21"/>
-            <polygon id="Line" fill="#EEE5B5" fillRule="nonzero" points="10 -1.11910481e-13 14 -1.11910481e-13 14 21 10 21"/>
-          </g>
-        </symbol><symbol id="play-s" viewBox="0 0 19 19">
-          <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5"/>
-        </symbol></svg>
-        {/* <!-- endinject --> */}
-      </div>
+      <PreHeader />
 
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -64,21 +58,11 @@ class App extends PureComponent {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
-        </header>
+        <Header
+          isRequiredAuthentication={isRequiredAuthentication}
+          onClick={this._handleSignInClick}
+          user={user}
+        />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -134,13 +118,7 @@ class App extends PureComponent {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo invert={true} />
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
@@ -154,24 +132,39 @@ class App extends PureComponent {
     const {changeFilter} = this.props;
     changeFilter(genre);
   }
+
+  _handleSignInClick() {
+    const {requireAuthorization} = this.props;
+    requireAuthorization(true);
+  }
+
+  _handleSignInUser(params) {
+    this.props.login(params);
+  }
 }
 
 App.propTypes = {
   filter: PropTypes.string,
   filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
   changeFilter: PropTypes.func,
-  genres: PropTypes.arrayOf(PropTypes.string)
+  genres: PropTypes.arrayOf(PropTypes.string),
+  isRequiredAuthentication: PropTypes.bool,
+  user: Header.propTypes.user,
+  requireAuthorization: PropTypes.func,
+  login: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
   filter: getActiveFilter(state),
   filmsGroup: getFilmsByGenre(state),
-  genres: getGenres(state)
+  genres: getGenres(state),
+  isRequiredAuthentication: isAuthorizationRequired(state),
+  user: getUser(state)
 });
 
 export {App};
 
 export default connect(
     mapStateToProps,
-    ActionCreator
+    {...ActionCreator, login: Operation.signInUser}
 )(App);
