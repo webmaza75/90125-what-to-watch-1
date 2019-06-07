@@ -15,13 +15,14 @@ import {
 } from '../../reducers/films/selectors.js';
 import {
   isAuthorizationRequired,
-  getUser
+  getUser,
+  getError
 } from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
 import PreHeader from '../pre-header/pre-header.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
-import Logo from '../logo/logo.jsx';
 import {Operation} from '../../reducers/user/user.js';
+import Footer from '../footer/footer.jsx';
 
 const GenreListWrapped = withActiveItem(GenreList);
 const FilmListWrapped = withActiveItem(FilmList);
@@ -41,11 +42,15 @@ class App extends PureComponent {
       filter,
       genres,
       isRequiredAuthentication,
-      user
+      user,
+      error
     } = this.props;
 
     if (isRequiredAuthentication) {
-      return <SignInWrapped onSubmit={this._handleSignInUser}/>;
+      return <SignInWrapped
+        onSubmit={this._handleSignInUser}
+        error={error}
+      />;
     }
 
     return <Fragment>
@@ -117,13 +122,7 @@ class App extends PureComponent {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <Logo invert={true} />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </Fragment>;
   }
@@ -151,7 +150,8 @@ App.propTypes = {
   isRequiredAuthentication: PropTypes.bool,
   user: Header.propTypes.user,
   requireAuthorization: PropTypes.func,
-  login: PropTypes.func
+  login: PropTypes.func,
+  error: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
@@ -159,7 +159,8 @@ const mapStateToProps = (state) => ({
   filmsGroup: getFilmsByGenre(state),
   genres: getGenres(state),
   isRequiredAuthentication: isAuthorizationRequired(state),
-  user: getUser(state)
+  user: getUser(state),
+  error: getError(state)
 });
 
 export {App};

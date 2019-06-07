@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Header from '../header/header.jsx';
 import PreHeader from '../pre-header/pre-header.jsx';
-import Logo from '../logo/logo.jsx';
+import Footer from '../footer/footer.jsx';
 
 const SignIn = (props) => {
   const {
@@ -11,8 +11,12 @@ const SignIn = (props) => {
     password,
     onSubmit,
     onChangeEmail,
-    onChangePassword
+    onChangePassword,
+    error,
+    errorPassword
   } = props;
+
+  const errorMassage = errorPassword ? errorPassword : error;
 
   return <Fragment>
     <PreHeader />
@@ -24,6 +28,9 @@ const SignIn = (props) => {
 
       <div className="sign-in user-page__content">
         <form className="sign-in__form" onSubmit={(event) => onSubmit(event)}>
+          {errorMassage && <div className="sign-in__message">
+            <p>{errorMassage}</p>
+          </div>}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -55,14 +62,7 @@ const SignIn = (props) => {
           </div>
         </form>
       </div>
-
-      <footer className="page-footer">
-        <Logo invert={true} />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   </Fragment>;
 };
@@ -72,7 +72,9 @@ SignIn.propTypes = {
   password: PropTypes.string,
   onSubmit: PropTypes.func,
   onChangeEmail: PropTypes.func,
-  onChangePassword: PropTypes.func
+  onChangePassword: PropTypes.func,
+  error: PropTypes.string,
+  errorPassword: PropTypes.string
 };
 
 export default SignIn;

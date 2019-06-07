@@ -3,7 +3,8 @@ import {ActionCreator} from '../../actions/actions.js';
 
 const initialState = {
   isAuthorizationRequired: false,
-  userInfo: undefined
+  userInfo: undefined,
+  error: undefined
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,17 +19,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         userInfo: action.payload
       };
+    case ActionTypes.SIGN_IN_USER_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      };
   }
   return state;
 };
 
 const transform = (data) => {
-  return {
-    id: data.id,
-    email: data.email,
-    name: data.name,
-    avatarUrl: data.avatar_url
-  };
+  const {id, email, name, avatar_url: avatarUrl} = data;
+  return {id, email, name, avatarUrl};
 };
 
 const Operation = {
@@ -36,18 +38,21 @@ const Operation = {
     return api
       .post(`/login`, params)
       .then((res) => {
-        const userInfo = transform(res.data);
-        dispatch(ActionCreator.signInUser(userInfo));
-        dispatch(ActionCreator.requireAuthorization(false));
+        if (res.status === 200) {
+          const userInfo = transform(res.data);
+          dispatch(ActionCreator.signInUser(userInfo));
+          dispatch(ActionCreator.requireAuthorization(false));
+        } else { // status 400
+          dispatch(ActionCreator.signInUserError(res.response.data.error));
+        }
+      }).catch((error) => {
+        dispatch(ActionCreator.signInUserError(error.message));
       });
-    // TODO Обработка ошибок
-    // .catch((error) => {
-
-    // });
   }
 };
 
 export {
   Operation,
-  reducer
+  reducer,
+  transform
 };

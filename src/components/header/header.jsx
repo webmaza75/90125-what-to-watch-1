@@ -48,7 +48,7 @@ const Header = (props) => {
 Header.propTypes = {
   pageType: PropTypes.string,
   user: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
     email: PropTypes.string,
     avatarUrl: PropTypes.string

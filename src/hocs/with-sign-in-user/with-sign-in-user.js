@@ -8,7 +8,8 @@ const withSignInUser = (Component) => {
 
       this.state = {
         email: ``,
-        password: ``
+        password: ``,
+        errorPassword: null
       };
 
       this._onSubmit = this._onSubmit.bind(this);
@@ -17,7 +18,12 @@ const withSignInUser = (Component) => {
     }
 
     render() {
-      const {email, password} = this.state;
+      const {
+        email,
+        password,
+        errorPassword
+      } = this.state;
+
       return <Component
         {...this.props}
         email={email}
@@ -25,6 +31,7 @@ const withSignInUser = (Component) => {
         onSubmit={this._onSubmit}
         onChangeEmail={this._onChangeEmail}
         onChangePassword={this._onChangePassword}
+        errorPassword={errorPassword}
       />;
     }
 
@@ -44,14 +51,20 @@ const withSignInUser = (Component) => {
       const {email, password} = this.state;
 
       event.preventDefault();
-      if (email && password) {
-        this.props.onSubmit({email, password});
+      if (email && !password.trim()) {
+        this.setState({
+          errorPassword: `child \"password\" fails because [\"password\" is not allowed to be empty]`
+        });
+      } else {
+        this.setState({
+          errorPassword: null
+        }, () => this.props.onSubmit({email, password}));
       }
     }
   }
 
   WithSignInUser.propTypes = {
-    onSubmit: PropTypes.func,
+    onSubmit: PropTypes.func
   };
   return WithSignInUser;
 };

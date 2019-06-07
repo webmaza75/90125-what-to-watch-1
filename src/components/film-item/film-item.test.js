@@ -16,7 +16,9 @@ it(`Film item correctly renders`, () => {
     .create(<FilmItem
       item={mock}
       onClick={jest.fn()}
-      onHover={jest.fn()}
+      isPlaying={false}
+      onMouseOver={jest.fn()}
+      onMouseOut={jest.fn()}
     />)
     .toJSON();
 

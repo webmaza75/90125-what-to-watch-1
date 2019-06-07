@@ -12,3 +12,7 @@ export const getUser = (state) => {
   }
   return undefined;
 };
+
+export const getError = (state) => {
+  return state[NAME_SPACE].error;
+};

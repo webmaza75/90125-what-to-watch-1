@@ -16,6 +16,10 @@ const ActionCreator = {
   signInUser: (params) => ({
     type: ActionTypes.SIGN_IN_USER,
     payload: params
+  }),
+  signInUserError: (error) => ({
+    type: ActionTypes.SIGN_IN_USER_ERROR,
+    payload: error
   })
 };
 
