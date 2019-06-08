@@ -12,20 +12,80 @@ describe(`MockComponent and wrapper`, () => {
   it(`MockComponent should has correctly props, wrapper should has correctly state when calls onChangeEmail`, () => {
     const MockComponentWrapped = withSignInUser(MockComponent);
     const wrapper = mount(<MockComponentWrapped />);
+    const event = {
+      preventDefault: () => {},
+      target: {
+        value: `qwe@qwe.ru`
+      }
+    };
 
-    wrapper.find(MockComponent).prop(`onChangeEmail`)(jest.fn());
+    wrapper.find(MockComponent).prop(`onChangeEmail`)(event);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`email`)).toEqual(`qwe@qwe.ru`);
-    expect(wrapper.state(`email`)).toEqual(`qwe@qwe.ru`);
   });
 
   it(`MockComponent should has correctly props, wrapper should has correctly state when calls onChangePassword`, () => {
     const MockComponentWrapped = withSignInUser(MockComponent);
     const wrapper = mount(<MockComponentWrapped />);
+    const event = {
+      preventDefault: () => {},
+      target: {
+        value: `10`
+      }
+    };
 
-    wrapper.find(MockComponent).prop(`onChangePassword`)(`10`);
+    wrapper.find(MockComponent).prop(`onChangePassword`)(event);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`password`)).toEqual(`10`);
-    expect(wrapper.state(`email`)).toEqual(`10`);
+  });
+
+  it(`MockComponent should correctly validate password`, () => {
+    const MockComponentWrapped = withSignInUser(MockComponent);
+    const wrapper = mount(<MockComponentWrapped />);
+    const state = {
+      email: `qwe@qwe.ru`,
+      password: ` `,
+      validationError: null
+    };
+    const event = {
+      preventDefault: () => {}
+    };
+    wrapper.setState(state);
+    wrapper.find(MockComponent).prop(`onSubmit`)(event);
+    expect(wrapper.state(`validationError`)).toMatch(/\"password\" is not allowed to be empty/);
+  });
+
+  it(`MockComponent should correctly validate email`, () => {
+    const MockComponentWrapped = withSignInUser(MockComponent);
+    const wrapper = mount(<MockComponentWrapped />);
+    const state = {
+      email: ` `,
+      password: `1`,
+      validationError: null
+    };
+    const event = {
+      preventDefault: () => {}
+    };
+
+    wrapper.setState(state);
+    wrapper.find(MockComponent).prop(`onSubmit`)(event);
+    expect(wrapper.state(`validationError`)).toMatch(/\"email\" is not allowed to be empty/);
+  });
+
+  it(`MockComponent should correctly validate email and password`, () => {
+    const MockComponentWrapped = withSignInUser(MockComponent);
+    const wrapper = mount(<MockComponentWrapped />);
+    const state = {
+      email: `     `,
+      password: ` `,
+      validationError: null
+    };
+    const event = {
+      preventDefault: () => {}
+    };
+
+    wrapper.setState(state);
+    wrapper.find(MockComponent).prop(`onSubmit`)(event);
+    expect(wrapper.state(`validationError`)).toMatch(/\"email\" and \"password\" are not allowed to be empty/);
   });
 });

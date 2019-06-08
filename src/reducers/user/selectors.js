@@ -7,10 +7,7 @@ export const isAuthorizationRequired = (state) => {
 };
 
 export const getUser = (state) => {
-  if (state[NAME_SPACE].userInfo) {
-    return state[NAME_SPACE].userInfo;
-  }
-  return undefined;
+  return state[NAME_SPACE].userInfo;
 };
 
 export const getError = (state) => {

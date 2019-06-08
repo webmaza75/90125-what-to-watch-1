@@ -10,7 +10,6 @@ configure({adapter: new Adapter()});
 describe(`Header item correctly renders after relaunch`, () => {
   it(`Header resends correctly guest block`, () => {
     const header = mount(<Header
-      isRequiredAuthentication={true}
       onClick={jest.fn()}
       user={null}
     />);
@@ -20,7 +19,6 @@ describe(`Header item correctly renders after relaunch`, () => {
 
   it(`Header resends correctly authenticated user\`s block`, () => {
     const header = mount(<Header
-      isRequiredAuthentication={false}
       onClick={jest.fn()}
       user={user}
     />);
@@ -29,16 +27,17 @@ describe(`Header item correctly renders after relaunch`, () => {
     expect(header.find(`img`)).toHaveLength(1);
   });
 
-  it(`Header resends correctly on the SignIn page`, () => {
+  it(`Should preventDefault when user click \"Sign in\" link`, () => {
+    const onClick = jest.fn();
     const header = mount(<Header
-      isRequiredAuthentication={true}
-      onClick={jest.fn()}
+      onClick={onClick}
       user={null}
-      pageType={`signIn`}
     />);
+    const event = {
+      preventDefault: () => {}
+    };
 
-    expect(header.find(`.user-page__title`)).toHaveLength(1);
-    expect(header.find(`img`)).toHaveLength(0);
-    expect(header.find(`.user-block__link`)).toHaveLength(0);
+    header.prop(`onClick`)(event);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

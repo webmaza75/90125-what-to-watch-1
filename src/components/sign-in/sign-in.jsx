@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
-import Header from '../header/header.jsx';
-import PreHeader from '../pre-header/pre-header.jsx';
+import SignInHeader from '../sign-in-header/sign-in-header.jsx';
+import GlobalIcons from '../global-icons/global-icons.jsx';
 import Footer from '../footer/footer.jsx';
 
 const SignIn = (props) => {
@@ -13,18 +13,15 @@ const SignIn = (props) => {
     onChangeEmail,
     onChangePassword,
     error,
-    errorPassword
+    validationError
   } = props;
 
-  const errorMassage = errorPassword ? errorPassword : error;
+  const errorMassage = validationError ? validationError : error;
 
   return <Fragment>
-    <PreHeader />
+    <GlobalIcons />
     <div className="user-page">
-      <Header
-        isRequiredAuthentication={true}
-        pageType={`signIn`}
-      />
+      <SignInHeader />
 
       <div className="sign-in user-page__content">
         <form className="sign-in__form" onSubmit={(event) => onSubmit(event)}>
@@ -74,7 +71,7 @@ SignIn.propTypes = {
   onChangeEmail: PropTypes.func,
   onChangePassword: PropTypes.func,
   error: PropTypes.string,
-  errorPassword: PropTypes.string
+  validationError: PropTypes.string
 };
 
 export default SignIn;

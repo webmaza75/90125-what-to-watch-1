@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PreHeader correctly renders 1`] = `
+exports[`GlobalIcons correctly renders 1`] = `
 <div
   className="visually-hidden"
 >

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PreHeader = () => {
+const GlobalIcons = () => {
   return <div className="visually-hidden">
     {/* <!-- inject:svg --> */}
     <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><symbol id="add" viewBox="0 0 19 20">
@@ -32,4 +32,4 @@ const PreHeader = () => {
   </div>;
 };
 
-export default PreHeader;
+export default GlobalIcons;

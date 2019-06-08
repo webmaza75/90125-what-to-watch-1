@@ -10,6 +10,11 @@ window.HTMLMediaElement.prototype.play = () => {};
 
 configure({adapter: new Adapter()});
 
+// TODO
+// 0. Вернуть файлу корректное название, чтобы запускались тесты
+// 1. переделать тесты с учетом "чистого" film-item.jsx, без хока
+// 2. перенести/доработать/создать недостающие тесты для хока этого компонента
+
 describe(`Film item correctly renders after relaunch`, () => {
   it(`FilmItem resends correctly item`, () => {
     const onMouseOver = jest.fn();

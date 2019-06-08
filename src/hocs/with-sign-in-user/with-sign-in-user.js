@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {ValidationErrors} from '../../consts.js';
+
 const withSignInUser = (Component) => {
   class WithSignInUser extends PureComponent {
     constructor(props) {
@@ -9,7 +11,7 @@ const withSignInUser = (Component) => {
       this.state = {
         email: ``,
         password: ``,
-        errorPassword: null
+        validationError: null
       };
 
       this._onSubmit = this._onSubmit.bind(this);
@@ -21,7 +23,7 @@ const withSignInUser = (Component) => {
       const {
         email,
         password,
-        errorPassword
+        validationError
       } = this.state;
 
       return <Component
@@ -31,7 +33,7 @@ const withSignInUser = (Component) => {
         onSubmit={this._onSubmit}
         onChangeEmail={this._onChangeEmail}
         onChangePassword={this._onChangePassword}
-        errorPassword={errorPassword}
+        validationError={validationError}
       />;
     }
 
@@ -51,13 +53,24 @@ const withSignInUser = (Component) => {
       const {email, password} = this.state;
 
       event.preventDefault();
-      if (email && !password.trim()) {
+      const isEmptyEmail = !email.trim();
+      const isEmptyPassword = !password.trim();
+
+      if (isEmptyEmail && isEmptyPassword) {
         this.setState({
-          errorPassword: `child \"password\" fails because [\"password\" is not allowed to be empty]`
+          validationError: ValidationErrors.INVALID_EMAIL_AND_PASSWORD
+        });
+      } else if (isEmptyEmail) {
+        this.setState({
+          validationError: ValidationErrors.INVALID_EMAIL
+        });
+      } else if (isEmptyPassword) {
+        this.setState({
+          validationError: ValidationErrors.INVALID_PASSWORD
         });
       } else {
         this.setState({
-          errorPassword: null
+          validationError: null
         }, () => this.props.onSubmit({email, password}));
       }
     }

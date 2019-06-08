@@ -68,6 +68,31 @@ describe(`Reducer works correctly`, () => {
           type: ActionTypes.SIGN_IN_USER,
           payload: result,
         });
+        expect(dispatch).toHaveBeenCalledWith({
+          type: ActionTypes.REQUIRED_AUTHORIZATION,
+          payload: status
+        });
+      }).catch(() => {
+      });
+  });
+
+  it(`Should catch the error during API call to /login`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const userLoader = Operation.signInUser();
+
+    apiMock
+      .onPost(`/login`)
+      .reply(500, [{fake: true}]);
+
+    return userLoader(dispatch, jest.fn(), api)
+      .then(() => {
+      }).catch((error) => {
+        expect(dispatch).toHaveBeenCalledWith({
+          type: ActionTypes.SIGN_IN_USER_ERROR,
+          payload: error
+        });
       });
   });
 });

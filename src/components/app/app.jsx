@@ -19,7 +19,7 @@ import {
   getError
 } from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
-import PreHeader from '../pre-header/pre-header.jsx';
+import GlobalIcons from '../global-icons/global-icons.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import {Operation} from '../../reducers/user/user.js';
 import Footer from '../footer/footer.jsx';
@@ -54,7 +54,7 @@ class App extends PureComponent {
     }
 
     return <Fragment>
-      <PreHeader />
+      <GlobalIcons />
 
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -64,7 +64,6 @@ class App extends PureComponent {
         <h1 className="visually-hidden">WTW</h1>
 
         <Header
-          isRequiredAuthentication={isRequiredAuthentication}
           onClick={this._handleSignInClick}
           user={user}
         />
@@ -138,7 +137,8 @@ class App extends PureComponent {
   }
 
   _handleSignInUser(params) {
-    this.props.login(params);
+    const {onLogin} = this.props;
+    onLogin(params);
   }
 }
 
@@ -150,7 +150,7 @@ App.propTypes = {
   isRequiredAuthentication: PropTypes.bool,
   user: Header.propTypes.user,
   requireAuthorization: PropTypes.func,
-  login: PropTypes.func,
+  onLogin: PropTypes.func,
   error: PropTypes.string
 };
 
@@ -167,5 +167,5 @@ export {App};
 
 export default connect(
     mapStateToProps,
-    {...ActionCreator, login: Operation.signInUser}
+    {...ActionCreator, onLogin: Operation.signInUser}
 )(App);

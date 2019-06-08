@@ -8,7 +8,8 @@ export const createAPI = (dispatch) => {
     timeout: 5000,
     withCredentials: true,
   });
-
+  // Доработать обработку 400 ошибки
+  // https://github.com/axios/axios#interceptors
   const onSuccess = (response) => response;
   const onFail = (err) => {
     if (err.response.status === 403) {

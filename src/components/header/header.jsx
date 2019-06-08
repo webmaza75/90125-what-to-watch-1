@@ -5,16 +5,6 @@ import Logo from '../logo/logo.jsx';
 import {BASE_URL} from '../../consts.js';
 
 const Header = (props) => {
-  let title = null;
-  let extraClass = `movie-card__head`;
-
-  switch (props.pageType) {
-    case `signIn`:
-      extraClass = `user-page__head`;
-      title = <h1 className="page-title user-page__title">Sign in</h1>;
-      break;
-  }
-
   let userBlock;
   const {user} = props;
   const isGuest = !user || !user.id;
@@ -26,27 +16,23 @@ const Header = (props) => {
       </div>
     </div>;
   } else {
-    if (title === null) {
-      userBlock = <div className="user-block">
-        <a href="sign-in.html" className="user-block__link" onClick={
-          (event) => {
-            event.preventDefault();
-            props.onClick();
-          }
-        }>Sign in</a>
-      </div>;
-    }
+    userBlock = <div className="user-block">
+      <a href="sign-in.html" className="user-block__link" onClick={
+        (event) => {
+          event.preventDefault();
+          props.onClick();
+        }
+      }>Sign in</a>
+    </div>;
   }
 
-  return <header className={`page-header ${extraClass}`}>
+  return <header className="page-header movie-card__head">
     <Logo />
     {userBlock}
-    {title}
   </header>;
 };
 
 Header.propTypes = {
-  pageType: PropTypes.string,
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

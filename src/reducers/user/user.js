@@ -29,8 +29,8 @@ const reducer = (state = initialState, action) => {
 };
 
 const transform = (data) => {
-  const {id, email, name, avatar_url: avatarUrl} = data;
-  return {id, email, name, avatarUrl};
+  const {avatar_url: avatarUrl, ...other} = data;
+  return {avatarUrl, ...other};
 };
 
 const Operation = {
