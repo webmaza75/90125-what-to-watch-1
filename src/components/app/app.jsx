@@ -106,14 +106,13 @@ class App extends PureComponent {
 
           <GenreListWrapped
             genres={genres}
-            actions={this._handleMenuClick}
+            onMenuClick={this._handleMenuClick}
             activeItem={filter}
-            itemId={`genre`}
+            key={filter}
           />
 
           <FilmListWrapped
             films={filmsGroup}
-            itemId={`film`}
           />
 
           <div className="catalog__more">
@@ -127,13 +126,13 @@ class App extends PureComponent {
   }
 
   _handleMenuClick(genre) {
-    const {changeFilter} = this.props;
-    changeFilter(genre);
+    const {onChangeFilter} = this.props;
+    onChangeFilter(genre);
   }
 
   _handleSignInClick() {
-    const {requireAuthorization} = this.props;
-    requireAuthorization(true);
+    const {onRequireAuthorization} = this.props;
+    onRequireAuthorization(true);
   }
 
   _handleSignInUser(params) {
@@ -145,11 +144,11 @@ class App extends PureComponent {
 App.propTypes = {
   filter: PropTypes.string,
   filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
-  changeFilter: PropTypes.func,
+  onChangeFilter: PropTypes.func,
   genres: PropTypes.arrayOf(PropTypes.string),
   isRequiredAuthentication: PropTypes.bool,
   user: Header.propTypes.user,
-  requireAuthorization: PropTypes.func,
+  onRequireAuthorization: PropTypes.func,
   onLogin: PropTypes.func,
   error: PropTypes.string
 };
@@ -167,5 +166,9 @@ export {App};
 
 export default connect(
     mapStateToProps,
-    {...ActionCreator, onLogin: Operation.signInUser}
+    {
+      onRequireAuthorization: ActionCreator.requireAuthorization,
+      onChangeFilter: ActionCreator.changeFilter,
+      onLogin: Operation.signInUser
+    }
 )(App);

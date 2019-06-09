@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const GenreList = ({genres, activeItem, onChange, actions}) => {
+const GenreList = ({genres, activeItem, onChange, onMenuClick}) => {
 
   const menu = genres.map((title) => {
     let className = `catalog__genres-item`;
@@ -13,7 +13,7 @@ const GenreList = ({genres, activeItem, onChange, actions}) => {
         (event) => {
           event.preventDefault();
           onChange(title);
-          actions(title);
+          onMenuClick(title);
         }
       }>{title}</a>
     </li>;
@@ -28,7 +28,7 @@ GenreList.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   activeItem: PropTypes.string,
   onChange: PropTypes.func,
-  actions: PropTypes.func
+  onMenuClick: PropTypes.func
 };
 
 export default GenreList;

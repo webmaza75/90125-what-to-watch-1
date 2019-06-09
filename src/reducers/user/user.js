@@ -38,15 +38,11 @@ const Operation = {
     return api
       .post(`/login`, params)
       .then((res) => {
-        if (res.status === 200) {
-          const userInfo = transform(res.data);
-          dispatch(ActionCreator.signInUser(userInfo));
-          dispatch(ActionCreator.requireAuthorization(false));
-        } else { // status 400
-          dispatch(ActionCreator.signInUserError(res.response.data.error));
-        }
+        const userInfo = transform(res.data);
+        dispatch(ActionCreator.signInUser(userInfo));
+        dispatch(ActionCreator.requireAuthorization(false));
       }).catch((error) => {
-        dispatch(ActionCreator.signInUserError(error.message));
+        dispatch(ActionCreator.signInUserError(error.response.data.error));
       });
   }
 };

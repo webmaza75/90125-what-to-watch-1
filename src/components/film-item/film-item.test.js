@@ -11,16 +11,32 @@ const mock = {
   src: ``
 };
 
-it(`Film item correctly renders`, () => {
-  const tree = renderer
-    .create(<FilmItem
-      item={mock}
-      onClick={jest.fn()}
-      isPlaying={false}
-      onMouseOver={jest.fn()}
-      onMouseOut={jest.fn()}
-    />)
-    .toJSON();
+describe(``, () => {
+  it(`Film item correctly renders with isPlaying false`, () => {
+    const tree = renderer
+      .create(<FilmItem
+        item={mock}
+        onClick={jest.fn()}
+        isPlaying={false}
+        onMouseOver={jest.fn()}
+        onMouseOut={jest.fn()}
+      />)
+      .toJSON();
 
-  expect(tree).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`Film item correctly renders with isPlaying true`, () => {
+    const tree = renderer
+      .create(<FilmItem
+        item={mock}
+        onClick={jest.fn()}
+        isPlaying={true}
+        onMouseOver={jest.fn()}
+        onMouseOut={jest.fn()}
+      />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });

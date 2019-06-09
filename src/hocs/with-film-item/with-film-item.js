@@ -32,7 +32,8 @@ const withFilmItem = (Component) => {
 
 
     _handleMouseOver(item) {
-      this.props.onHover(item);
+      const {onHover} = this.props;
+      onHover(item);
       this._timeOut = setTimeout(() => {
         if (this._timeOut) {
           this.setState({

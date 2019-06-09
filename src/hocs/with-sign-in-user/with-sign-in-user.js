@@ -25,6 +25,7 @@ const withSignInUser = (Component) => {
         password,
         validationError
       } = this.state;
+      const {error} = this.props;
 
       return <Component
         {...this.props}
@@ -33,7 +34,7 @@ const withSignInUser = (Component) => {
         onSubmit={this._onSubmit}
         onChangeEmail={this._onChangeEmail}
         onChangePassword={this._onChangePassword}
-        validationError={validationError}
+        validationError={validationError || error}
       />;
     }
 
@@ -49,29 +50,39 @@ const withSignInUser = (Component) => {
       });
     }
 
-    _setValidationError(validationError, callback = null) {
-      this.setState({
-        validationError
-      }, callback);
-    }
-
-    _onSubmit(event) {
+    _validateForm() {
       const {email, password} = this.state;
-      const {onSubmit, error} = this.props;
-
-      event.preventDefault();
-
       const isEmptyEmail = !email.trim();
       const isEmptyPassword = !password.trim();
 
       if (isEmptyEmail && isEmptyPassword) {
-        this._setValidationError(ValidationErrors.INVALID_EMAIL_AND_PASSWORD);
-      } else if (isEmptyEmail) {
-        this._setValidationError(ValidationErrors.INVALID_EMAIL);
-      } else if (isEmptyPassword) {
-        this._setValidationError(ValidationErrors.INVALID_PASSWORD);
+        return ValidationErrors.INVALID_EMAIL_AND_PASSWORD;
+      }
+
+      if (isEmptyEmail) {
+        return ValidationErrors.INVALID_EMAIL;
+      }
+
+      if (isEmptyPassword) {
+        return ValidationErrors.INVALID_PASSWORD;
+      }
+      return null;
+    }
+
+    _onSubmit(event) {
+      const {email, password} = this.state;
+      const {onSubmit} = this.props;
+
+      event.preventDefault();
+
+      const validationError = this._validateForm();
+
+      if (validationError) {
+        this.setState({
+          validationError
+        });
       } else {
-        this._setValidationError(error, () => onSubmit({email, password}));
+        onSubmit({email, password});
       }
     }
   }

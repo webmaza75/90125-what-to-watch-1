@@ -61,7 +61,6 @@ export const itemShape = PropTypes.shape({
 FilmItem.propTypes = {
   item: itemShape.isRequired,
   onClick: PropTypes.func,
-  onHover: PropTypes.func,
   isPlaying: PropTypes.bool,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func

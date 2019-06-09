@@ -3,6 +3,7 @@ import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import withSignInUser from './with-sign-in-user.js';
+import {ValidationErrors} from '../../consts.js';
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -52,7 +53,7 @@ describe(`MockComponent and wrapper`, () => {
     };
     wrapper.setState(state);
     wrapper.find(MockComponent).prop(`onSubmit`)(event);
-    expect(wrapper.state(`validationError`)).toMatch(/\"password\" is not allowed to be empty/);
+    expect(wrapper.state(`validationError`)).toBe(ValidationErrors.INVALID_PASSWORD);
   });
 
   it(`MockComponent should correctly validate email`, () => {
@@ -69,7 +70,7 @@ describe(`MockComponent and wrapper`, () => {
 
     wrapper.setState(state);
     wrapper.find(MockComponent).prop(`onSubmit`)(event);
-    expect(wrapper.state(`validationError`)).toMatch(/\"email\" is not allowed to be empty/);
+    expect(wrapper.state(`validationError`)).toBe(ValidationErrors.INVALID_EMAIL);
   });
 
   it(`MockComponent should correctly validate email and password`, () => {
@@ -86,6 +87,6 @@ describe(`MockComponent and wrapper`, () => {
 
     wrapper.setState(state);
     wrapper.find(MockComponent).prop(`onSubmit`)(event);
-    expect(wrapper.state(`validationError`)).toMatch(/\"email\" and \"password\" are not allowed to be empty/);
+    expect(wrapper.state(`validationError`)).toBe(ValidationErrors.INVALID_EMAIL_AND_PASSWORD);
   });
 });

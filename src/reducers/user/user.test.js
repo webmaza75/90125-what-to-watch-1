@@ -87,8 +87,7 @@ describe(`Reducer works correctly`, () => {
       .reply(500, [{fake: true}]);
 
     return userLoader(dispatch, jest.fn(), api)
-      .then(() => {
-      }).catch((error) => {
+      .catch((error) => {
         expect(dispatch).toHaveBeenCalledWith({
           type: ActionTypes.SIGN_IN_USER_ERROR,
           payload: error

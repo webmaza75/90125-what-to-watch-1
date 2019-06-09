@@ -12,17 +12,6 @@ const withActiveItem = (Component) => {
       this._handleChange = this._handleChange.bind(this);
     }
 
-    // TODO сделать кеширование activeItem
-    static getDerivedStateFromProps(nextProps, prevState) {
-      if (prevState.prevPropItemId !== nextProps.itemId) {
-        return {
-          activeItem: nextProps.activeItem || null,
-          prevPropItemId: nextProps.itemId
-        };
-      }
-      return null;
-    }
-
     render() {
       const {activeItem} = this.state;
       return <Component
