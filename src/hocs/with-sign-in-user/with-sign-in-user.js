@@ -49,35 +49,36 @@ const withSignInUser = (Component) => {
       });
     }
 
+    _setValidationError(validationError, callback = null) {
+      this.setState({
+        validationError
+      }, callback);
+    }
+
     _onSubmit(event) {
       const {email, password} = this.state;
+      const {onSubmit, error} = this.props;
 
       event.preventDefault();
+
       const isEmptyEmail = !email.trim();
       const isEmptyPassword = !password.trim();
 
       if (isEmptyEmail && isEmptyPassword) {
-        this.setState({
-          validationError: ValidationErrors.INVALID_EMAIL_AND_PASSWORD
-        });
+        this._setValidationError(ValidationErrors.INVALID_EMAIL_AND_PASSWORD);
       } else if (isEmptyEmail) {
-        this.setState({
-          validationError: ValidationErrors.INVALID_EMAIL
-        });
+        this._setValidationError(ValidationErrors.INVALID_EMAIL);
       } else if (isEmptyPassword) {
-        this.setState({
-          validationError: ValidationErrors.INVALID_PASSWORD
-        });
+        this._setValidationError(ValidationErrors.INVALID_PASSWORD);
       } else {
-        this.setState({
-          validationError: null
-        }, () => this.props.onSubmit({email, password}));
+        this._setValidationError(error, () => onSubmit({email, password}));
       }
     }
   }
 
   WithSignInUser.propTypes = {
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    error: PropTypes.string
   };
   return WithSignInUser;
 };

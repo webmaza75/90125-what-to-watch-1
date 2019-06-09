@@ -12,11 +12,8 @@ const SignIn = (props) => {
     onSubmit,
     onChangeEmail,
     onChangePassword,
-    error,
     validationError
   } = props;
-
-  const errorMassage = validationError ? validationError : error;
 
   return <Fragment>
     <GlobalIcons />
@@ -25,8 +22,8 @@ const SignIn = (props) => {
 
       <div className="sign-in user-page__content">
         <form className="sign-in__form" onSubmit={(event) => onSubmit(event)}>
-          {errorMassage && <div className="sign-in__message">
-            <p>{errorMassage}</p>
+          {validationError && <div className="sign-in__message">
+            <p>{validationError}</p>
           </div>}
           <div className="sign-in__fields">
             <div className="sign-in__field">
@@ -70,7 +67,6 @@ SignIn.propTypes = {
   onSubmit: PropTypes.func,
   onChangeEmail: PropTypes.func,
   onChangePassword: PropTypes.func,
-  error: PropTypes.string,
   validationError: PropTypes.string
 };
 

@@ -13,7 +13,6 @@ describe(`SignIn correctly renders`, () => {
         onSubmit={jest.fn()}
         onChangeEmail={jest.fn()}
         onChangePassword={jest.fn()}
-        error={null}
         validationError={null}
       />)
       .toJSON();
@@ -29,7 +28,6 @@ describe(`SignIn correctly renders`, () => {
         onSubmit={jest.fn()}
         onChangeEmail={jest.fn()}
         onChangePassword={jest.fn()}
-        error={null}
         validationError={ValidationErrors.INVALID_PASSWORD}
       />)
       .toJSON();
@@ -45,7 +43,6 @@ describe(`SignIn correctly renders`, () => {
         onSubmit={jest.fn()}
         onChangeEmail={jest.fn()}
         onChangePassword={jest.fn()}
-        error={null}
         validationError={ValidationErrors.INVALID_EMAIL}
       />)
       .toJSON();
