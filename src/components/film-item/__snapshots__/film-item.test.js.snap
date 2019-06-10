@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Film item correctly renders 1`] = `
+exports[`Film item correctly renders with isPlaying false 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
 >
   <div
     className="small-movie-card__image"
-    onMouseOut={[Function]}
+    onMouseOut={[MockFunction]}
     onMouseOver={[Function]}
   >
     <img
@@ -14,6 +14,35 @@ exports[`Film item correctly renders 1`] = `
       height="175"
       src="aviator.jpg"
       width="280"
+    />
+  </div>
+  <h3
+    className="small-movie-card__title"
+  >
+    <a
+      className="small-movie-card__link"
+      href="movie-page.html"
+      onClick={[Function]}
+    >
+      Aviator
+    </a>
+  </h3>
+</article>
+`;
+
+exports[`Film item correctly renders with isPlaying true 1`] = `
+<article
+  className="small-movie-card catalog__movies-card"
+>
+  <div
+    className="small-movie-card__image"
+    onMouseOut={[MockFunction]}
+    onMouseOver={[Function]}
+  >
+    <video
+      className="player__video"
+      muted={true}
+      src=""
     />
   </div>
   <h3

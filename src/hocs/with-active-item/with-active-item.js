@@ -12,16 +12,6 @@ const withActiveItem = (Component) => {
       this._handleChange = this._handleChange.bind(this);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-      if (prevState.prevPropItemId !== nextProps.itemId) {
-        return {
-          activeItem: nextProps.activeItem || null,
-          prevPropItemId: nextProps.itemId
-        };
-      }
-      return null;
-    }
-
     render() {
       const {activeItem} = this.state;
       return <Component

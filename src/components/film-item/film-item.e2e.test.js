@@ -3,20 +3,21 @@ import {configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import FilmItem from './film-item.jsx';
-import VideoPlayer from '../video-player/video-player.jsx';
 import film from '../../mocks/film.js';
-
-window.HTMLMediaElement.prototype.play = () => {};
 
 configure({adapter: new Adapter()});
 
-describe(`Film item correctly renders after relaunch`, () => {
-  it(`FilmItem resends correctly item`, () => {
+window.HTMLMediaElement.prototype.play = () => {};
+
+describe(`Film and callbacks`, () => {
+  it(`FilmItem should call mouseOver with film`, () => {
     const onMouseOver = jest.fn();
     const item = mount(<FilmItem
       item={film}
       onClick={jest.fn()}
-      onHover={onMouseOver}
+      isPlaying={false}
+      onMouseOver={onMouseOver}
+      onMouseOut={jest.fn()}
     />);
 
     const card = item.find(`.small-movie-card__image`);
@@ -26,74 +27,37 @@ describe(`Film item correctly renders after relaunch`, () => {
     expect(item.find(FilmItem)).toHaveLength(1);
   });
 
-  it(`Video plays on mouseover event after 1 sec`, () => {
-    jest.useFakeTimers();
-
-    const onMouseOver = jest.fn();
+  it(`FilmItem should call Click with film`, () => {
+    const onClick = jest.fn();
     const item = mount(<FilmItem
       item={film}
-      onClick={jest.fn()}
-      onHover={onMouseOver}
+      onClick={onClick}
+      isPlaying={false}
+      onMouseOver={jest.fn()}
+      onMouseOut={jest.fn()}
     />);
 
-    const card = item.find(`.small-movie-card__image`);
-    card.simulate(`mouseOver`, onMouseOver);
+    const link = item.find(`.small-movie-card__link`);
+    link.simulate(`click`);
 
-    jest.runAllTimers();
-    item.update();
-
-    const player = item.find(VideoPlayer);
-
-    expect(setTimeout).toHaveBeenCalledTimes(1);
-    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
-    expect(player).toHaveLength(1);
-    expect(player.instance().props.isPlaying).toBeTruthy();
-
-    jest.clearAllTimers();
+    expect(onClick).toHaveBeenCalledWith(film);
+    expect(item.find(FilmItem)).toHaveLength(1);
   });
 
-  it(`Video does not appears on mouseover event before 1 sec`, () => {
-    jest.useFakeTimers();
-
-    const onMouseOver = jest.fn();
+  it(`FilmItem should call mouseOut with film`, () => {
+    const onMouseOut = jest.fn();
     const item = mount(<FilmItem
       item={film}
       onClick={jest.fn()}
-      onHover={onMouseOver}
+      isPlaying={true}
+      onMouseOver={jest.fn()}
+      onMouseOut={onMouseOut}
     />);
 
-    const card = item.find(`.small-movie-card__image`);
-    card.simulate(`mouseOver`, onMouseOver);
-
-    jest.advanceTimersByTime(500);
-    item.update();
-
-    expect(item.find(VideoPlayer).exists()).toBeFalsy();
-    expect(item.find(`img`)).toHaveLength(1);
-
-    jest.clearAllTimers();
-  });
-
-  it(`Video stops on mouseout event`, () => {
-    jest.useFakeTimers();
-
-    const onMouseOver = jest.fn();
-    const item = mount(<FilmItem
-      item={film}
-      onClick={jest.fn()}
-      onHover={onMouseOver}
-    />);
-
-    const card = item.find(`.small-movie-card__image`);
-    card.simulate(`mouseOver`, onMouseOver);
-
-    jest.runAllTimers();
-    item.update();
+    const card = item.find(`video`);
     card.simulate(`mouseOut`);
 
-    expect(item.find(VideoPlayer).exists()).toBeFalsy();
-    expect(item.find(`img`)).toHaveLength(1);
-
-    jest.clearAllTimers();
+    expect(onMouseOut).toHaveBeenCalledTimes(1);
+    expect(item.find(`.small-movie-card__image`)).toHaveLength(1);
   });
 });

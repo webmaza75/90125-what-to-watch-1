@@ -2,7 +2,7 @@ import {
   reducer,
   Operation,
   transform
-} from './data.js';
+} from './films.js';
 import ActionTypes from '../../actions/action-types.js';
 import filmList from '../../mocks/films.js';
 import {ALL_GENRES} from '../../consts.js';

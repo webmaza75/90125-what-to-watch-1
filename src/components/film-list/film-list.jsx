@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import FilmItem, {itemShape} from '../film-item/film-item.jsx';
+import withFilmItem from '../../hocs/with-film-item/with-film-item.js';
+
+const FilmItemWrapped = withFilmItem(FilmItem);
 
 const FilmList = ({films, onChange, activeItem}) => {
 
   const itemList = films.map((item) => {
-    return <FilmItem
+    return <FilmItemWrapped
       item={item}
       key={item.id}
       onClick={onChange}

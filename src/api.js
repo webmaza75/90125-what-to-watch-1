@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {ActionCreator} from './actions/actions.js';
+import {BASE_URL} from './consts.js';
 
 export const createAPI = (dispatch) => {
   const api = axios.create({
-    baseURL: `https://es31-server.appspot.com/wtw`,
+    baseURL: `${BASE_URL}/wtw`,
     timeout: 5000,
     withCredentials: true,
   });
@@ -13,7 +14,7 @@ export const createAPI = (dispatch) => {
     if (err.response.status === 403) {
       dispatch(ActionCreator.requireAuthorization(true));
     }
-    return err;
+    return Promise.reject(err);
   };
 
   api.interceptors.response.use(onSuccess, onFail);

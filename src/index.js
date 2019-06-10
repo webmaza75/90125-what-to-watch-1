@@ -7,9 +7,7 @@ import {compose} from 'recompose';
 
 import App from './components/app/app.jsx';
 import reducer from './reducers/index.js';
-import {Operation} from './reducers/data/data.js';
-// TODO module7-task2
-// import {Operation as UserOperation} from './reducers/user/user.js';
+import {Operation} from './reducers/films/films.js';
 import {createAPI} from './api.js';
 
 const init = () => {

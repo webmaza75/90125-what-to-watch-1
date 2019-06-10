@@ -2,7 +2,9 @@ import ActionTypes from '../../actions/action-types.js';
 import {ActionCreator} from '../../actions/actions.js';
 
 const initialState = {
-  isAuthorizationRequired: false
+  isAuthorizationRequired: false,
+  userInfo: undefined,
+  error: undefined
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,26 +14,41 @@ const reducer = (state = initialState, action) => {
         ...state,
         isAuthorizationRequired: action.payload,
       };
+    case ActionTypes.SIGN_IN_USER:
+      return {
+        ...state,
+        userInfo: action.payload
+      };
+    case ActionTypes.SIGN_IN_USER_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      };
   }
   return state;
 };
 
+const transform = (data) => {
+  const {avatar_url: avatarUrl, ...other} = data;
+  return {avatarUrl, ...other};
+};
+
 const Operation = {
-  checkAuth: () => {
-    return (dispatch, getState, api) => {
-      return api
-        .get(`/login`)
-        .then((res) => {
-          // TODO Разберусь, когда будет готова страница авторизации поользователя (модуль 7, задание 2).
-          if (res.status === 200) {
-            dispatch(ActionCreator.requireAuthorization(true));
-          }
-        });
-    };
+  signInUser: (params) => (dispatch, getState, api) => {
+    return api
+      .post(`/login`, params)
+      .then((res) => {
+        const userInfo = transform(res.data);
+        dispatch(ActionCreator.signInUser(userInfo));
+        dispatch(ActionCreator.requireAuthorization(false));
+      }).catch((error) => {
+        dispatch(ActionCreator.signInUserError(error.response.data.error));
+      });
   }
 };
 
 export {
   Operation,
-  reducer
+  reducer,
+  transform
 };
