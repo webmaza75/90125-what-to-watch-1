@@ -20,7 +20,7 @@ describe(`Header correctly renders`, () => {
     expect(header).toMatchSnapshot();
   });
 
-  it(`Header correctly renders for authorized гыук`, () => {
+  it(`Header correctly renders for authorized user`, () => {
     const header = renderer
       .create(<StaticRouter location="someLocation" context={context}>
         <Header
