@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import SignIn from './sign-in.jsx';
+import {SignIn} from './sign-in.jsx';
 import {ValidationErrors} from '../../consts.js';
 
 describe(`SignIn correctly renders`, () => {
@@ -14,6 +14,7 @@ describe(`SignIn correctly renders`, () => {
         onChangeEmail={jest.fn()}
         onChangePassword={jest.fn()}
         validationError={null}
+        onSetError={jest.fn()}
       />)
       .toJSON();
 
@@ -29,6 +30,7 @@ describe(`SignIn correctly renders`, () => {
         onChangeEmail={jest.fn()}
         onChangePassword={jest.fn()}
         validationError={ValidationErrors.INVALID_PASSWORD}
+        onSetError={jest.fn()}
       />)
       .toJSON();
 

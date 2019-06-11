@@ -13,3 +13,7 @@ export const getUser = (state) => {
 export const getError = (state) => {
   return state[NAME_SPACE].error;
 };
+
+export const getValidationError = (state) => {
+  return state[NAME_SPACE].validationError;
+};

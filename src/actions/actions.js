@@ -20,6 +20,14 @@ const ActionCreator = {
   signInUserError: (error) => ({
     type: ActionTypes.SIGN_IN_USER_ERROR,
     payload: error
+  }),
+  setSignInError: (error) => ({
+    type: ActionTypes.VALIDATE_SIGN_IN_USER_ERROR,
+    payload: error
+  }),
+  resetErrors: () => ({
+    type: ActionTypes.RESET_ERRORS,
+    payload: undefined
   })
 };
 

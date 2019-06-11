@@ -33,7 +33,7 @@ exports[`Header correctly renders 1`] = `
   >
     <a
       className="user-block__link"
-      href="sign-in.html"
+      href="/login"
       onClick={[Function]}
     >
       Sign in
