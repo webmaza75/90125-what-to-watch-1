@@ -20,6 +20,8 @@ describe(`Main correctly renders after relaunch`, () => {
         filter={ALL_GENRES}
         filmsGroup={films}
         genres={genres}
+        user={null}
+        onChangeFilter={jest.fn()}
       />
     </StaticRouter>);
 
@@ -34,9 +36,12 @@ describe(`Main correctly renders after relaunch`, () => {
         filter={ALL_GENRES}
         filmsGroup={films}
         genres={genres}
+        user={null}
+        onChangeFilter={jest.fn()}
       />
     </StaticRouter>);
-    const genreList = main.prop(`genres`);
+
+    const genreList = main.find(Main).prop(`genres`);
 
     expect(genreList[0]).toEqual(ALL_GENRES);
   });
@@ -54,9 +59,11 @@ describe(`Main correctly renders after relaunch`, () => {
         filter={`Comedy`}
         filmsGroup={filmsGroup}
         genres={genres}
+        user={null}
+        onChangeFilter={jest.fn()}
       />
     </StaticRouter>);
-    const genreList = main.prop(`genres`);
+    const genreList = main.find(Main).prop(`genres`);
 
     expect(genreList[0]).toEqual(ALL_GENRES);
   });

@@ -1,6 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header correctly renders 1`] = `
+exports[`Header correctly renders Header correctly renders for authorized гыук 1`] = `
+<header
+  className="page-header movie-card__head"
+>
+  <div
+    className="logo"
+  >
+    <a
+      className="logo__link "
+      href="main.html"
+    >
+      <span
+        className="logo__letter logo__letter--1"
+      >
+        W
+      </span>
+      <span
+        className="logo__letter logo__letter--2"
+      >
+        T
+      </span>
+      <span
+        className="logo__letter logo__letter--3"
+      >
+        W
+      </span>
+    </a>
+  </div>
+  <div
+    className="user-block"
+  >
+    <div
+      className="user-block__avatar"
+    >
+      <a
+        href="/mylist"
+        onClick={[Function]}
+      >
+        <img
+          alt="User avatar"
+          height="63"
+          src="https://es31-server.appspot.comimg/1.png"
+          width="63"
+        />
+      </a>
+    </div>
+  </div>
+</header>
+`;
+
+exports[`Header correctly renders Header correctly renders for guest 1`] = `
 <header
   className="page-header movie-card__head"
 >

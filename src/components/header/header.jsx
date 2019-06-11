@@ -38,8 +38,7 @@ Header.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
     avatarUrl: PropTypes.string
-  }),
-  // onClick: PropTypes.func
+  })
 };
 
 export default Header;

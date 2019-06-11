@@ -9,7 +9,6 @@ configure({adapter: new Adapter()});
 
 describe(`SignIn should correctly validate form`, () => {
   it(`SignIn should correctly validate password`, () => {
-    // const onSubmit = jest.fn();
     const tree = mount(<SignIn
       email={`qwe@qwe.ru`}
       password={ ` `}
@@ -20,37 +19,28 @@ describe(`SignIn should correctly validate form`, () => {
       onSetError={jest.fn()}
     />);
 
-    // const event = {
-    //   preventDefault: () => {}
-    // };
-
     tree.find(`form`).simulate(`submit`);
     tree.update();
-    expect(tree.prop(`validationError`)).toBe(ValidationErrors.INVALID_PASSWORD);
+    expect(tree.prop(`onSetError`)).toHaveBeenCalledWith(ValidationErrors.INVALID_PASSWORD);
   });
 
   it(`SignIn should correctly validate email`, () => {
-    const onSubmit = jest.fn();
     const tree = mount(<SignIn
       email={` `}
       password={ `1`}
-      validationError={`4`}
+      validationError={null}
       error={null}
       onChangeEmail={jest.fn()}
       onChangePassword={jest.fn()}
       onSetError={jest.fn()}
     />);
-    const event = {
-      preventDefault: () => {}
-    };
 
-    tree.find(`form`).simulate(`submit`, () => onSubmit(event));
+    tree.find(`form`).simulate(`submit`);
     tree.update();
-    expect(tree.prop(`validationError`)).toBe(ValidationErrors.INVALID_EMAIL);
+    expect(tree.prop(`onSetError`)).toHaveBeenCalledWith(ValidationErrors.INVALID_EMAIL);
   });
 
   it(`SignIn should correctly validate email`, () => {
-    const onSubmit = jest.fn();
     const tree = mount(<SignIn
       email={` `}
       password={ ``}
@@ -60,12 +50,9 @@ describe(`SignIn should correctly validate form`, () => {
       onChangePassword={jest.fn()}
       onSetError={jest.fn()}
     />);
-    const event = {
-      preventDefault: () => {}
-    };
 
-    tree.find(`form`).simulate(`submit`, () => onSubmit(event));
+    tree.find(`form`).simulate(`submit`);
     tree.update();
-    expect(tree.prop(`validationError`)).toBe(ValidationErrors.INVALID_EMAIL_AND_PASSWORD);
+    expect(tree.prop(`onSetError`)).toHaveBeenCalledWith(ValidationErrors.INVALID_EMAIL_AND_PASSWORD);
   });
 });

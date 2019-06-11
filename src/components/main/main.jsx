@@ -45,7 +45,6 @@ class Main extends PureComponent {
         <h1 className="visually-hidden">WTW</h1>
 
         <Header
-          onClick={this._handleSignInClick}
           user={user}
         />
 
@@ -117,16 +116,13 @@ Main.propTypes = {
   filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
   onChangeFilter: PropTypes.func,
   genres: PropTypes.arrayOf(PropTypes.string),
-  //   isRequiredAuthentication: PropTypes.bool,
   user: Header.propTypes.user,
-  onRequireAuthorization: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
   filter: getActiveFilter(state),
   filmsGroup: getFilmsByGenre(state),
   genres: getGenres(state),
-  //   isRequiredAuthentication: isAuthorizationRequired(state),
   user: getUser(state)
 });
 
@@ -135,7 +131,7 @@ export {Main};
 export default connect(
     mapStateToProps,
     {
-      onRequireAuthorization: ActionCreator.requireAuthorization,
+      // onRequireAuthorization: ActionCreator.requireAuthorization,
       onChangeFilter: ActionCreator.changeFilter
     }
 )(Main);
