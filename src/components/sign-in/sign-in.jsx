@@ -1,6 +1,7 @@
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
 
 import SignInHeader from '../sign-in-header/sign-in-header.jsx';
 import GlobalIcons from '../global-icons/global-icons.jsx';
@@ -21,16 +22,9 @@ class SignIn extends PureComponent {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const {user, history} = this.props;
-
-    if (user && user.id) {
-      history.push(`/`);
-    }
-  }
-
   render() {
     const {
+      user,
       email,
       password,
       onChangePassword,
@@ -39,6 +33,10 @@ class SignIn extends PureComponent {
       validationError
     } = this.props;
     const errorMessage = validationError || error;
+
+    if (user && user.id) {
+      return <Redirect to={`/`} />;
+    }
 
     return <Fragment>
       <GlobalIcons />
@@ -136,7 +134,7 @@ SignIn.propTypes = {
   onSetError: PropTypes.func,
   onResetErrors: PropTypes.func,
   user: Header.propTypes.user,
-  history: PropTypes.arrayOf(PropTypes.any),
+  history: PropTypes.object,
   error: PropTypes.object,
   validationError: PropTypes.string
 };
