@@ -2,7 +2,7 @@ import React from 'react';
 
 import Logo from '../logo/logo.jsx';
 import {BASE_URL} from '../../consts.js';
-import Header from '../header/header.jsx';
+import {userInfo} from '../../models.js';
 
 
 const MyListHeader = ({user}) => {
@@ -20,7 +20,7 @@ const MyListHeader = ({user}) => {
 };
 
 MyListHeader.propTypes = {
-  user: Header.propTypes.user
+  user: userInfo
 };
 
 export default MyListHeader;

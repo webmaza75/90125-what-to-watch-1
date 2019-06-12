@@ -5,8 +5,8 @@ import {Redirect} from 'react-router-dom';
 import {getUser} from '../../reducers/user/selectors.js';
 import {userInfo} from '../../models.js';
 
-const withPrivateRouter = (Component) => {
-  class WithPrivateRouter extends PureComponent {
+const withSignInRouter = (Component) => {
+  class WithSignInRouter extends PureComponent {
     constructor(props) {
       super(props);
     }
@@ -16,8 +16,8 @@ const withPrivateRouter = (Component) => {
         user
       } = this.props;
 
-      if (!user || !user.id) {
-        return <Redirect to={`/login`} />;
+      if (user && user.id) {
+        return <Redirect to={`/`} />;
       }
 
       return <Component
@@ -26,7 +26,7 @@ const withPrivateRouter = (Component) => {
     }
   }
 
-  WithPrivateRouter.propTypes = {
+  WithSignInRouter.propTypes = {
     user: userInfo
   };
 
@@ -34,9 +34,9 @@ const withPrivateRouter = (Component) => {
     user: getUser(state)
   });
 
-  const wrapper = connect(mapStateToProps)(WithPrivateRouter);
+  const wrapper = connect(mapStateToProps)(WithSignInRouter);
 
   return wrapper;
 };
 
-export default withPrivateRouter;
+export default withSignInRouter;

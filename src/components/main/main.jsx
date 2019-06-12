@@ -16,6 +16,7 @@ import {getUser} from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
 import GlobalIcons from '../global-icons/global-icons.jsx';
 import Footer from '../footer/footer.jsx';
+import {userInfo} from '../../models.js';
 
 const GenreListWrapped = withActiveItem(GenreList);
 const FilmListWrapped = withActiveItem(FilmList);
@@ -116,7 +117,7 @@ Main.propTypes = {
   filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
   onChangeFilter: PropTypes.func,
   genres: PropTypes.arrayOf(PropTypes.string),
-  user: Header.propTypes.user,
+  user: userInfo
 };
 
 const mapStateToProps = (state) => ({
@@ -131,7 +132,6 @@ export {Main};
 export default connect(
     mapStateToProps,
     {
-      // onRequireAuthorization: ActionCreator.requireAuthorization,
       onChangeFilter: ActionCreator.changeFilter
     }
 )(Main);

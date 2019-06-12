@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 import Logo from '../logo/logo.jsx';
 import {BASE_URL} from '../../consts.js';
+import {userInfo} from '../../models.js';
 
 const Header = (props) => {
   let userBlock;
@@ -33,12 +33,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    email: PropTypes.string,
-    avatarUrl: PropTypes.string
-  })
+  user: userInfo
 };
 
 export default Header;

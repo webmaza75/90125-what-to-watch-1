@@ -2,15 +2,15 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {itemShape} from '../film-item/film-item.jsx';
+import {itemShape} from '../../models.js';
 import FilmList from '../film-list/film-list.jsx';
-import Header from '../header/header.jsx';
 import {getFavoriteList} from '../../reducers/films/selectors.js';
 import {getUser} from '../../reducers/user/selectors.js';
 import GlobalIcons from '../global-icons/global-icons.jsx';
 import Footer from '../footer/footer.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
 import MyListHeader from '../my-list-header/my-list-header.jsx';
+import {userInfo} from '../../models.js';
 
 const FilmListWrapped = withActiveItem(FilmList);
 
@@ -38,7 +38,7 @@ const mapDispatchToProps = (state) => ({
 
 
 MyList.propTypes = {
-  user: Header.propTypes.user,
+  user: userInfo,
   myList: PropTypes.arrayOf(itemShape)
 };
 

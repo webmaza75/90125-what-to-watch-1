@@ -1,20 +1,20 @@
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Redirect} from 'react-router-dom';
+import {compose} from 'recompose';
 
 import SignInHeader from '../sign-in-header/sign-in-header.jsx';
 import GlobalIcons from '../global-icons/global-icons.jsx';
 import Footer from '../footer/footer.jsx';
 import {Operation} from '../../reducers/user/user.js';
 import {ValidationErrors} from '../../consts.js';
-import Header from '../header/header.jsx';
 import {
-  getUser,
   getError,
   getValidationError
 } from '../../reducers/user/selectors.js';
 import {ActionCreator} from '../../actions/actions.js';
+import withSignInRouter from '../../hocs/with-sign-in-router/with-sign-in-router.js';
+import withSignInUser from '../../hocs/with-sign-in-user/with-sign-in-user.js';
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -24,7 +24,6 @@ class SignIn extends PureComponent {
 
   render() {
     const {
-      user,
       email,
       password,
       onChangePassword,
@@ -33,10 +32,6 @@ class SignIn extends PureComponent {
       validationError
     } = this.props;
     const errorMessage = validationError || error;
-
-    if (user && user.id) {
-      return <Redirect to={`/`} />;
-    }
 
     return <Fragment>
       <GlobalIcons />
@@ -113,11 +108,7 @@ class SignIn extends PureComponent {
       onResetErrors();
       onLogin({email, password})
         .then(() => {
-          if (history.length > 1) {
-            history.goBack();
-          } else {
-            history.push(`/`);
-          }
+          history.push(`/`);
         });
     } else {
       onSetError(validationError);
@@ -133,25 +124,26 @@ SignIn.propTypes = {
   onLogin: PropTypes.func,
   onSetError: PropTypes.func,
   onResetErrors: PropTypes.func,
-  user: Header.propTypes.user,
   history: PropTypes.object,
   error: PropTypes.object,
   validationError: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-  user: getUser(state),
   error: getError(state),
   validationError: getValidationError(state)
 });
 
 export {SignIn};
 
-export default connect(
-    mapStateToProps,
-    {
-      onLogin: Operation.signInUser,
-      onSetError: ActionCreator.setSignInError,
-      onResetErrors: ActionCreator.resetErrors
-    }
-)(SignIn);
+export default compose(
+    connect(
+        mapStateToProps,
+        {
+          onLogin: Operation.signInUser,
+          onSetError: ActionCreator.setSignInError,
+          onResetErrors: ActionCreator.resetErrors
+        }
+    ),
+    withSignInRouter,
+    withSignInUser)(SignIn);
