@@ -37,3 +37,7 @@ export const getFavoriteList = createSelector(
       return films.filter((item) => item.isFavorite === true);
     }
 );
+
+export const getMovieById = (state, filmId) => {
+  return state[NAME_SPACE].films.find((item) => item.id === +filmId);
+};

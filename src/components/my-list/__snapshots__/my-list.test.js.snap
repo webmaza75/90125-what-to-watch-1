@@ -184,24 +184,29 @@ exports[`MyList correctly renders without any errors 1`] = `
       <article
         className="small-movie-card catalog__movies-card"
       >
-        <div
-          className="small-movie-card__image"
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+        <a
+          href="/film/1"
+          onClick={[Function]}
         >
-          <img
-            alt="War of the Worlds"
-            height="175"
-            src="https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg"
-            width="280"
-          />
-        </div>
+          <div
+            className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <img
+              alt="War of the Worlds"
+              height="175"
+              src="https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg"
+              width="280"
+            />
+          </div>
+        </a>
         <h3
           className="small-movie-card__title"
         >
           <a
             className="small-movie-card__link"
-            href="movie-page.html"
+            href="/film/1"
             onClick={[Function]}
           >
             War of the Worlds
@@ -211,24 +216,29 @@ exports[`MyList correctly renders without any errors 1`] = `
       <article
         className="small-movie-card catalog__movies-card"
       >
-        <div
-          className="small-movie-card__image"
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+        <a
+          href="/film/2"
+          onClick={[Function]}
         >
-          <img
-            alt="Macbeth"
-            height="175"
-            src="https://es31-server.appspot.com/wtw/static/film/preview/macbeth.jpg"
-            width="280"
-          />
-        </div>
+          <div
+            className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <img
+              alt="Macbeth"
+              height="175"
+              src="https://es31-server.appspot.com/wtw/static/film/preview/macbeth.jpg"
+              width="280"
+            />
+          </div>
+        </a>
         <h3
           className="small-movie-card__title"
         >
           <a
             className="small-movie-card__link"
-            href="movie-page.html"
+            href="/film/2"
             onClick={[Function]}
           >
             Macbeth
@@ -238,24 +248,29 @@ exports[`MyList correctly renders without any errors 1`] = `
       <article
         className="small-movie-card catalog__movies-card"
       >
-        <div
-          className="small-movie-card__image"
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+        <a
+          href="/film/3"
+          onClick={[Function]}
         >
-          <img
-            alt="Moonrise Kingdom"
-            height="175"
-            src="https://es31-server.appspot.com/wtw/static/film/preview/moonrise-kingdom.jpg"
-            width="280"
-          />
-        </div>
+          <div
+            className="small-movie-card__image"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <img
+              alt="Moonrise Kingdom"
+              height="175"
+              src="https://es31-server.appspot.com/wtw/static/film/preview/moonrise-kingdom.jpg"
+              width="280"
+            />
+          </div>
+        </a>
         <h3
           className="small-movie-card__title"
         >
           <a
             className="small-movie-card__link"
-            href="movie-page.html"
+            href="/film/3"
             onClick={[Function]}
           >
             Moonrise Kingdom

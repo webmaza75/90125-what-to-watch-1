@@ -5,3 +5,10 @@ export const ValidationErrors = {
   INVALID_PASSWORD: `child \"password\" fails because [\"password\" is not allowed to be empty]`,
   INVALID_EMAIL_AND_PASSWORD: `\"email\" and \"password\" are not allowed to be empty`,
 };
+export const RatingLevels = {
+  AWESOME: `Awesome`,
+  VERY_GOOD: `Very good`,
+  GOOD: `Good`,
+  NORMAL: `Normal`,
+  BAD: `Bad`
+};
