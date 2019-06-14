@@ -6,7 +6,6 @@ import {
   getRating,
   getMoreFilmsByGenre
 } from '../../utils.js';
-import GlobalIcons from '../global-icons/global-icons.jsx';
 import {
   itemShape,
   userInfo
@@ -45,7 +44,6 @@ class MovieDetails extends PureComponent {
     const moreFilms = getMoreFilmsByGenre(films, movie);
 
     return <Fragment>
-      <GlobalIcons />
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">

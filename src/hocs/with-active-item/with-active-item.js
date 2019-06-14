@@ -6,8 +6,7 @@ const withActiveItem = (Component) => {
     constructor(props) {
       super(props);
       this.state = {
-        activeItem: props.activeItem || null,
-        prevPropItemId: props.itemId
+        activeItem: props.activeItem || null
       };
       this._handleChange = this._handleChange.bind(this);
     }
@@ -29,8 +28,7 @@ const withActiveItem = (Component) => {
   }
 
   WithActiveItem.propTypes = {
-    activeItem: PropTypes.any,
-    itemId: PropTypes.string
+    activeItem: PropTypes.any
   };
   return WithActiveItem;
 };

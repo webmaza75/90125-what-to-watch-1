@@ -12,3 +12,5 @@ export const RatingLevels = {
   NORMAL: `Normal`,
   BAD: `Bad`
 };
+export const MAX_GENRES = 10;
+export const MAX_FILMS = 20;

@@ -9,7 +9,8 @@ exports[`Header correctly renders Header correctly renders for authorized user 1
   >
     <a
       className="logo__link "
-      href="main.html"
+      href="/"
+      onClick={[Function]}
     >
       <span
         className="logo__letter logo__letter--1"
@@ -59,7 +60,8 @@ exports[`Header correctly renders Header correctly renders for guest 1`] = `
   >
     <a
       className="logo__link "
-      href="main.html"
+      href="/"
+      onClick={[Function]}
     >
       <span
         className="logo__letter logo__letter--1"
