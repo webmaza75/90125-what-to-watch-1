@@ -26,3 +26,14 @@ export const itemShape = PropTypes.shape({
   starring: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
   videoLink: PropTypes.string
 });
+
+export const reviewShape = PropTypes.shape({
+  id: PropTypes.number,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string
+  }),
+  rating: PropTypes.number,
+  comment: PropTypes.string,
+  date: PropTypes.string
+});

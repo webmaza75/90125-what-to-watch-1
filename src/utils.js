@@ -26,7 +26,11 @@ export const getMovieRatingLevel = (ratingValue) => {
 };
 
 export const getRating = (rating) => {
-  return rating.toString().replace(`.`, `,`);
+  const ratingToString = rating.toString();
+  if (ratingToString.indexOf(`.`) !== -1) {
+    return ratingToString.replace(`.`, `,`);
+  }
+  return ratingToString + `,0`;
 };
 
 export const getMoreFilmsByGenre = (films, movie, max = 4) => {
@@ -35,4 +39,23 @@ export const getMoreFilmsByGenre = (films, movie, max = 4) => {
   return max < moreFilms.length ?
     moreFilms.slice(0, max) :
     moreFilms.slice(0);
+};
+export const getRunTime = (runTime) => {
+  if (runTime < 60) {
+    return `${runTime} m`;
+  }
+
+  return `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
+};
+
+export const getCommentDate = (date) => {
+  const newDate = new Date(date);
+  const month = newDate.toLocaleString(`en-US`, {
+    month: `long`
+  });
+
+  return {
+    date: `${month} ${newDate.getDate()}, ${newDate.getFullYear()}`,
+    dateTime: date.split(`T`)[0]
+  };
 };

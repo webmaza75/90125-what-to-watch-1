@@ -28,6 +28,14 @@ const ActionCreator = {
   resetErrors: () => ({
     type: ActionTypes.RESET_ERRORS,
     payload: undefined
+  }),
+  loadComments: (comments) => ({
+    type: ActionTypes.LOAD_COMMENTS,
+    payload: comments
+  }),
+  resetComments: () => ({
+    type: ActionTypes.RESET_COMMENTS,
+    payload: []
   })
 };
 

@@ -8,20 +8,30 @@ import filmList from '../../mocks/films.js';
 import {ALL_GENRES} from '../../consts.js';
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api.js';
+import reviews from '../../mocks/reviews.js';
 
 const initialState = {
   films: [],
-  filter: ALL_GENRES
+  filter: ALL_GENRES,
+  comments: []
 };
 
 const afterLoadFilmsState = {
   filter: ALL_GENRES,
-  films: filmList
+  films: filmList,
+  comments: []
 };
 
 const stateWithComedy = {
   films: filmList,
-  filter: `Comedy`
+  filter: `Comedy`,
+  comments: []
+};
+
+const afterLoadCommentsState = {
+  filter: ALL_GENRES,
+  films: filmList,
+  comments: reviews
 };
 
 describe(`Reducer works correctly`, () => {
@@ -69,5 +79,38 @@ describe(`Reducer works correctly`, () => {
           payload: result,
         });
       });
+  });
+
+  it(`Should make a correct API call to /comments`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const commentsLoader = Operation.loadComments(1);
+
+    apiMock
+      .onGet(`/comments/1`)
+      .reply(200, [{fake: true}]);
+
+    return commentsLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.LOAD_COMMENTS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Reducer loads comments`, () => {
+    expect(reducer(afterLoadFilmsState, {
+      type: ActionTypes.LOAD_COMMENTS,
+      payload: reviews
+    })).toEqual(afterLoadCommentsState);
+  });
+
+  it(`Reducer reset comments`, () => {
+    expect(reducer(afterLoadCommentsState, {
+      type: ActionTypes.RESET_COMMENTS,
+      payload: []
+    })).toEqual(afterLoadFilmsState);
   });
 });
