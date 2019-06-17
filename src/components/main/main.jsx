@@ -14,11 +14,9 @@ import {
 } from '../../reducers/films/selectors.js';
 import {getUser} from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
-import GlobalIcons from '../global-icons/global-icons.jsx';
 import Footer from '../footer/footer.jsx';
 import {userInfo} from '../../models.js';
 
-const GenreListWrapped = withActiveItem(GenreList);
 const FilmListWrapped = withActiveItem(FilmList);
 
 class Main extends PureComponent {
@@ -36,8 +34,6 @@ class Main extends PureComponent {
     } = this.props;
 
     return <Fragment>
-      <GlobalIcons />
-
       <section className="movie-card">
         <div className="movie-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -85,11 +81,10 @@ class Main extends PureComponent {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreListWrapped
+          <GenreList
             genres={genres}
-            onMenuClick={this._handleMenuClick}
+            onChange={this._handleMenuClick}
             activeItem={filter}
-            key={filter}
           />
 
           <FilmListWrapped

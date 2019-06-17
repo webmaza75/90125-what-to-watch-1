@@ -6,7 +6,6 @@ import {itemShape} from '../../models.js';
 import FilmList from '../film-list/film-list.jsx';
 import {getFavoriteList} from '../../reducers/films/selectors.js';
 import {getUser} from '../../reducers/user/selectors.js';
-import GlobalIcons from '../global-icons/global-icons.jsx';
 import Footer from '../footer/footer.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
 import MyListHeader from '../my-list-header/my-list-header.jsx';
@@ -16,10 +15,12 @@ const FilmListWrapped = withActiveItem(FilmList);
 
 class MyList extends PureComponent {
   render() {
-    const {myList, user} = this.props;
-    return <div className="user-page">
-      <GlobalIcons />
+    const {
+      myList,
+      user
+    } = this.props;
 
+    return <div className="user-page">
       <MyListHeader user={user} />
 
       <section className="catalog">

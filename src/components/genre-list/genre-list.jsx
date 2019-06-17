@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {MAX_GENRES} from '../../consts.js';
+
 const GenreList = ({genres, activeItem, onChange, onMenuClick}) => {
 
-  const menu = genres.map((title) => {
+  const menu = genres.slice(0, MAX_GENRES).map((title) => {
     let className = `catalog__genres-item`;
     if (title === activeItem) {
       className += ` catalog__genres-item--active`;

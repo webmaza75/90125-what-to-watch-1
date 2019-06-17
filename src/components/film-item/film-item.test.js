@@ -1,26 +1,23 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
+import {MemoryRouter} from 'react-router-dom';
 import FilmItem from './film-item.jsx';
+import film from '../../mocks/film.js';
 
 window.HTMLMediaElement.prototype.play = () => {};
-
-const mock = {
-  title: `Aviator`,
-  picture: `aviator.jpg`,
-  src: ``
-};
 
 describe(``, () => {
   it(`Film item correctly renders with isPlaying false`, () => {
     const tree = renderer
-      .create(<FilmItem
-        item={mock}
-        onClick={jest.fn()}
-        isPlaying={false}
-        onMouseOver={jest.fn()}
-        onMouseOut={jest.fn()}
-      />)
+      .create(<MemoryRouter initialEntries={[`/`]}>
+        <FilmItem
+          item={film}
+          isPlaying={false}
+          onMouseOver={jest.fn()}
+          onMouseOut={jest.fn()}
+        />
+      </MemoryRouter>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -28,13 +25,14 @@ describe(``, () => {
 
   it(`Film item correctly renders with isPlaying true`, () => {
     const tree = renderer
-      .create(<FilmItem
-        item={mock}
-        onClick={jest.fn()}
-        isPlaying={true}
-        onMouseOver={jest.fn()}
-        onMouseOut={jest.fn()}
-      />)
+      .create(<MemoryRouter initialEntries={[`/`]}>
+        <FilmItem
+          item={film}
+          isPlaying={true}
+          onMouseOver={jest.fn()}
+          onMouseOut={jest.fn()}
+        />
+      </MemoryRouter>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

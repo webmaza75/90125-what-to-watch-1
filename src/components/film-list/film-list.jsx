@@ -13,7 +13,6 @@ const FilmList = ({films, onChange, activeItem}) => {
     return <FilmItemWrapped
       item={item}
       key={item.id}
-      onClick={onChange}
       onHover={onChange}
       activeItem={activeItem}
     />;

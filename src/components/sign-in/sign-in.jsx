@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {compose} from 'recompose';
 
 import SignInHeader from '../sign-in-header/sign-in-header.jsx';
-import GlobalIcons from '../global-icons/global-icons.jsx';
 import Footer from '../footer/footer.jsx';
 import {Operation} from '../../reducers/user/user.js';
 import {ValidationErrors} from '../../consts.js';
@@ -13,7 +12,6 @@ import {
   getValidationError
 } from '../../reducers/user/selectors.js';
 import {ActionCreator} from '../../actions/actions.js';
-import withSignInRouter from '../../hocs/with-sign-in-router/with-sign-in-router.js';
 import withSignInUser from '../../hocs/with-sign-in-user/with-sign-in-user.js';
 
 class SignIn extends PureComponent {
@@ -34,7 +32,6 @@ class SignIn extends PureComponent {
     const errorMessage = validationError || error;
 
     return <Fragment>
-      <GlobalIcons />
       <div className="user-page">
         <SignInHeader />
 
@@ -145,5 +142,4 @@ export default compose(
           onResetErrors: ActionCreator.resetErrors
         }
     ),
-    withSignInRouter,
     withSignInUser)(SignIn);
