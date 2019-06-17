@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FilmItem, {itemShape} from '../film-item/film-item.jsx';
+import FilmItem from '../film-item/film-item.jsx';
 import withFilmItem from '../../hocs/with-film-item/with-film-item.js';
+import {itemShape} from '../../models.js';
 
 const FilmItemWrapped = withFilmItem(FilmItem);
 

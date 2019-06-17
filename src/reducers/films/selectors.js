@@ -30,3 +30,10 @@ export const getGenres = createSelector(
       return [ALL_GENRES, ...new Set(allGenres)];
     }
 );
+
+export const getFavoriteList = createSelector(
+    getFilms,
+    (films) => {
+      return films.filter((item) => item.isFavorite === true);
+    }
+);

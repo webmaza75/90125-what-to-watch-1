@@ -4,7 +4,8 @@ import {ActionCreator} from '../../actions/actions.js';
 const initialState = {
   isAuthorizationRequired: false,
   userInfo: undefined,
-  error: undefined
+  error: undefined,
+  validationError: undefined
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +23,17 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.SIGN_IN_USER_ERROR:
       return {
         ...state,
+        error: action.payload
+      };
+    case ActionTypes.VALIDATE_SIGN_IN_USER_ERROR:
+      return {
+        ...state,
+        validationError: action.payload
+      };
+    case ActionTypes.RESET_ERRORS:
+      return {
+        ...state,
+        validationError: action.payload,
         error: action.payload
       };
   }

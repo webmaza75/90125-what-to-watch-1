@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import VideoPlayer from '../video-player/video-player.jsx';
+import {itemShape} from '../../models.js';
 
 const FilmItem = (props) => {
   const {
@@ -37,26 +38,6 @@ const FilmItem = (props) => {
     </h3>
   </article>;
 };
-
-export const itemShape = PropTypes.shape({
-  backgroundColor: PropTypes.string,
-  backgroundImage: PropTypes.string,
-  description: PropTypes.string,
-  director: PropTypes.string,
-  genre: PropTypes.string,
-  id: PropTypes.number,
-  isFavorite: PropTypes.bool,
-  title: PropTypes.string,
-  posterImage: PropTypes.string,
-  picture: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
-  rating: PropTypes.number,
-  released: PropTypes.number,
-  runTime: PropTypes.number,
-  scoresCount: PropTypes.number,
-  starring: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]),
-  videoLink: PropTypes.string
-});
 
 FilmItem.propTypes = {
   item: itemShape.isRequired,

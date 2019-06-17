@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import Logo from '../logo/logo.jsx';
 import {BASE_URL} from '../../consts.js';
+import {userInfo} from '../../models.js';
 
 const Header = (props) => {
   let userBlock;
@@ -12,17 +13,16 @@ const Header = (props) => {
   if (isGuest === false) {
     userBlock = <div className="user-block">
       <div className="user-block__avatar">
-        <img src={`${BASE_URL}${user.avatarUrl}`} alt="User avatar" width="63" height="63" />
+        <Link to={`/mylist`}>
+          <img src={`${BASE_URL}${user.avatarUrl}`} alt="User avatar" width="63" height="63" />
+        </Link>
       </div>
     </div>;
   } else {
     userBlock = <div className="user-block">
-      <a href="sign-in.html" className="user-block__link" onClick={
-        (event) => {
-          event.preventDefault();
-          props.onClick();
-        }
-      }>Sign in</a>
+      <Link to={`/login`} className="user-block__link">
+        Sign in
+      </Link>
     </div>;
   }
 
@@ -33,13 +33,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    email: PropTypes.string,
-    avatarUrl: PropTypes.string
-  }),
-  onClick: PropTypes.func
+  user: userInfo
 };
 
 export default Header;
