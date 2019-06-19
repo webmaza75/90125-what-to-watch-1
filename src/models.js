@@ -20,6 +20,7 @@ export const itemShape = PropTypes.shape({
   picture: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   rating: PropTypes.number,
+  ratingLevel: PropTypes.string,
   released: PropTypes.number,
   runTime: PropTypes.number,
   scoresCount: PropTypes.number,

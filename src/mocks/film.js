@@ -11,6 +11,7 @@ const film = {
   picture: `https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg`,
   src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   rating: 6.5,
+  ratingLevel: `Good`,
   released: 2005,
   runTime: 116,
   scoresCount: 386834,

@@ -106,11 +106,4 @@ describe(`Reducer works correctly`, () => {
       payload: reviews
     })).toEqual(afterLoadCommentsState);
   });
-
-  it(`Reducer reset comments`, () => {
-    expect(reducer(afterLoadCommentsState, {
-      type: ActionTypes.RESET_COMMENTS,
-      payload: []
-    })).toEqual(afterLoadFilmsState);
-  });
 });

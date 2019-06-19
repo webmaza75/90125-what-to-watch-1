@@ -19,6 +19,7 @@ const MovieTabs = ({activeItem, onChange, movie, reviews}) => {
     director,
     genre,
     rating,
+    ratingLevel,
     released,
     runTime,
     scoresCount,
@@ -38,7 +39,7 @@ const MovieTabs = ({activeItem, onChange, movie, reviews}) => {
       break;
     case Tabs.REVIEWS:
       movieBlock = <MovieTabReviews
-        reviews={reviews()}
+        reviews={reviews}
       />;
       break;
     default:
@@ -48,6 +49,7 @@ const MovieTabs = ({activeItem, onChange, movie, reviews}) => {
         description={description}
         director={director}
         starring={starring}
+        ratingLevel={ratingLevel}
       />;
       break;
   }
@@ -55,7 +57,7 @@ const MovieTabs = ({activeItem, onChange, movie, reviews}) => {
   const tabList = tabs.map((title) => {
     let className = `movie-nav__item`;
     if (title === activeItem) {
-      className = `movie-nav__item movie-nav__item--active`;
+      className += ` movie-nav__item--active`;
     }
     return <li className={className} key={title}>
       <a href="#" className="movie-nav__link" onClick={

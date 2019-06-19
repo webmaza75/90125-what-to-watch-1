@@ -2,16 +2,15 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  getMovieRatingLevel,
-  getRating
+  formatRating
 } from '../../utils.js';
 
-const MovieTabOverview = ({rating, scoresCount, description, director, starring}) => {
+const MovieTabOverview = ({rating, scoresCount, description, director, starring, ratingLevel}) => {
   return <Fragment>
     <div className="movie-rating">
-      <div className="movie-rating__score">{getRating(rating)}</div>
+      <div className="movie-rating__score">{formatRating(rating)}</div>
       <p className="movie-rating__meta">
-        <span className="movie-rating__level">{getMovieRatingLevel(rating)}</span>
+        <span className="movie-rating__level">{ratingLevel}</span>
         <span className="movie-rating__count">{scoresCount} ratings</span>
       </p>
     </div>
@@ -29,7 +28,8 @@ MovieTabOverview.propTypes = {
   starring: PropTypes.arrayOf(PropTypes.string),
   rating: PropTypes.number,
   scoresCount: PropTypes.number,
-  description: PropTypes.string
+  description: PropTypes.string,
+  ratingLevel: PropTypes.string
 };
 
 export default MovieTabOverview;

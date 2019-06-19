@@ -5,13 +5,13 @@ export const ValidationErrors = {
   INVALID_PASSWORD: `child \"password\" fails because [\"password\" is not allowed to be empty]`,
   INVALID_EMAIL_AND_PASSWORD: `\"email\" and \"password\" are not allowed to be empty`,
 };
-export const RatingLevels = {
-  AWESOME: `Awesome`,
-  VERY_GOOD: `Very good`,
-  GOOD: `Good`,
-  NORMAL: `Normal`,
-  BAD: `Bad`
-};
+export const RatingLevels = [
+  [10, `Awesome`],
+  [8, `Very good`],
+  [5, `Good`],
+  [3, `Normal`],
+  [0, `Bad`]
+];
 export const MAX_GENRES = 10;
 export const MAX_FILMS = 20;
 export const tabs = [
@@ -24,4 +24,19 @@ export const Tabs = {
   DETAILS: `Details`,
   REVIEWS: `Reviews`
 };
-export const NO_COMMENTS = `No comments`;
+export const MIN_TEXTAREA_LENGHT = 50;
+export const MAX_TEXTAREA_LENGHT = 400;
+export const MONTHS = [
+  `January`,
+  `February`,
+  `March`,
+  `April`,
+  `May`,
+  `June`,
+  `July`,
+  `August`,
+  `September`,
+  `October`,
+  `November`,
+  `December`
+];

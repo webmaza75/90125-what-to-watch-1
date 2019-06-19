@@ -10,7 +10,8 @@ it(`MovieTabOverview correctly renders`, () => {
     starring,
     rating,
     scoresCount,
-    description
+    description,
+    ratingLevel
   } = film;
 
   const tree = renderer
@@ -20,6 +21,7 @@ it(`MovieTabOverview correctly renders`, () => {
       rating={rating}
       scoresCount={scoresCount}
       description={description}
+      ratingLevel={ratingLevel}
     />)
     .toJSON();
 
