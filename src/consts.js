@@ -14,3 +14,14 @@ export const RatingLevels = {
 };
 export const MAX_GENRES = 10;
 export const MAX_FILMS = 20;
+export const tabs = [
+  `Overview`,
+  `Details`,
+  `Reviews`
+];
+export const Tabs = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`
+};
+export const NO_COMMENTS = `No comments`;

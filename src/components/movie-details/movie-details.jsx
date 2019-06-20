@@ -1,9 +1,8 @@
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+
 import {
-  getMovieRatingLevel,
-  getRating,
   getMoreFilmsByGenre
 } from '../../utils.js';
 import {
@@ -19,27 +18,36 @@ import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
+import MovieTabs from '../movie-tabs/movie-tabs.jsx';
+import {ActionCreator} from '../../actions/actions.js';
+import {Operation} from '../../reducers/films/films.js';
+import {Tabs} from '../../consts.js';
 
 const FilmListWrapped = withActiveItem(FilmList);
+const MovieTabsWrapped = withActiveItem(MovieTabs);
 
 class MovieDetails extends PureComponent {
   constructor(props) {
     super(props);
   }
 
+  componentWillUnmount() {
+    const {onResetComments} = this.props;
+    onResetComments();
+  }
+
   render() {
-    const {movie, user, films} = this.props;
+    const {movie, user, films, onLoadComments, location} = this.props;
+    if (!movie || !films) {
+      return null;
+    }
     const {
+      id,
       backgroundImage,
-      description,
-      director,
       genre,
       title,
       posterImage,
-      rating,
-      released,
-      scoresCount,
-      starring,
+      released
     } = movie;
     const moreFilms = getMoreFilmsByGenre(films, movie);
 
@@ -87,35 +95,15 @@ class MovieDetails extends PureComponent {
               <img src={posterImage} alt={`${title} poster`} width="218" height="327" />
             </div>
 
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <MovieTabsWrapped
+              activeItem ={Tabs.OVERVIEW}
+              href={`/film/${id}`}
+              key={id}
+              location={location}
+              movie={movie}
+              reviews={() => onLoadComments(id)}
+            />
 
-              <div className="movie-rating">
-                <div className="movie-rating__score">{getRating(rating)}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{getMovieRatingLevel(rating)}</span>
-                  <span className="movie-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                {description}
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-                <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)}</strong></p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -139,7 +127,10 @@ class MovieDetails extends PureComponent {
 MovieDetails.propTypes = {
   movie: itemShape,
   films: PropTypes.arrayOf(itemShape),
-  user: userInfo
+  user: userInfo,
+  location: PropTypes.object,
+  onLoadComments: PropTypes.func,
+  onResetComments: PropTypes.func
 };
 
 const mapStateToProps = (state, {match}) => ({
@@ -150,4 +141,10 @@ const mapStateToProps = (state, {match}) => ({
 
 export {MovieDetails};
 
-export default connect(mapStateToProps)(MovieDetails);
+export default connect(
+    mapStateToProps,
+    {
+      onLoadComments: Operation.loadComments,
+      onResetComments: ActionCreator.resetComments
+    }
+)(MovieDetails);

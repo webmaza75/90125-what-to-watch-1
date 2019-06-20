@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {MAX_GENRES} from '../../consts.js';
 
-const GenreList = ({genres, activeItem, onChange, onMenuClick}) => {
+const GenreList = ({genres, activeItem, onChange}) => {
 
   const menu = genres.slice(0, MAX_GENRES).map((title) => {
     let className = `catalog__genres-item`;
@@ -15,7 +15,6 @@ const GenreList = ({genres, activeItem, onChange, onMenuClick}) => {
         (event) => {
           event.preventDefault();
           onChange(title);
-          onMenuClick(title);
         }
       }>{title}</a>
     </li>;
@@ -29,8 +28,7 @@ const GenreList = ({genres, activeItem, onChange, onMenuClick}) => {
 GenreList.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   activeItem: PropTypes.string,
-  onChange: PropTypes.func,
-  onMenuClick: PropTypes.func
+  onChange: PropTypes.func
 };
 
 export default GenreList;

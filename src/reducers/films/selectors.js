@@ -41,3 +41,7 @@ export const getFavoriteList = createSelector(
 export const getMovieById = (state, filmId) => {
   return state[NAME_SPACE].films.find((item) => item.id === +filmId);
 };
+
+export const getReviews = (state) => {
+  return state[NAME_SPACE].comments;
+};

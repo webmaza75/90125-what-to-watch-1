@@ -5,6 +5,7 @@ import {ActionCreator} from '../../actions/actions.js';
 const initialState = {
   films: [],
   filter: ALL_GENRES,
+  comments: []
 };
 
 export const transform = (data) => ({
@@ -35,6 +36,12 @@ const Operation = {
       dispatch(ActionCreator.loadFilms(result));
     });
   },
+  loadComments: (filmId) => (dispatch, getState, api) => {
+    return api.get(`/comments/${filmId}`)
+    .then((response) => {
+      dispatch(ActionCreator.loadComments(response.data));
+    });
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +56,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         filter: action.payload
       };
+    case ActionTypes.LOAD_COMMENTS:
+      return ({
+        ...state,
+        comments: action.payload,
+      });
+    case ActionTypes.RESET_COMMENTS:
+      return ({
+        ...state,
+        comments: [],
+      });
   }
   return state;
 };
