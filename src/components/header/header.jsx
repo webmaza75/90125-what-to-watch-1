@@ -1,16 +1,22 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Logo from '../logo/logo.jsx';
 import {BASE_URL} from '../../consts.js';
 import {userInfo} from '../../models.js';
+import {
+  getUser,
+  isAuthorizedUser
+} from '../../reducers/user/selectors.js';
 
 const Header = (props) => {
-  let userBlock;
-  const {user} = props;
-  const isGuest = !user || !user.id;
 
-  if (isGuest === false) {
+  let userBlock;
+  const {user, isAuthorized} = props;
+
+  if (isAuthorized) {
     userBlock = <div className="user-block">
       <div className="user-block__avatar">
         <Link to={`/mylist`}>
@@ -33,7 +39,15 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  user: userInfo
+  user: userInfo,
+  isAuthorized: PropTypes.bool
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  user: getUser(state),
+  isAuthorized: isAuthorizedUser(state)
+});
+
+export {Header};
+
+export default connect(mapStateToProps)(Header);

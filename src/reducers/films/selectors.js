@@ -42,6 +42,6 @@ export const getMovieById = (state, filmId) => {
   return state[NAME_SPACE].films.find((item) => item.id === +filmId);
 };
 
-export const getReviews = (state) => {
+export const getComments = (state) => {
   return state[NAME_SPACE].comments;
 };

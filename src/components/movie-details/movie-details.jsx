@@ -7,15 +7,14 @@ import {
   getMoreFilmsByGenre
 } from '../../utils.js';
 import {
-  itemShape,
-  userInfo
+  itemShape
 } from '../../models.js';
 import {
   getMovieById,
   getFilms,
-  getReviews
+  getComments
 } from '../../reducers/films/selectors.js';
-import {getUser} from '../../reducers/user/selectors.js';
+import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
@@ -47,10 +46,10 @@ class MovieDetails extends PureComponent {
   render() {
     const {
       movie,
-      user,
       films,
       comments,
-      location
+      location,
+      isAuthorized
     } = this.props;
 
     if (!movie || !films) {
@@ -67,8 +66,6 @@ class MovieDetails extends PureComponent {
     } = movie;
     const moreFilms = getMoreFilmsByGenre(films, movie);
 
-    const isAuthorizedUser = user && user.id;
-
     return <Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
@@ -77,7 +74,7 @@ class MovieDetails extends PureComponent {
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-          <Header user={user} />
+          <Header />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -100,7 +97,7 @@ class MovieDetails extends PureComponent {
                   </svg>
                   <span>My list</span>
                 </button>
-                {isAuthorizedUser &&
+                {isAuthorized &&
                   <Link to={`/film/${id}/review`} className="btn movie-card__button">Add review</Link>
                 }
               </div>
@@ -147,18 +144,18 @@ class MovieDetails extends PureComponent {
 MovieDetails.propTypes = {
   movie: itemShape,
   films: PropTypes.arrayOf(itemShape),
-  user: userInfo,
   location: PropTypes.object,
   onLoadComments: PropTypes.func,
   comments: PropTypes.arrayOf(PropTypes.object),
-  match: PropTypes.object
+  match: PropTypes.object,
+  isAuthorized: PropTypes.bool
 };
 
 const mapStateToProps = (state, {match}) => ({
   movie: getMovieById(state, match.params.id),
-  user: getUser(state),
   films: getFilms(state),
-  comments: getReviews(state)
+  comments: getComments(state),
+  isAuthorized: isAuthorizedUser(state)
 });
 
 export {MovieDetails};

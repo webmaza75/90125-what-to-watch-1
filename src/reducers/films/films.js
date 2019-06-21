@@ -51,8 +51,6 @@ const Operation = {
       .post(`/comments/${id}`, params)
       .then((res) => {
         dispatch(ActionCreator.addComment(res.data));
-      }).catch((error) => {
-        dispatch(ActionCreator.submitCommentsError(error.response.data.error));
       });
   }
 };

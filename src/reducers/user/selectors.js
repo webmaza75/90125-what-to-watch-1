@@ -17,3 +17,8 @@ export const getError = (state) => {
 export const getValidationError = (state) => {
   return state[NAME_SPACE].validationError;
 };
+
+export const isAuthorizedUser = (state) => {
+  const user = state[NAME_SPACE].userInfo;
+  return !!(user && user.id);
+};

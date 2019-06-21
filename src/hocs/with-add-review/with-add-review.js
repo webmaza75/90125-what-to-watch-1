@@ -5,7 +5,7 @@ const withAddReview = (Component) => {
     constructor(props) {
       super(props);
       this.state = {
-        selectedOption: undefined,
+        selectedOption: null,
         text: null,
         errorMessage: null,
         submiting: false
@@ -18,9 +18,9 @@ const withAddReview = (Component) => {
     render() {
       const {
         selectedOption,
+        text,
         validationError,
-        submiting,
-        text
+        submiting
       } = this.state;
 
       return <Component
@@ -81,29 +81,6 @@ const withAddReview = (Component) => {
       }
       return null;
     }
-
-    // _handleSubmit(event) {
-    //   const {
-    //     selectedOption,
-    //     text
-    //   } = this.state;
-
-    //   const {
-    //     onAddComment,
-    //     movie,
-    //     history
-    //   } = this.props;
-
-    //   this.setState({
-    //     submiting: true
-    //   });
-
-    //   event.preventDefault();
-    //   onAddComment(movie.id, {rating: +selectedOption, comment: text})
-    //     .then(() => {
-    //       history.push(`/film/${movie.id}`);
-    //     });
-    // }
   }
   return WithAddReview;
 };
