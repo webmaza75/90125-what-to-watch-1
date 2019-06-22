@@ -33,9 +33,9 @@ const ActionCreator = {
     type: ActionTypes.LOAD_COMMENTS,
     payload: comments
   }),
-  resetComments: () => ({
-    type: ActionTypes.RESET_COMMENTS,
-    payload: []
+  addComment: (comments) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comments
   })
 };
 

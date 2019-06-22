@@ -1,25 +1,25 @@
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 import {
   getMoreFilmsByGenre
 } from '../../utils.js';
 import {
-  itemShape,
-  userInfo
+  itemShape
 } from '../../models.js';
 import {
   getMovieById,
-  getFilms
+  getFilms,
+  getComments
 } from '../../reducers/films/selectors.js';
-import {getUser} from '../../reducers/user/selectors.js';
+import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
 import MovieTabs from '../movie-tabs/movie-tabs.jsx';
-import {ActionCreator} from '../../actions/actions.js';
 import {Operation} from '../../reducers/films/films.js';
 import {Tabs} from '../../consts.js';
 
@@ -31,16 +31,31 @@ class MovieDetails extends PureComponent {
     super(props);
   }
 
-  componentWillUnmount() {
-    const {onResetComments} = this.props;
-    onResetComments();
+  componentDidMount() {
+    const {onLoadComments, match} = this.props;
+    onLoadComments(match.params.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    const {onLoadComments, match} = this.props;
+    if (prevProps.match.params.id !== match.params.id) {
+      onLoadComments(match.params.id);
+    }
   }
 
   render() {
-    const {movie, user, films, onLoadComments, location} = this.props;
+    const {
+      movie,
+      films,
+      comments,
+      location,
+      isAuthorized
+    } = this.props;
+
     if (!movie || !films) {
       return null;
     }
+
     const {
       id,
       backgroundImage,
@@ -59,7 +74,7 @@ class MovieDetails extends PureComponent {
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-          <Header user={user} />
+          <Header />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -82,7 +97,9 @@ class MovieDetails extends PureComponent {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {isAuthorized &&
+                  <Link to={`/film/${id}/review`} className="btn movie-card__button">Add review</Link>
+                }
               </div>
 
             </div>
@@ -101,7 +118,7 @@ class MovieDetails extends PureComponent {
               key={id}
               location={location}
               movie={movie}
-              reviews={() => onLoadComments(id)}
+              reviews={comments}
             />
 
           </div>
@@ -127,16 +144,18 @@ class MovieDetails extends PureComponent {
 MovieDetails.propTypes = {
   movie: itemShape,
   films: PropTypes.arrayOf(itemShape),
-  user: userInfo,
   location: PropTypes.object,
   onLoadComments: PropTypes.func,
-  onResetComments: PropTypes.func
+  comments: PropTypes.arrayOf(PropTypes.object),
+  match: PropTypes.object,
+  isAuthorized: PropTypes.bool
 };
 
 const mapStateToProps = (state, {match}) => ({
   movie: getMovieById(state, match.params.id),
-  user: getUser(state),
-  films: getFilms(state)
+  films: getFilms(state),
+  comments: getComments(state),
+  isAuthorized: isAuthorizedUser(state)
 });
 
 export {MovieDetails};
@@ -144,7 +163,6 @@ export {MovieDetails};
 export default connect(
     mapStateToProps,
     {
-      onLoadComments: Operation.loadComments,
-      onResetComments: ActionCreator.resetComments
+      onLoadComments: Operation.loadComments
     }
 )(MovieDetails);

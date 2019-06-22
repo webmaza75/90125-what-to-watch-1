@@ -1,48 +1,33 @@
-import {RatingLevels} from './consts.js';
+import {
+  RatingLevels,
+  MONTHS
+} from './consts.js';
 
 export const getMovieRatingLevel = (ratingValue) => {
-  const rating = Math.floor(ratingValue);
+  const result = RatingLevels.find((element) => {
+    return element[0] <= ratingValue;
+  });
 
-  if (rating === 10) {
-    return RatingLevels.AWESOME;
+  if (!result) {
+    return result;
   }
-
-  if (rating >= 8) {
-    return RatingLevels.VERY_GOOD;
-  }
-
-  if (rating >= 5) {
-    return RatingLevels.GOOD;
-  }
-
-  if (rating >= 3) {
-    return RatingLevels.NORMAL;
-  }
-
-  if (rating >= 0) {
-    return RatingLevels.BAD;
-  }
-  return RatingLevels.AWESOME;
+  return result[1];
 };
 
-export const getRating = (rating) => {
-  const ratingToString = rating.toString();
-  if (ratingToString.indexOf(`.`) !== -1) {
-    return ratingToString.replace(`.`, `,`);
-  }
-  return ratingToString + `,0`;
+export const formatRating = (rating) => {
+  const ratingToString = rating.toFixed(1);
+  return ratingToString.replace(`.`, `,`);
 };
 
 export const getMoreFilmsByGenre = (films, movie, max = 4) => {
   const moreFilms = films.filter(({genre, id}) => genre === movie.genre && id !== movie.id);
 
-  return max < moreFilms.length ?
-    moreFilms.slice(0, max) :
-    moreFilms.slice(0);
+  return moreFilms.slice(0, max);
 };
+
 export const getRunTime = (runTime) => {
   if (runTime < 60) {
-    return `${runTime} m`;
+    return `${runTime}m`;
   }
 
   return `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
@@ -50,12 +35,15 @@ export const getRunTime = (runTime) => {
 
 export const getCommentDate = (date) => {
   const newDate = new Date(date);
-  const month = newDate.toLocaleString(`en-US`, {
-    month: `long`
-  });
+  const month = getMonthName(newDate.getMonth());
 
   return {
     date: `${month} ${newDate.getDate()}, ${newDate.getFullYear()}`,
     dateTime: date.split(`T`)[0]
   };
+};
+
+export const sortComments = ((a, b) => Date.parse(b.date) - Date.parse(a.date));
+export const getMonthName = (index) => {
+  return MONTHS[index];
 };

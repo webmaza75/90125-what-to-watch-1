@@ -12,10 +12,8 @@ import {
   getFilmsByGenre,
   getGenres
 } from '../../reducers/films/selectors.js';
-import {getUser} from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
-import {userInfo} from '../../models.js';
 
 const FilmListWrapped = withActiveItem(FilmList);
 
@@ -29,8 +27,7 @@ class Main extends PureComponent {
   render() {
     const {filmsGroup,
       filter,
-      genres,
-      user
+      genres
     } = this.props;
 
     return <Fragment>
@@ -41,9 +38,7 @@ class Main extends PureComponent {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header
-          user={user}
-        />
+        <Header />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -111,15 +106,13 @@ Main.propTypes = {
   filter: PropTypes.string,
   filmsGroup: PropTypes.arrayOf(FilmItem.propTypes.item),
   onChangeFilter: PropTypes.func,
-  genres: PropTypes.arrayOf(PropTypes.string),
-  user: userInfo
+  genres: PropTypes.arrayOf(PropTypes.string)
 };
 
 const mapStateToProps = (state) => ({
   filter: getActiveFilter(state),
   filmsGroup: getFilmsByGenre(state),
   genres: getGenres(state),
-  user: getUser(state)
 });
 
 export {Main};

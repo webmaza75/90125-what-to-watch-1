@@ -17,7 +17,7 @@ const withSignInRouter = (Component) => {
       } = this.props;
 
       if (user && user.id) {
-        return <Redirect to={`/`} />;
+        return <Redirect to="/" />;
       }
 
       return <Component

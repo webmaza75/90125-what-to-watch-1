@@ -1,6 +1,8 @@
 import ActionTypes from '../../actions/action-types.js';
 import {ALL_GENRES} from '../../consts.js';
 import {ActionCreator} from '../../actions/actions.js';
+import {sortComments} from '../../utils.js';
+import {getMovieRatingLevel} from '../../utils.js';
 
 const initialState = {
   films: [],
@@ -21,6 +23,7 @@ export const transform = (data) => ({
   picture: data.preview_image,
   src: data.preview_video_link,
   rating: data.rating,
+  ratingLevel: getMovieRatingLevel(data.rating),
   released: data.released,
   runTime: data.run_time,
   scoresCount: data.scores_count,
@@ -39,8 +42,16 @@ const Operation = {
   loadComments: (filmId) => (dispatch, getState, api) => {
     return api.get(`/comments/${filmId}`)
     .then((response) => {
-      dispatch(ActionCreator.loadComments(response.data));
+      const result = response.data.sort(sortComments);
+      dispatch(ActionCreator.loadComments(result));
     });
+  },
+  addComment: (id, params) => (dispatch, getState, api) => {
+    return api
+      .post(`/comments/${id}`, params)
+      .then((res) => {
+        dispatch(ActionCreator.addComment(res.data));
+      });
   }
 };
 
@@ -61,10 +72,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         comments: action.payload,
       });
-    case ActionTypes.RESET_COMMENTS:
+    case ActionTypes.ADD_COMMENT:
       return ({
         ...state,
-        comments: [],
+        comments: action.payload,
       });
   }
   return state;

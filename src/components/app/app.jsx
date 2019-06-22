@@ -8,9 +8,11 @@ import withPublicRouter from '../../hocs/with-public-router/with-public-router.j
 import MyList from '../my-list/my-list.jsx';
 import MovieDetails from '../movie-details/movie-details.jsx';
 import GlobalIcons from '../global-icons/global-icons.jsx';
+import AddReview from '../add-review/add-review.jsx';
 
 const PrivateRouterWrapper = withPrivateRouter(MyList);
 const PublicRouterWrapper = withPublicRouter(SignIn);
+const AddReviewRouterWrapper = withPrivateRouter(AddReview);
 
 
 const App = () => (
@@ -20,6 +22,7 @@ const App = () => (
       <Route path={`/`} exact component={Main} />
       <Route path={`/login`} component={PublicRouterWrapper} />
       <Route path={`/mylist`} component={PrivateRouterWrapper} />
+      <Route path={`/film/:id/review`} component={AddReviewRouterWrapper} />
       <Route path={`/film/:id`} exact component={MovieDetails} />
     </Fragment>
   </Switch>
