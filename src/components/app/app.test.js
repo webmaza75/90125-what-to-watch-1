@@ -1,27 +1,12 @@
 import React from 'react';
-import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
-import {createStore, applyMiddleware} from 'redux';
-import renderer from 'react-test-renderer';
-import {MemoryRouter} from 'react-router-dom';
-import {createAPI} from '../../api.js';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
-import reducer from '../../reducers/index.js';
 import App from './app.jsx';
 
-const api = createAPI();
-
 it(`App correctly renders`, () => {
-  const tree = renderer
-    .create(
-        <Provider store={createStore(reducer, applyMiddleware(thunk.withExtraArgument(api)))}>
-          <MemoryRouter
-            initialEntries = {[`/`]}
-          >
-            <App />
-          </MemoryRouter>
-        </Provider>
-    ).toJSON();
+  const renderer = new ShallowRenderer();
+  const result = renderer
+    .render(<App />);
 
-  expect(tree).toMatchSnapshot();
+  expect(result).toMatchSnapshot();
 });

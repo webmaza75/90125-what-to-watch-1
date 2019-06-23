@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import Header from '../header/header.jsx';
-import Buttons from '../buttons/buttons.jsx';
+import MovieCardButtons from '../movie-card-buttons/movie-card-buttons.jsx';
 
 const FilmPromo = (props) => {
   const {
@@ -12,7 +12,6 @@ const FilmPromo = (props) => {
     released,
     backgroundImage,
     id,
-    onMyListClick,
     isFavorite,
     isAuthorized
   } = props;
@@ -39,11 +38,12 @@ const FilmPromo = (props) => {
             <span className="movie-card__year">{released}</span>
           </p>
 
-          <Buttons
+          <MovieCardButtons
             id={id}
             isFavorite={isFavorite}
-            onMyListClick={onMyListClick}
             isAuthorized={isAuthorized}
+            showAddReviewLink={false}
+            isPromo={true}
           />
 
         </div>
@@ -59,7 +59,6 @@ FilmPromo.propTypes = {
   id: PropTypes.number,
   posterImage: PropTypes.string,
   backgroundImage: PropTypes.string,
-  onMyListClick: PropTypes.func,
   isFavorite: PropTypes.bool,
   isAuthorized: PropTypes.bool
 };

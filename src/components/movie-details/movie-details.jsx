@@ -21,7 +21,7 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
 import MovieTabs from '../movie-tabs/movie-tabs.jsx';
 import {Operation} from '../../reducers/films/films.js';
 import {Tabs} from '../../consts.js';
-import Buttons from '../buttons/buttons.jsx';
+import MovieCardButtons from '../movie-card-buttons/movie-card-buttons.jsx';
 
 const FilmListWrapped = withActiveItem(FilmList);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
@@ -29,7 +29,6 @@ const MovieTabsWrapped = withActiveItem(MovieTabs);
 class MovieDetails extends PureComponent {
   constructor(props) {
     super(props);
-    this._handleMyListClick = this._handleMyListClick.bind(this);
   }
 
   componentDidMount() {
@@ -86,10 +85,11 @@ class MovieDetails extends PureComponent {
                 <span className="movie-card__year">{released}</span>
               </p>
 
-              <Buttons
+              <MovieCardButtons
                 id={id}
                 isFavorite={isFavorite}
-                onMyListClick={this._handleMyListClick}
+                showAddReviewLink={true}
+                isPromo={false}
                 isAuthorized={isAuthorized}
               />
 
@@ -130,25 +130,6 @@ class MovieDetails extends PureComponent {
       </div>
     </Fragment>;
   }
-
-  _handleMyListClick() {
-    const {
-      movie,
-      isAuthorized,
-      history,
-      onToggleFavorite
-    } = this.props;
-
-    if (!isAuthorized) {
-      history.push(`/login`);
-      return;
-    }
-    if (movie.isFavorite) {
-      onToggleFavorite(movie.id, 0);
-    } else {
-      onToggleFavorite(movie.id, 1);
-    }
-  }
 }
 
 MovieDetails.propTypes = {
@@ -156,7 +137,6 @@ MovieDetails.propTypes = {
   films: PropTypes.arrayOf(itemShape),
   location: PropTypes.object,
   onLoadComments: PropTypes.func,
-  onToggleFavorite: PropTypes.func,
   comments: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
   isAuthorized: PropTypes.bool,
@@ -175,7 +155,6 @@ export {MovieDetails};
 export default connect(
     mapStateToProps,
     {
-      onLoadComments: Operation.loadComments,
-      onToggleFavorite: Operation.toggleFavorite
+      onLoadComments: Operation.loadComments
     }
 )(MovieDetails);

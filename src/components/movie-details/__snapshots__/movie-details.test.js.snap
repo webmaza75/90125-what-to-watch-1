@@ -47,11 +47,12 @@ exports[`MovieDetails correctly renders 1`] = `
               2005
             </span>
           </p>
-          <Buttons
+          <MovieCardButtons
             id={1}
             isAuthorized={false}
             isFavorite={false}
-            onMyListClick={[Function]}
+            isPromo={false}
+            showAddReviewLink={true}
           />
         </div>
       </div>

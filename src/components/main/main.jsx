@@ -26,7 +26,6 @@ class Main extends PureComponent {
     super(props);
 
     this._handleMenuClick = this._handleMenuClick.bind(this);
-    this._handleMyListClick = this._handleMyListClick.bind(this);
   }
 
   componentDidMount() {
@@ -66,7 +65,6 @@ class Main extends PureComponent {
           backgroundImage={backgroundImage}
           id={id}
           isFavorite={isFavorite}
-          onMyListClick={this._handleMyListClick}
           isAuthorized={isAuthorized}
           posterImage={posterImage}
         />
@@ -100,25 +98,6 @@ class Main extends PureComponent {
     const {onChangeFilter} = this.props;
     onChangeFilter(genre);
   }
-
-  _handleMyListClick() {
-    const {
-      promo,
-      isAuthorized,
-      history,
-      onToggleFavorite
-    } = this.props;
-
-    if (!isAuthorized) {
-      history.push(`/login`);
-      return;
-    }
-    if (promo.isFavorite) {
-      onToggleFavorite(promo.id, 0, true);
-    } else {
-      onToggleFavorite(promo.id, 1, true);
-    }
-  }
 }
 
 Main.propTypes = {
@@ -128,7 +107,6 @@ Main.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   promo: itemShape,
   onLoadPromo: PropTypes.func,
-  onToggleFavorite: PropTypes.func,
   isAuthorized: PropTypes.bool,
   history: PropTypes.object
 };
