@@ -21,6 +21,8 @@ it(`Main correctly renders after relaunch`, () => {
           filmsGroup={films}
           genres={genres}
           onChangeFilter={jest.fn()}
+          onLoadPromo={jest.fn()}
+          promo={films[0]}
         />
       </MemoryRouter>
     </Provider>)

@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieDetails correctly renders 1`] = `
+<React.Fragment>
+  <section
+    className="movie-card movie-card--full"
+  >
+    <div
+      className="movie-card__hero"
+    >
+      <div
+        className="movie-card__bg"
+      >
+        <img
+          alt="War of the Worlds"
+          src="https://es31-server.appspot.com/wtw/static/film/background/War_of_the_Worlds.jpg"
+        />
+      </div>
+      <h1
+        className="visually-hidden"
+      >
+        WTW
+      </h1>
+      <Memo(ConnectFunction) />
+      <div
+        className="movie-card__wrap"
+      >
+        <div
+          className="movie-card__desc"
+        >
+          <h2
+            className="movie-card__title"
+          >
+            War of the Worlds
+          </h2>
+          <p
+            className="movie-card__meta"
+          >
+            <span
+              className="movie-card__genre"
+            >
+              Adventure
+            </span>
+            <span
+              className="movie-card__year"
+            >
+              2005
+            </span>
+          </p>
+          <Buttons
+            id={1}
+            isAuthorized={false}
+            isFavorite={false}
+            onMyListClick={[Function]}
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="movie-card__wrap movie-card__translate-top"
+    >
+      <div
+        className="movie-card__info"
+      >
+        <div
+          className="movie-card__poster movie-card__poster--big"
+        >
+          <img
+            alt="War of the Worlds poster"
+            height="327"
+            src="https://es31-server.appspot.com/wtw/static/film/poster/War_of_the_Worlds.jpg"
+            width="218"
+          />
+        </div>
+        <WithActiveItem
+          activeItem="Overview"
+          href="/film/1"
+          movie={
+            Object {
+              "backgroundColor": "#9B7E61",
+              "backgroundImage": "https://es31-server.appspot.com/wtw/static/film/background/War_of_the_Worlds.jpg",
+              "description": "As Earth is invaded by alien tripod fighting machines, one family fights for survival.",
+              "director": "Steven Spielberg",
+              "genre": "Adventure",
+              "id": 1,
+              "isFavorite": false,
+              "picture": "https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg",
+              "posterImage": "https://es31-server.appspot.com/wtw/static/film/poster/War_of_the_Worlds.jpg",
+              "rating": 6.5,
+              "ratingLevel": "Good",
+              "released": 2005,
+              "runTime": 116,
+              "scoresCount": 386834,
+              "src": "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4",
+              "starring": Array [
+                "Tom Cruise",
+                "Dakota Fanning",
+                "Tim Robbins",
+              ],
+              "title": "War of the Worlds",
+              "videoLink": "http://media.xiph.org/mango/tears_of_steel_1080p.webm",
+            }
+          }
+          reviews={Array []}
+        />
+      </div>
+    </div>
+  </section>
+  <div
+    className="page-content"
+  >
+    <section
+      className="catalog catalog--like-this"
+    >
+      <h2
+        className="catalog__title"
+      >
+        More like this
+      </h2>
+      <div
+        className="catalog__movies-list"
+      >
+        <WithActiveItem
+          films={
+            Array [
+              Object {
+                "backgroundColor": "#D8E3E5",
+                "backgroundImage": "https://es31-server.appspot.com/wtw/static/film/background/Moonrise_Kingdom.jpg",
+                "description": "A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.",
+                "director": "Wes Anderson",
+                "genre": "Adventure",
+                "id": 3,
+                "isFavorite": false,
+                "picture": "https://es31-server.appspot.com/wtw/static/film/preview/moonrise-kingdom.jpg",
+                "posterImage": "https://es31-server.appspot.com/wtw/static/film/poster/Moonrise_Kingdom.jpg",
+                "rating": 7.8,
+                "ratingLevel": "Good",
+                "released": 2012,
+                "runTime": 94,
+                "scoresCount": 291183,
+                "src": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm",
+                "starring": Array [
+                  "Jared Gilman",
+                  "Kara Hayward",
+                  "Bruce Willis",
+                ],
+                "title": "Moonrise Kingdom",
+                "videoLink": "http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4",
+              },
+            ]
+          }
+        />
+      </div>
+    </section>
+    <Footer />
+  </div>
+</React.Fragment>
+`;

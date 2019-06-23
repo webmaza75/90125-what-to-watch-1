@@ -36,6 +36,18 @@ const ActionCreator = {
   addComment: (comments) => ({
     type: ActionTypes.ADD_COMMENT,
     payload: comments
+  }),
+  updateFilms: (film) => ({
+    type: ActionTypes.UPDATE_FILMS,
+    payload: film
+  }),
+  loadFavorites: (favorites) => ({
+    type: ActionTypes.LOAD_FAVORITES,
+    payload: favorites
+  }),
+  loadPromo: (promo) => ({
+    type: ActionTypes.LOAD_PROMO,
+    payload: promo
   })
 };
 

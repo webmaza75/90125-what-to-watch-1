@@ -7,7 +7,9 @@ import {getMovieRatingLevel} from '../../utils.js';
 const initialState = {
   films: [],
   filter: ALL_GENRES,
-  comments: []
+  comments: [],
+  favorites: [],
+  promo: null
 };
 
 export const transform = (data) => ({
@@ -31,6 +33,12 @@ export const transform = (data) => ({
   videoLink: data.video_link
 });
 
+export const updateFilmList = (item, list) => {
+  const idx = list.findIndex(({id}) => id === item.id);
+  list[idx] = item;
+  return list;
+};
+
 const Operation = {
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
@@ -51,6 +59,33 @@ const Operation = {
       .post(`/comments/${id}`, params)
       .then((res) => {
         dispatch(ActionCreator.addComment(res.data));
+      });
+  },
+  toggleFavorite: (filmId, status, promo = false) => (dispatch, getState, api) => {
+    return api
+      .post(`/favorite/${filmId}/${status}`)
+      .then((res) => {
+        if (promo) {
+          dispatch(ActionCreator.loadPromo(transform(res.data)));
+        } else {
+          dispatch(ActionCreator.updateFilms(transform(res.data)));
+        }
+      });
+  },
+  loadFavorites: () => (dispatch, getState, api) => {
+    return api
+      .get(`/favorite`)
+      .then((res) => {
+        const result = res.data.map(transform);
+        dispatch(ActionCreator.loadFavorites(result));
+      });
+  },
+  loadPromo: () => (dispatch, getState, api) => {
+    return api
+      .get(`/films/promo`)
+      .then((res) => {
+        const result = transform(res.data);
+        dispatch(ActionCreator.loadPromo(result));
       });
   }
 };
@@ -76,6 +111,23 @@ const reducer = (state = initialState, action) => {
       return ({
         ...state,
         comments: action.payload,
+      });
+    case ActionTypes.UPDATE_FILMS:
+      const item = action.payload;
+      const filmList = updateFilmList(item, [...state.films]);
+      return ({
+        ...state,
+        films: filmList
+      });
+    case ActionTypes.LOAD_FAVORITES:
+      return ({
+        ...state,
+        favorites: action.payload
+      });
+    case ActionTypes.LOAD_PROMO:
+      return ({
+        ...state,
+        promo: action.payload
       });
   }
   return state;

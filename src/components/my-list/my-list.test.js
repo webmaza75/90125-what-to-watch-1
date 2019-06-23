@@ -12,6 +12,7 @@ it(`MyList correctly renders without any errors`, () => {
       <MyList
         myList={films}
         user={user}
+        onGetFavoriteList={jest.fn()}
       />
     </MemoryRouter>)
     .toJSON();

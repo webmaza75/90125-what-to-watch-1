@@ -24,6 +24,10 @@ describe(`Main correctly renders after relaunch`, () => {
           filmsGroup={films}
           genres={genres}
           onChangeFilter={jest.fn()}
+          onLoadPromo={jest.fn()}
+          onToggleFavorite={jest.fn()}
+          isAuthorized={false}
+          promo={films[0]}
         />
       </MemoryRouter>
     </Provider>);
@@ -40,6 +44,10 @@ describe(`Main correctly renders after relaunch`, () => {
         filmsGroup={films}
         genres={genres}
         onChangeFilter={jest.fn()}
+        onLoadPromo={jest.fn()}
+        onToggleFavorite={jest.fn()}
+        isAuthorized={false}
+        promo={films[0]}
       />
     </MemoryRouter>);
 
@@ -63,6 +71,10 @@ describe(`Main correctly renders after relaunch`, () => {
         genres={genres}
         user={null}
         onChangeFilter={jest.fn()}
+        onLoadPromo={jest.fn()}
+        onToggleFavorite={jest.fn()}
+        isAuthorized={false}
+        promo={films[0]}
       />
     </MemoryRouter>);
     const genreList = main.find(Main).prop(`genres`);

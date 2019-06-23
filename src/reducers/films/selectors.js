@@ -31,12 +31,9 @@ export const getGenres = createSelector(
     }
 );
 
-export const getFavoriteList = createSelector(
-    getFilms,
-    (films) => {
-      return films.filter((item) => item.isFavorite === true);
-    }
-);
+export const getFavoriteList = (state) => {
+  return state[NAME_SPACE].favorites;
+};
 
 export const getMovieById = (state, filmId) => {
   return state[NAME_SPACE].films.find((item) => item.id === +filmId);
@@ -44,4 +41,8 @@ export const getMovieById = (state, filmId) => {
 
 export const getComments = (state) => {
   return state[NAME_SPACE].comments;
+};
+
+export const getPromo = (state) => {
+  return state[NAME_SPACE].promo;
 };

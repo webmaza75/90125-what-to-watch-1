@@ -20,79 +20,34 @@ exports[`AddReview AddReview correctly renders 1`] = `
     >
       WTW
     </h1>
-    <header
-      className="page-header"
-    >
-      <div
-        className="logo"
-      >
-        <a
-          className="logo__link "
-          href="/"
-          onClick={[Function]}
-        >
-          <span
-            className="logo__letter logo__letter--1"
-          >
-            W
-          </span>
-          <span
-            className="logo__letter logo__letter--2"
-          >
-            T
-          </span>
-          <span
-            className="logo__letter logo__letter--3"
-          >
-            W
-          </span>
-        </a>
-      </div>
-      <nav
-        className="breadcrumbs"
-      >
-        <ul
-          className="breadcrumbs__list"
-        >
-          <li
-            className="breadcrumbs__item"
-          >
-            <a
-              className="breadcrumbs__link"
-              href="/film/1"
-              onClick={[Function]}
-            >
-              War of the Worlds
-            </a>
-          </li>
-          <li
-            className="breadcrumbs__item"
-          >
-            <a
-              className="breadcrumbs__link"
-              href="/film/1/review"
-              onClick={[Function]}
-            >
-              Add review
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div
-        className="user-block"
-      >
-        <div
-          className="user-block__avatar"
-        >
-          <img
-            alt="User avatar"
-            height="63"
-            src="https://es31-server.appspot.comimg/1.png"
-            width="63"
-          />
-        </div>
-      </div>
-    </header>
+    <Memo(ConnectFunction)
+      movie={
+        Object {
+          "backgroundColor": "#9B7E61",
+          "backgroundImage": "https://es31-server.appspot.com/wtw/static/film/background/War_of_the_Worlds.jpg",
+          "description": "As Earth is invaded by alien tripod fighting machines, one family fights for survival.",
+          "director": "Steven Spielberg",
+          "genre": "Adventure",
+          "id": 1,
+          "isFavorite": false,
+          "picture": "https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg",
+          "posterImage": "https://es31-server.appspot.com/wtw/static/film/poster/War_of_the_Worlds.jpg",
+          "rating": 6.5,
+          "ratingLevel": "Good",
+          "released": 2005,
+          "runTime": 116,
+          "scoresCount": 386834,
+          "src": "https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4",
+          "starring": Array [
+            "Tom Cruise",
+            "Dakota Fanning",
+            "Tim Robbins",
+          ],
+          "title": "War of the Worlds",
+          "videoLink": "http://media.xiph.org/mango/tears_of_steel_1080p.webm",
+        }
+      }
+    />
     <div
       className="movie-card__poster movie-card__poster--small"
     >
@@ -118,86 +73,96 @@ exports[`AddReview AddReview correctly renders 1`] = `
         <div
           className="rating__stars"
         >
-          <input
-            checked={false}
-            className="rating__input"
-            disabled={false}
-            id="star-1"
-            name="rating"
-            onChange={[Function]}
-            type="radio"
-            value="1"
-          />
-          <label
-            className="rating__label"
-            htmlFor="star-1"
-          >
-            Rating 1
-          </label>
-          <input
-            checked={false}
-            className="rating__input"
-            disabled={false}
-            id="star-2"
-            name="rating"
-            onChange={[Function]}
-            type="radio"
-            value="2"
-          />
-          <label
-            className="rating__label"
-            htmlFor="star-2"
-          >
-            Rating 2
-          </label>
-          <input
-            checked={false}
-            className="rating__input"
-            disabled={false}
-            id="star-3"
-            name="rating"
-            onChange={[Function]}
-            type="radio"
-            value="3"
-          />
-          <label
-            className="rating__label"
-            htmlFor="star-3"
-          >
-            Rating 3
-          </label>
-          <input
-            checked={false}
-            className="rating__input"
-            disabled={false}
-            id="star-4"
-            name="rating"
-            onChange={[Function]}
-            type="radio"
-            value="4"
-          />
-          <label
-            className="rating__label"
-            htmlFor="star-4"
-          >
-            Rating 4
-          </label>
-          <input
-            checked={false}
-            className="rating__input"
-            disabled={false}
-            id="star-5"
-            name="rating"
-            onChange={[Function]}
-            type="radio"
-            value="5"
-          />
-          <label
-            className="rating__label"
-            htmlFor="star-5"
-          >
-            Rating 5
-          </label>
+          <React.Fragment>
+            <input
+              checked={false}
+              className="rating__input"
+              disabled={false}
+              id="star-1"
+              name="rating"
+              onChange={[Function]}
+              type="radio"
+              value="1"
+            />
+            <label
+              className="rating__label"
+              htmlFor="star-1"
+            >
+              Rating 1
+            </label>
+          </React.Fragment>
+          <React.Fragment>
+            <input
+              checked={false}
+              className="rating__input"
+              disabled={false}
+              id="star-2"
+              name="rating"
+              onChange={[Function]}
+              type="radio"
+              value="2"
+            />
+            <label
+              className="rating__label"
+              htmlFor="star-2"
+            >
+              Rating 2
+            </label>
+          </React.Fragment>
+          <React.Fragment>
+            <input
+              checked={false}
+              className="rating__input"
+              disabled={false}
+              id="star-3"
+              name="rating"
+              onChange={[Function]}
+              type="radio"
+              value="3"
+            />
+            <label
+              className="rating__label"
+              htmlFor="star-3"
+            >
+              Rating 3
+            </label>
+          </React.Fragment>
+          <React.Fragment>
+            <input
+              checked={false}
+              className="rating__input"
+              disabled={false}
+              id="star-4"
+              name="rating"
+              onChange={[Function]}
+              type="radio"
+              value="4"
+            />
+            <label
+              className="rating__label"
+              htmlFor="star-4"
+            >
+              Rating 4
+            </label>
+          </React.Fragment>
+          <React.Fragment>
+            <input
+              checked={false}
+              className="rating__input"
+              disabled={false}
+              id="star-5"
+              name="rating"
+              onChange={[Function]}
+              type="radio"
+              value="5"
+            />
+            <label
+              className="rating__label"
+              htmlFor="star-5"
+            >
+              Rating 5
+            </label>
+          </React.Fragment>
         </div>
       </div>
       <div

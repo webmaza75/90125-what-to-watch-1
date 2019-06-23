@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {StaticRouter} from 'react-router';
 
-import ExtendedHeader from './extended-header.jsx';
+import {ExtendedHeader} from './extended-header.jsx';
 import user from '../../mocks/user.js';
 import film from '../../mocks/film.js';
 

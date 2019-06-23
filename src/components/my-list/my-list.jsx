@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {itemShape} from '../../models.js';
 import FilmList from '../film-list/film-list.jsx';
 import {getFavoriteList} from '../../reducers/films/selectors.js';
+import {Operation} from '../../reducers/films/films.js';
 import {getUser} from '../../reducers/user/selectors.js';
 import Footer from '../footer/footer.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
@@ -14,6 +15,11 @@ import {userInfo} from '../../models.js';
 const FilmListWrapped = withActiveItem(FilmList);
 
 class MyList extends PureComponent {
+  componentDidMount() {
+    const {onGetFavoriteList} = this.props;
+    onGetFavoriteList();
+  }
+
   render() {
     const {
       myList,
@@ -40,14 +46,15 @@ const mapDispatchToProps = (state) => ({
 
 MyList.propTypes = {
   user: userInfo,
-  myList: PropTypes.arrayOf(itemShape)
+  myList: PropTypes.arrayOf(itemShape),
+  onGetFavoriteList: PropTypes.func
 };
 
 export {MyList};
 
 export default connect(
     mapDispatchToProps,
-    // {
-    //   onGetFavoriteList: getFavoriteList(state)
-    // }
+    {
+      onGetFavoriteList: Operation.loadFavorites
+    }
 )(MyList);
