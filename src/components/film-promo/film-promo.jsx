@@ -43,7 +43,6 @@ const FilmPromo = (props) => {
             isFavorite={isFavorite}
             isAuthorized={isAuthorized}
             showAddReviewLink={false}
-            isPromo={true}
           />
 
         </div>

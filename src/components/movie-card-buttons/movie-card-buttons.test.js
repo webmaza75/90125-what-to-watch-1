@@ -12,9 +12,7 @@ describe(`MovieCardButtons correctly renders`, () => {
         isAuthorized={true}
         isFavorite={false}
         id={film.id}
-        onMyListClick={jest.fn()}
         showAddReviewLink={false}
-        isPromo={true}
       />);
 
     expect(result).toMatchSnapshot();

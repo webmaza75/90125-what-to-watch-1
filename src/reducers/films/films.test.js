@@ -196,7 +196,7 @@ describe(`Reducer works correctly`, () => {
     const apiMock = new MockAdapter(api);
     const filmId = 1;
     const status = 1;
-    const toggleFavorites = Operation.toggleFavorite(filmId, status, true);
+    const toggleFavorites = Operation.toggleFavorite(filmId, status);
 
     apiMock
       .onPost(`/favorite/${filmId}/${status}`)
@@ -206,7 +206,7 @@ describe(`Reducer works correctly`, () => {
       .then(() => {
         const result = transform({fake: true});
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.LOAD_PROMO,
+          type: ActionTypes.UPDATE_FILMS,
           payload: result,
         });
       });

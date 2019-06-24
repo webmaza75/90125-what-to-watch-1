@@ -89,7 +89,6 @@ class MovieDetails extends PureComponent {
                 id={id}
                 isFavorite={isFavorite}
                 showAddReviewLink={true}
-                isPromo={false}
                 isAuthorized={isAuthorized}
               />
 

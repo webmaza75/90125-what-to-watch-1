@@ -33,8 +33,7 @@ const withMyListButton = (Component) => {
         id,
         isAuthorized,
         onToggleFavorite,
-        isFavorite,
-        isPromo
+        isFavorite
       } = this.props;
 
       if (!isAuthorized) {
@@ -43,9 +42,9 @@ const withMyListButton = (Component) => {
         });
       } else {
         if (isFavorite) {
-          onToggleFavorite(id, 0, isPromo);
+          onToggleFavorite(id, 0);
         } else {
-          onToggleFavorite(id, 1, isPromo);
+          onToggleFavorite(id, 1);
         }
       }
     }
@@ -55,8 +54,7 @@ const withMyListButton = (Component) => {
     id: PropTypes.number,
     isAuthorized: PropTypes.bool,
     onToggleFavorite: PropTypes.func,
-    isFavorite: PropTypes.bool,
-    isPromo: PropTypes.bool
+    isFavorite: PropTypes.bool
   };
 
   const mapStateToProps = (state) => ({

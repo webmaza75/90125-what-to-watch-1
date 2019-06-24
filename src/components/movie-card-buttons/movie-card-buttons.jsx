@@ -6,7 +6,7 @@ import withMyListButton from '../../hocs/with-my-list-button/with-my-list-button
 
 const MyListButtonWrapped = withMyListButton(MyListButton);
 
-const MovieCardButtons = ({isAuthorized, isFavorite, id, isPromo, showAddReviewLink}) => {
+const MovieCardButtons = ({isAuthorized, isFavorite, id, showAddReviewLink}) => {
   const needShowAddReviewlink = showAddReviewLink && isAuthorized;
 
   return <div className="movie-card__buttons">
@@ -20,7 +20,6 @@ const MovieCardButtons = ({isAuthorized, isFavorite, id, isPromo, showAddReviewL
     <MyListButtonWrapped
       id={id}
       isFavorite={isFavorite}
-      isPromo={isPromo}
     />
 
     {needShowAddReviewlink &&
@@ -34,8 +33,7 @@ MovieCardButtons.propTypes = {
   isFavorite: PropTypes.bool,
   id: PropTypes.number,
   onMyListClick: PropTypes.func,
-  showAddReviewLink: PropTypes.bool,
-  isPromo: PropTypes.bool
+  showAddReviewLink: PropTypes.bool
 };
 
 export default MovieCardButtons;

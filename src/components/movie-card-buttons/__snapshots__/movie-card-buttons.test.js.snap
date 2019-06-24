@@ -24,7 +24,6 @@ exports[`MovieCardButtons correctly renders MovieCardButtons correctly renders f
   <Memo(ConnectFunction)
     id={1}
     isFavorite={false}
-    isPromo={true}
   />
 </div>
 `;

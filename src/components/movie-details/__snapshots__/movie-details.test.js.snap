@@ -51,7 +51,6 @@ exports[`MovieDetails correctly renders 1`] = `
             id={1}
             isAuthorized={false}
             isFavorite={false}
-            isPromo={false}
             showAddReviewLink={true}
           />
         </div>

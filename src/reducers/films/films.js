@@ -35,7 +35,9 @@ export const transform = (data) => ({
 
 export const updateFilmList = (item, list) => {
   const idx = list.findIndex(({id}) => id === item.id);
-  list[idx] = item;
+  if (idx !== -1) {
+    list[idx] = item;
+  }
   return list;
 };
 
@@ -61,15 +63,11 @@ const Operation = {
         dispatch(ActionCreator.addComment(res.data));
       });
   },
-  toggleFavorite: (filmId, status, promo = false) => (dispatch, getState, api) => {
+  toggleFavorite: (filmId, status) => (dispatch, getState, api) => {
     return api
       .post(`/favorite/${filmId}/${status}`)
       .then((res) => {
-        if (promo) {
-          dispatch(ActionCreator.loadPromo(transform(res.data)));
-        } else {
-          dispatch(ActionCreator.updateFilms(transform(res.data)));
-        }
+        dispatch(ActionCreator.updateFilms(transform(res.data)));
       });
   },
   loadFavorites: () => (dispatch, getState, api) => {
@@ -115,9 +113,11 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.UPDATE_FILMS:
       const item = action.payload;
       const filmList = updateFilmList(item, [...state.films]);
+      const {promo} = state;
       return ({
         ...state,
-        films: filmList
+        films: filmList,
+        promo: promo.id === item.id ? item : promo
       });
     case ActionTypes.LOAD_FAVORITES:
       return ({
