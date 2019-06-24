@@ -18,6 +18,7 @@ import {Operation} from '../../reducers/films/films.js';
 import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 import FilmPromo from '../film-promo/film-promo.jsx';
 import {itemShape} from '../../models.js';
+import ShowMoreButton from '../show-more-button/show-more-button.jsx';
 
 const FilmListWrapped = withActiveItem(FilmList);
 
@@ -84,11 +85,9 @@ class Main extends PureComponent {
             films={filmsGroup}
           />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
-        </section>
+          <ShowMoreButton />
 
+        </section>
         <Footer />
       </div>
     </Fragment>;

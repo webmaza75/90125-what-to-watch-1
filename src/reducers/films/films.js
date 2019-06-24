@@ -9,7 +9,8 @@ const initialState = {
   filter: ALL_GENRES,
   comments: [],
   favorites: [],
-  promo: null
+  promo: null,
+  maxShowFilms: 20
 };
 
 export const transform = (data) => ({
@@ -47,28 +48,28 @@ const Operation = {
     .then((response) => {
       const result = response.data.map(transform);
       dispatch(ActionCreator.loadFilms(result));
-    });
+    }).catch((err) => console.log(`err`, err));
   },
   loadComments: (filmId) => (dispatch, getState, api) => {
     return api.get(`/comments/${filmId}`)
     .then((response) => {
       const result = response.data.sort(sortComments);
       dispatch(ActionCreator.loadComments(result));
-    });
+    }).catch((err) => console.log(`err`, err));
   },
   addComment: (id, params) => (dispatch, getState, api) => {
     return api
       .post(`/comments/${id}`, params)
       .then((res) => {
         dispatch(ActionCreator.addComment(res.data));
-      });
+      }).catch((err) => {console.log(`err`, err)});
   },
   toggleFavorite: (filmId, status) => (dispatch, getState, api) => {
     return api
       .post(`/favorite/${filmId}/${status}`)
       .then((res) => {
         dispatch(ActionCreator.updateFilms(transform(res.data)));
-      });
+      }).catch((err) => console.log(`err`, err));
   },
   loadFavorites: () => (dispatch, getState, api) => {
     return api
@@ -76,7 +77,7 @@ const Operation = {
       .then((res) => {
         const result = res.data.map(transform);
         dispatch(ActionCreator.loadFavorites(result));
-      });
+      }).catch((err) => console.log(`err`, err));
   },
   loadPromo: () => (dispatch, getState, api) => {
     return api
@@ -84,7 +85,7 @@ const Operation = {
       .then((res) => {
         const result = transform(res.data);
         dispatch(ActionCreator.loadPromo(result));
-      });
+      }).catch((err) => console.log(`err`, err));
   }
 };
 
@@ -128,6 +129,12 @@ const reducer = (state = initialState, action) => {
       return ({
         ...state,
         promo: action.payload
+      });
+    case ActionTypes.INCREASE_MAX_SHOW_FILMS:
+      const maxShowFilms = state.maxShowFilms + action.payload;
+      return ({
+        ...state,
+        maxShowFilms
       });
   }
   return state;
