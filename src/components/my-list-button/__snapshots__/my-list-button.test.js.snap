@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyListButton correctly renders MyListButton correctly renders for a guest 1`] = `
+<Redirect
+  to="/login"
+/>
+`;
+
+exports[`MyListButton correctly renders MyListButton correctly renders for an authorized user 1`] = `
+<button
+  className="btn btn--list movie-card__button"
+  onClick={[Function]}
+  type="button"
+>
+  <svg
+    height="20"
+    viewBox="0 0 19 20"
+    width="19"
+  >
+    <use
+      xlinkHref="#add"
+    />
+  </svg>
+  <span>
+    My list
+  </span>
+</button>
+`;

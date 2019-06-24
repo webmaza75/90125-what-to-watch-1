@@ -5,33 +5,59 @@ import {
 } from './films.js';
 import ActionTypes from '../../actions/action-types.js';
 import filmList from '../../mocks/films.js';
+import favorites from '../../mocks/favorites.js';
 import {ALL_GENRES} from '../../consts.js';
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api.js';
 import reviews from '../../mocks/reviews.js';
+import favoritePromo from '../../mocks/favorite-promo.js';
 
 const initialState = {
   films: [],
   filter: ALL_GENRES,
-  comments: []
+  comments: [],
+  favorites: [],
+  promo: null
 };
 
 const afterLoadFilmsState = {
   filter: ALL_GENRES,
   films: filmList,
-  comments: []
+  comments: [],
+  favorites: [],
+  promo: null
 };
 
 const stateWithComedy = {
   films: filmList,
   filter: `Comedy`,
-  comments: []
+  comments: [],
+  favorites: [],
+  promo: null
 };
 
 const afterLoadCommentsState = {
   filter: ALL_GENRES,
   films: filmList,
-  comments: reviews
+  comments: reviews,
+  favorites: [],
+  promo: null
+};
+
+const afterLoadFavoritesState = {
+  filter: ALL_GENRES,
+  films: filmList,
+  comments: [],
+  favorites,
+  promo: null
+};
+
+const afterToggleFavoritesState = {
+  filter: ALL_GENRES,
+  films: filmList,
+  comments: [],
+  favorites: [],
+  promo: favoritePromo
 };
 
 describe(`Reducer works correctly`, () => {
@@ -105,5 +131,133 @@ describe(`Reducer works correctly`, () => {
       type: ActionTypes.LOAD_COMMENTS,
       payload: reviews
     })).toEqual(afterLoadCommentsState);
+  });
+
+  it(`Should make a correct API call to /favorite`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const favoritesLoader = Operation.loadFavorites();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [{fake: true}]);
+
+    return favoritesLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        const result = [transform({fake: true})];
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.LOAD_FAVORITES,
+          payload: result,
+        });
+      });
+  });
+
+  it(`Reducer loads favorites`, () => {
+    expect(reducer(afterLoadFilmsState, {
+      type: ActionTypes.LOAD_FAVORITES,
+      payload: favorites
+    })).toEqual(afterLoadFavoritesState);
+  });
+
+  it(`Should make a correct API call to /addComment`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const params = {
+      text: `It was well acted, directed, and the music was good. But the story is yawn. Not trying to rip anybody but I checked my watch a dozen times during this movie.`,
+      rating: 4
+    };
+    const commentSender = Operation.addComment(1, params);
+
+    apiMock
+      .onPost(`/comments/1`, params)
+      .reply(200, [{fake: true}]);
+
+    return commentSender(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.ADD_COMMENT,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Reducer adds comment`, () => {
+    expect(reducer(afterLoadFilmsState, {
+      type: ActionTypes.ADD_COMMENT,
+      payload: reviews
+    })).toEqual(afterLoadCommentsState);
+  });
+
+  it(`Should make a correct API call to /favorite/filmId/status for Promo`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const filmId = 1;
+    const status = 1;
+    const toggleFavorites = Operation.toggleFavorite(filmId, status);
+
+    apiMock
+      .onPost(`/favorite/${filmId}/${status}`)
+      .reply(200, [{fake: true}]);
+
+    return toggleFavorites(dispatch, jest.fn(), api)
+      .then(() => {
+        const result = transform({fake: true});
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.UPDATE_FILMS,
+          payload: result,
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /favorite/filmId/status for movie-details`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const filmId = 1;
+    const status = 1;
+    const toggleFavorites = Operation.toggleFavorite(filmId, status);
+
+    apiMock
+      .onPost(`/favorite/${filmId}/${status}`)
+      .reply(200, [{fake: true}]);
+
+    return toggleFavorites(dispatch, jest.fn(), api)
+      .then(() => {
+        const result = transform({fake: true});
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.UPDATE_FILMS,
+          payload: result,
+        });
+      });
+  });
+
+  it(`Reducer toggle favorites for Promo`, () => {
+    expect(reducer(afterLoadFilmsState, {
+      type: ActionTypes.LOAD_PROMO,
+      payload: favoritePromo
+    })).toEqual(afterToggleFavoritesState);
+  });
+
+  it(`Should make a correct API call to /films/promo`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const promoLoader = Operation.loadPromo();
+
+    apiMock
+      .onGet(`/films/promo`)
+      .reply(200, [{fake: true}]);
+
+    return promoLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        const result = transform({fake: true});
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionTypes.LOAD_PROMO,
+          payload: result,
+        });
+      });
   });
 });

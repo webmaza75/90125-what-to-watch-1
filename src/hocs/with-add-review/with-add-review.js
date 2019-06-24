@@ -7,7 +7,7 @@ const withAddReview = (Component) => {
       this.state = {
         selectedOption: null,
         text: null,
-        errorMessage: null,
+        validationError: null,
         submiting: false
       };
       this._handleCheck = this._handleCheck.bind(this);

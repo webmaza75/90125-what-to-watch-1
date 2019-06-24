@@ -1,7 +1,6 @@
 import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 
 import {
   getMoreFilmsByGenre
@@ -22,6 +21,7 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item.js';
 import MovieTabs from '../movie-tabs/movie-tabs.jsx';
 import {Operation} from '../../reducers/films/films.js';
 import {Tabs} from '../../consts.js';
+import MovieCardButtons from '../movie-card-buttons/movie-card-buttons.jsx';
 
 const FilmListWrapped = withActiveItem(FilmList);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
@@ -62,7 +62,8 @@ class MovieDetails extends PureComponent {
       genre,
       title,
       posterImage,
-      released
+      released,
+      isFavorite
     } = movie;
     const moreFilms = getMoreFilmsByGenre(films, movie);
 
@@ -84,23 +85,12 @@ class MovieDetails extends PureComponent {
                 <span className="movie-card__year">{released}</span>
               </p>
 
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                {isAuthorized &&
-                  <Link to={`/film/${id}/review`} className="btn movie-card__button">Add review</Link>
-                }
-              </div>
+              <MovieCardButtons
+                id={id}
+                isFavorite={isFavorite}
+                showAddReviewLink={true}
+                isAuthorized={isAuthorized}
+              />
 
             </div>
           </div>
@@ -148,7 +138,8 @@ MovieDetails.propTypes = {
   onLoadComments: PropTypes.func,
   comments: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
-  isAuthorized: PropTypes.bool
+  isAuthorized: PropTypes.bool,
+  history: PropTypes.object
 };
 
 const mapStateToProps = (state, {match}) => ({

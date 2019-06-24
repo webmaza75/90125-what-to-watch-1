@@ -5,13 +5,11 @@ import {compose} from 'recompose';
 
 import ExtendedHeader from '../extended-header/extended-header.jsx';
 import {
-  itemShape,
-  userInfo
+  itemShape
 } from '../../models.js';
 import {
   getMovieById
 } from '../../reducers/films/selectors.js';
-import {getUser} from '../../reducers/user/selectors.js';
 import {MAX_TEXTAREA_LENGHT} from '../../consts.js';
 import {Operation} from '../../reducers/films/films.js';
 import withAddReview from '../../hocs/with-add-review/with-add-review.js';
@@ -25,7 +23,6 @@ class AddReview extends PureComponent {
 
   render() {
     const {
-      user,
       movie,
       selectedOption,
       validationError,
@@ -52,10 +49,7 @@ class AddReview extends PureComponent {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <ExtendedHeader
-          user={user}
-          movie={movie}
-        />
+        <ExtendedHeader movie={movie} />
 
         <div className="movie-card__poster movie-card__poster--small">
           <img src={posterImage} alt={`${title} poster`} width="218" height="327" />
@@ -130,7 +124,6 @@ class AddReview extends PureComponent {
 
 AddReview.propTypes = {
   movie: itemShape,
-  user: userInfo,
   history: PropTypes.object,
   onAddComment: PropTypes.func,
   text: PropTypes.string,
@@ -143,8 +136,7 @@ AddReview.propTypes = {
 };
 
 const mapStateToProps = (state, {match}) => ({
-  movie: getMovieById(state, match.params.id),
-  user: getUser(state)
+  movie: getMovieById(state, match.params.id)
 });
 
 export {AddReview};

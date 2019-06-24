@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmPromo correctly renders 1`] = `
+<React.Fragment>
+  <div
+    className="movie-card__bg"
+  >
+    <img
+      alt="War of the Worlds"
+      src="https://es31-server.appspot.com/wtw/static/film/background/War_of_the_Worlds.jpg"
+    />
+  </div>
+  <h1
+    className="visually-hidden"
+  >
+    WTW
+  </h1>
+  <Memo(ConnectFunction) />
+  <div
+    className="movie-card__wrap"
+  >
+    <div
+      className="movie-card__info"
+    >
+      <div
+        className="movie-card__poster"
+      >
+        <img
+          alt="War of the Worlds poster"
+          height="327"
+          src="https://es31-server.appspot.com/wtw/static/film/poster/War_of_the_Worlds.jpg"
+          width="218"
+        />
+      </div>
+      <div
+        className="movie-card__desc"
+      >
+        <h2
+          className="movie-card__title"
+        >
+          War of the Worlds
+        </h2>
+        <p
+          className="movie-card__meta"
+        >
+          <span
+            className="movie-card__genre"
+          >
+            Adventure
+          </span>
+          <span
+            className="movie-card__year"
+          >
+            2005
+          </span>
+        </p>
+        <MovieCardButtons
+          id={1}
+          isFavorite={false}
+          showAddReviewLink={false}
+        />
+      </div>
+    </div>
+  </div>
+</React.Fragment>
+`;
