@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {BASE_URL} from './consts.js';
+import history from './history.js';
 
 export const createAPI = () => {
   const api = axios.create({
@@ -11,7 +12,10 @@ export const createAPI = () => {
   const onSuccess = (response) => response;
   const onFail = (err) => {
     if (err.response.status === 403) {
-      history.pushState(null, null, `/login`);
+      history.push(`/login`);
+    }
+    if ([404, 500, 503, 504].includes(err.response.status)) {
+      history.push(`/500`);
     }
     return Promise.reject(err);
   };

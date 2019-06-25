@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
 import ShowMoreButton from './show-more-button.jsx';
-import reducer from '../../reducers/index.js';
+import reducer from '../../reducers/reducer.js';
 
 it(`ShowMoreButton correctly renders`, () => {
   const showMoreButton = renderer

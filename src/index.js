@@ -4,12 +4,13 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 
 import App from './components/app/app.jsx';
-import reducer from './reducers/index.js';
+import reducer from './reducers/reducer.js';
 import {Operation} from './reducers/films/films.js';
 import {createAPI} from './api.js';
+import history from './history.js';
 
 const init = () => {
   const api = createAPI();
@@ -28,9 +29,9 @@ const init = () => {
 
   ReactDom.render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router history={history}>
           <App />
-        </BrowserRouter>
+        </Router>
       </Provider>,
       document.getElementById(`root`)
   );

@@ -8,7 +8,7 @@ import {Main} from './main.jsx';
 import films from '../../mocks/films.js';
 import {ALL_GENRES} from '../../consts.js';
 import genres from '../../mocks/genres.js';
-import reducer from '../../reducers/index.js';
+import reducer from '../../reducers/reducer.js';
 
 window.HTMLMediaElement.prototype.play = () => {};
 

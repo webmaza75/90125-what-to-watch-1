@@ -3,7 +3,7 @@ import Enzyme, {mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-import reducer from '../../reducers/index.js';
+import reducer from '../../reducers/reducer.js';
 
 import withMyListButton from './with-my-list-button.js';
 
