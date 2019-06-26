@@ -18,7 +18,8 @@ const initialState = {
   comments: [],
   favorites: [],
   promo: null,
-  maxShowFilms: 20
+  maxShowFilms: 20,
+  playState: false
 };
 
 const afterLoadFilmsState = {
@@ -27,7 +28,8 @@ const afterLoadFilmsState = {
   comments: [],
   favorites: [],
   promo: null,
-  maxShowFilms: 20
+  maxShowFilms: 20,
+  playState: false
 };
 
 const stateWithComedy = {
@@ -36,7 +38,8 @@ const stateWithComedy = {
   comments: [],
   favorites: [],
   promo: null,
-  maxShowFilms: 20
+  maxShowFilms: 20,
+  playState: false
 };
 
 const afterLoadCommentsState = {
@@ -45,7 +48,8 @@ const afterLoadCommentsState = {
   comments: reviews,
   favorites: [],
   promo: null,
-  maxShowFilms: 20
+  maxShowFilms: 20,
+  playState: false
 };
 
 const afterLoadFavoritesState = {
@@ -54,7 +58,8 @@ const afterLoadFavoritesState = {
   comments: [],
   favorites,
   promo: null,
-  maxShowFilms: 20
+  maxShowFilms: 20,
+  playState: false
 };
 
 const afterToggleFavoritesState = {
@@ -63,7 +68,8 @@ const afterToggleFavoritesState = {
   comments: [],
   favorites: [],
   promo: favoritePromo,
-  maxShowFilms: 20
+  maxShowFilms: 20,
+  playState: false
 };
 
 describe(`Reducer works correctly`, () => {
@@ -274,7 +280,8 @@ describe(`Reducer works correctly`, () => {
       comments: [],
       favorites: [],
       promo: favoritePromo,
-      maxShowFilms: 1
+      maxShowFilms: 1,
+      playState: false
     };
 
     const afterShowMoreClickState = {
@@ -283,12 +290,40 @@ describe(`Reducer works correctly`, () => {
       comments: [],
       favorites: [],
       promo: favoritePromo,
-      maxShowFilms: 21
+      maxShowFilms: 21,
+      playState: false
     };
 
     expect(reducer(beforeShowMoreClickState, {
       type: ActionTypes.INCREASE_MAX_SHOW_FILMS,
       payload: 20
     })).toEqual(afterShowMoreClickState);
+  });
+
+  it(`Reducer changes state to play video`, () => {
+    const disabledPlayVideoState = {
+      filter: ALL_GENRES,
+      films: filmList,
+      comments: [],
+      favorites: [],
+      promo: favoritePromo,
+      maxShowFilms: 20,
+      playState: false
+    };
+
+    const enabledPlayVideoState = {
+      filter: ALL_GENRES,
+      films: filmList,
+      comments: [],
+      favorites: [],
+      promo: favoritePromo,
+      maxShowFilms: 20,
+      playState: true
+    };
+
+    expect(reducer(disabledPlayVideoState, {
+      type: ActionTypes.TOGGLE_PLAY_BUTTON,
+      payload: true
+    })).toEqual(enabledPlayVideoState);
   });
 });

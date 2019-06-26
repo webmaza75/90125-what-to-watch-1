@@ -47,3 +47,23 @@ export const sortComments = ((a, b) => Date.parse(b.date) - Date.parse(a.date));
 export const getMonthName = (index) => {
   return MONTHS[index];
 };
+
+const getFormatMinutesAndSeconds = (time, useZeroBefore = false) => {
+  let minutes = Math.floor(time / 60);
+  const diff = time - minutes * 60;
+  minutes = useZeroBefore && (minutes < 10) ? `0${minutes}` : minutes;
+  const seconds = diff < 10 ? `0${diff}` : diff;
+  return `${minutes}:${seconds}`;
+};
+
+
+export const formatVideoTime = (time) => {
+  if (time < 60) {
+    return time < 10 ? `0:0${time}` : `0:${time}`;
+  } else if ((time >= 60) && (time < 60 * 60)) {
+    return `${getFormatMinutesAndSeconds(time)}`;
+  } else {
+    const hours = Math.floor(time / 3600);
+    return `${hours}:${getFormatMinutesAndSeconds(time - hours * 3600, true)}`;
+  }
+};

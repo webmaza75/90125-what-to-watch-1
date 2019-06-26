@@ -11,7 +11,8 @@ import {
   getActiveFilter,
   getFilmsByGenre,
   getGenres,
-  getPromo
+  getPromo,
+  getPlayState
 } from '../../reducers/films/selectors.js';
 import Footer from '../footer/footer.jsx';
 import {Operation} from '../../reducers/films/films.js';
@@ -19,6 +20,7 @@ import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 import FilmPromo from '../film-promo/film-promo.jsx';
 import {itemShape} from '../../models.js';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
+import Player from '../player/player.jsx';
 
 const FilmListWrapped = withActiveItem(FilmList);
 
@@ -40,11 +42,16 @@ class Main extends PureComponent {
       filter,
       genres,
       promo,
-      isAuthorized
+      isAuthorized,
+      showPlayer
     } = this.props;
 
     if (!promo || !promo.id) {
       return null;
+    }
+
+    if (showPlayer) {
+      return <Player movie={promo} />;
     }
 
     const {
@@ -107,7 +114,8 @@ Main.propTypes = {
   promo: itemShape,
   onLoadPromo: PropTypes.func,
   isAuthorized: PropTypes.bool,
-  history: PropTypes.object
+  history: PropTypes.object,
+  showPlayer: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({
@@ -115,7 +123,8 @@ const mapStateToProps = (state) => ({
   filmsGroup: getFilmsByGenre(state),
   genres: getGenres(state),
   promo: getPromo(state),
-  isAuthorized: isAuthorizedUser(state)
+  isAuthorized: isAuthorizedUser(state),
+  showPlayer: getPlayState(state)
 });
 
 export {Main};

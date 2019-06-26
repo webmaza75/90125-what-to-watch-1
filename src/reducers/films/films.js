@@ -10,7 +10,8 @@ const initialState = {
   comments: [],
   favorites: [],
   promo: null,
-  maxShowFilms: 20
+  maxShowFilms: 20,
+  playState: false
 };
 
 export const transform = (data) => ({
@@ -135,6 +136,11 @@ const reducer = (state = initialState, action) => {
       return ({
         ...state,
         maxShowFilms
+      });
+    case ActionTypes.TOGGLE_PLAY_BUTTON:
+      return ({
+        ...state,
+        playState: action.payload
       });
   }
   return state;
