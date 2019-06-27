@@ -4,13 +4,15 @@ import {ActionCreator} from '../../actions/actions.js';
 import {sortComments} from '../../utils.js';
 import {getMovieRatingLevel} from '../../utils.js';
 
+const MAX_FILMS_TO_SHOW = 20;
+
 const initialState = {
   films: [],
   filter: ALL_GENRES,
   comments: [],
   favorites: [],
   promo: null,
-  maxShowFilms: 20,
+  maxShowFilms: MAX_FILMS_TO_SHOW,
   playState: false
 };
 
@@ -100,7 +102,8 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.CHANGE_GENRE:
       return {
         ...state,
-        filter: action.payload
+        filter: action.payload,
+        maxShowFilms: MAX_FILMS_TO_SHOW
       };
     case ActionTypes.LOAD_COMMENTS:
       return ({
@@ -141,6 +144,11 @@ const reducer = (state = initialState, action) => {
       return ({
         ...state,
         playState: action.payload
+      });
+    case ActionTypes.RESET_MAX_SHOW_FILMS:
+      return ({
+        ...state,
+        maxShowFilms: MAX_FILMS_TO_SHOW
       });
   }
   return state;

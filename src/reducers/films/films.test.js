@@ -326,4 +326,31 @@ describe(`Reducer works correctly`, () => {
       payload: true
     })).toEqual(enabledPlayVideoState);
   });
+
+  it(`Reducer resets count of max films to show`, () => {
+    const beforeResetShowMoreClickState = {
+      filter: ALL_GENRES,
+      films: filmList,
+      comments: [],
+      favorites: [],
+      promo: favoritePromo,
+      maxShowFilms: 40,
+      playState: false
+    };
+
+    const afterResetShowMoreClickState = {
+      filter: ALL_GENRES,
+      films: filmList,
+      comments: [],
+      favorites: [],
+      promo: favoritePromo,
+      maxShowFilms: 20,
+      playState: false
+    };
+
+    expect(reducer(beforeResetShowMoreClickState, {
+      type: ActionTypes.RESET_MAX_SHOW_FILMS,
+      payload: 20
+    })).toEqual(afterResetShowMoreClickState);
+  });
 });

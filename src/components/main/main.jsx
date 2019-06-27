@@ -36,6 +36,11 @@ class Main extends PureComponent {
     onLoadPromo();
   }
 
+  componentWillUnmount() {
+    const {onResetMaxShowFilms} = this.props;
+    onResetMaxShowFilms();
+  }
+
   render() {
     const {
       filmsGroup,
@@ -115,7 +120,8 @@ Main.propTypes = {
   onLoadPromo: PropTypes.func,
   isAuthorized: PropTypes.bool,
   history: PropTypes.object,
-  showPlayer: PropTypes.bool
+  showPlayer: PropTypes.bool,
+  onResetMaxShowFilms: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -134,6 +140,7 @@ export default connect(
     {
       onChangeFilter: ActionCreator.changeFilter,
       onLoadPromo: Operation.loadPromo,
-      onToggleFavorite: Operation.toggleFavorite
+      onToggleFavorite: Operation.toggleFavorite,
+      onResetMaxShowFilms: ActionCreator.resetMaxShowFilms
     }
 )(Main);
