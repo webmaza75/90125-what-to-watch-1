@@ -9,7 +9,8 @@ const initialState = {
   filter: ALL_GENRES,
   comments: [],
   favorites: [],
-  promo: null
+  promo: null,
+  maxShowFilms: 20
 };
 
 export const transform = (data) => ({
@@ -128,6 +129,12 @@ const reducer = (state = initialState, action) => {
       return ({
         ...state,
         promo: action.payload
+      });
+    case ActionTypes.INCREASE_MAX_SHOW_FILMS:
+      const maxShowFilms = state.maxShowFilms + action.payload;
+      return ({
+        ...state,
+        maxShowFilms
       });
   }
   return state;

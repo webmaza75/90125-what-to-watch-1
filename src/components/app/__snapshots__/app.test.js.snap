@@ -66,6 +66,10 @@ exports[`App correctly renders 1`] = `
       exact={true}
       path="/film/:id"
     />
+    <Route
+      component={[Function]}
+      path="/500"
+    />
   </React.Fragment>
 </Switch>
 `;

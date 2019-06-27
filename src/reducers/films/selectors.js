@@ -12,14 +12,19 @@ export const getActiveFilter = (state) => {
   return state[NAME_SPACE].filter;
 };
 
+export const getMaxShowFilms = (state) => {
+  return state[NAME_SPACE].maxShowFilms;
+};
+
 export const getFilmsByGenre = createSelector(
     getFilms,
     getActiveFilter,
-    (films, filter) => {
+    getMaxShowFilms,
+    (films, filter, maxShowFilms) => {
       if (filter === ALL_GENRES) {
-        return films;
+        return films.slice(0, maxShowFilms);
       }
-      return films.filter((item) => item.genre === filter);
+      return films.filter((item) => item.genre === filter).slice(0, maxShowFilms);
     }
 );
 

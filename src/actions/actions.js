@@ -48,6 +48,10 @@ const ActionCreator = {
   loadPromo: (promo) => ({
     type: ActionTypes.LOAD_PROMO,
     payload: promo
+  }),
+  increaseMaxShowFilms: () => ({
+    type: ActionTypes.INCREASE_MAX_SHOW_FILMS,
+    payload: 20
   })
 };
 

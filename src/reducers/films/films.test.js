@@ -17,7 +17,8 @@ const initialState = {
   filter: ALL_GENRES,
   comments: [],
   favorites: [],
-  promo: null
+  promo: null,
+  maxShowFilms: 20
 };
 
 const afterLoadFilmsState = {
@@ -25,7 +26,8 @@ const afterLoadFilmsState = {
   films: filmList,
   comments: [],
   favorites: [],
-  promo: null
+  promo: null,
+  maxShowFilms: 20
 };
 
 const stateWithComedy = {
@@ -33,7 +35,8 @@ const stateWithComedy = {
   filter: `Comedy`,
   comments: [],
   favorites: [],
-  promo: null
+  promo: null,
+  maxShowFilms: 20
 };
 
 const afterLoadCommentsState = {
@@ -41,7 +44,8 @@ const afterLoadCommentsState = {
   films: filmList,
   comments: reviews,
   favorites: [],
-  promo: null
+  promo: null,
+  maxShowFilms: 20
 };
 
 const afterLoadFavoritesState = {
@@ -49,7 +53,8 @@ const afterLoadFavoritesState = {
   films: filmList,
   comments: [],
   favorites,
-  promo: null
+  promo: null,
+  maxShowFilms: 20
 };
 
 const afterToggleFavoritesState = {
@@ -57,7 +62,8 @@ const afterToggleFavoritesState = {
   films: filmList,
   comments: [],
   favorites: [],
-  promo: favoritePromo
+  promo: favoritePromo,
+  maxShowFilms: 20
 };
 
 describe(`Reducer works correctly`, () => {
@@ -259,5 +265,30 @@ describe(`Reducer works correctly`, () => {
           payload: result,
         });
       });
+  });
+
+  it(`Reducer increases count of max films to show`, () => {
+    const beforeShowMoreClickState = {
+      filter: ALL_GENRES,
+      films: filmList,
+      comments: [],
+      favorites: [],
+      promo: favoritePromo,
+      maxShowFilms: 1
+    };
+
+    const afterShowMoreClickState = {
+      filter: ALL_GENRES,
+      films: filmList,
+      comments: [],
+      favorites: [],
+      promo: favoritePromo,
+      maxShowFilms: 21
+    };
+
+    expect(reducer(beforeShowMoreClickState, {
+      type: ActionTypes.INCREASE_MAX_SHOW_FILMS,
+      payload: 20
+    })).toEqual(afterShowMoreClickState);
   });
 });

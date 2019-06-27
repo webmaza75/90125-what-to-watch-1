@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
-import reducer from '../../reducers/index.js';
+import reducer from '../../reducers/reducer.js';
 import withAddReview from './with-add-review.js';
 
 Enzyme.configure({adapter: new Adapter()});
