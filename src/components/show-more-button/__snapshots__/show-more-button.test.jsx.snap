@@ -1,3 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ShowMoreButton correctly renders 1`] = `null`;
+exports[`ShowMoreButton ShowMoreButton correctly renders when films count equal to limit to show 1`] = `
+<div
+  className="catalog__more"
+>
+  <button
+    className="catalog__button"
+    onClick={[Function]}
+    type="button"
+  >
+    Show more
+  </button>
+</div>
+`;
+
+exports[`ShowMoreButton ShowMoreButton correctly renders when films more when limit to show 1`] = `
+<div
+  className="catalog__more"
+>
+  <button
+    className="catalog__button"
+    onClick={[Function]}
+    type="button"
+  >
+    Show more
+  </button>
+</div>
+`;
+
+exports[`ShowMoreButton ShowMoreButton doesn\`t render when films count less when limit to show 1`] = `null`;

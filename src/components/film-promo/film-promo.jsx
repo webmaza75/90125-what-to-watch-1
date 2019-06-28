@@ -12,8 +12,7 @@ const FilmPromo = (props) => {
     released,
     backgroundImage,
     id,
-    isFavorite,
-    isAuthorized
+    isFavorite
   } = props;
 
   return <Fragment>
@@ -41,7 +40,6 @@ const FilmPromo = (props) => {
           <MovieCardButtons
             id={id}
             isFavorite={isFavorite}
-            isAuthorized={isAuthorized}
             showAddReviewLink={false}
           />
 
@@ -59,7 +57,6 @@ FilmPromo.propTypes = {
   posterImage: PropTypes.string,
   backgroundImage: PropTypes.string,
   isFavorite: PropTypes.bool,
-  isAuthorized: PropTypes.bool
 };
 
 export default FilmPromo;

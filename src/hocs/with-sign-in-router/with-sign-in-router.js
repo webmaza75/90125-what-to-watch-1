@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {compose} from 'recompose';
 
 import {getUser} from '../../reducers/user/selectors.js';
 import {userInfo} from '../../models.js';
@@ -30,13 +31,16 @@ const withSignInRouter = (Component) => {
     user: userInfo
   };
 
-  const mapStateToProps = (state) => ({
-    user: getUser(state)
-  });
-
-  const wrapper = connect(mapStateToProps)(WithSignInRouter);
-
-  return wrapper;
+  return WithSignInRouter;
 };
 
-export default withSignInRouter;
+const mapStateToProps = (state) => ({
+  user: getUser(state)
+});
+
+export {withSignInRouter};
+
+export default compose(
+    connect(mapStateToProps),
+    withSignInRouter
+);

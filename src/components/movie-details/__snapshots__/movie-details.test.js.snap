@@ -47,9 +47,8 @@ exports[`MovieDetails correctly renders 1`] = `
               2005
             </span>
           </p>
-          <MovieCardButtons
+          <Memo(ConnectFunction)
             id={1}
-            isAuthorized={false}
             isFavorite={false}
             showAddReviewLink={true}
           />

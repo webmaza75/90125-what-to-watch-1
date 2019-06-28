@@ -5,7 +5,8 @@ import {
   getRunTime,
   getCommentDate,
   sortComments,
-  getMoreFilmsByGenre
+  getMoreFilmsByGenre,
+  formatVideoTime
 } from './utils.js';
 
 describe(`utils work correctly`, () => {
@@ -127,6 +128,20 @@ describe(`utils work correctly`, () => {
     expect(result).not.toContainEqual(actionFilm);
     expect(result).not.toContainEqual(movie);
     expect(result).toContainEqual({id: 1, genre: `Comedy`});
+  });
+
+  const timeDuration = [
+    [9, `0:09`],
+    [30, `0:30`],
+    [60, `1:00`],
+    [94, `1:34`],
+    [631, `10:31`],
+    [3599, `59:59`],
+    [3600, `1:00:00`],
+    [3702, `1:01:42`]
+  ];
+  test.each(timeDuration)(`formatVideoTime returns correctly time format`, (unformattedTimeDuration, formattedTimeDuration) => {
+    expect(formatVideoTime(unformattedTimeDuration)).toEqual(formattedTimeDuration);
   });
 });
 

@@ -11,9 +11,9 @@ import {
 import {
   getMovieById,
   getFilms,
-  getComments
+  getComments,
+  getPlayState
 } from '../../reducers/films/selectors.js';
-import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
@@ -22,6 +22,7 @@ import MovieTabs from '../movie-tabs/movie-tabs.jsx';
 import {Operation} from '../../reducers/films/films.js';
 import {Tabs} from '../../consts.js';
 import MovieCardButtons from '../movie-card-buttons/movie-card-buttons.jsx';
+import Player from '../player/player.jsx';
 
 const FilmListWrapped = withActiveItem(FilmList);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
@@ -49,7 +50,7 @@ class MovieDetails extends PureComponent {
       films,
       comments,
       location,
-      isAuthorized
+      showPlayer
     } = this.props;
 
     if (!movie || !films) {
@@ -66,6 +67,10 @@ class MovieDetails extends PureComponent {
       isFavorite
     } = movie;
     const moreFilms = getMoreFilmsByGenre(films, movie);
+
+    if (showPlayer) {
+      return <Player movie={movie} />;
+    }
 
     return <Fragment>
       <section className="movie-card movie-card--full">
@@ -89,7 +94,6 @@ class MovieDetails extends PureComponent {
                 id={id}
                 isFavorite={isFavorite}
                 showAddReviewLink={true}
-                isAuthorized={isAuthorized}
               />
 
             </div>
@@ -138,15 +142,15 @@ MovieDetails.propTypes = {
   onLoadComments: PropTypes.func,
   comments: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
-  isAuthorized: PropTypes.bool,
-  history: PropTypes.object
+  history: PropTypes.object,
+  showPlayer: PropTypes.bool
 };
 
 const mapStateToProps = (state, {match}) => ({
   movie: getMovieById(state, match.params.id),
   films: getFilms(state),
   comments: getComments(state),
-  isAuthorized: isAuthorizedUser(state)
+  showPlayer: getPlayState(state)
 });
 
 export {MovieDetails};

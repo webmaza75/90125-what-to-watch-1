@@ -54,7 +54,7 @@ exports[`FilmPromo correctly renders 1`] = `
             2005
           </span>
         </p>
-        <MovieCardButtons
+        <Memo(ConnectFunction)
           id={1}
           isFavorite={false}
           showAddReviewLink={false}

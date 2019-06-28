@@ -51,3 +51,7 @@ export const getComments = (state) => {
 export const getPromo = (state) => {
   return state[NAME_SPACE].promo;
 };
+
+export const getPlayState = (state) => {
+  return state[NAME_SPACE].playState;
+};

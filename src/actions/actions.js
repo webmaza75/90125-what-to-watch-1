@@ -52,6 +52,14 @@ const ActionCreator = {
   increaseMaxShowFilms: () => ({
     type: ActionTypes.INCREASE_MAX_SHOW_FILMS,
     payload: 20
+  }),
+  togglePlayButton: (playState) => ({
+    type: ActionTypes.TOGGLE_PLAY_BUTTON,
+    payload: playState
+  }),
+  resetMaxShowFilms: () => ({
+    type: ActionTypes.RESET_MAX_SHOW_FILMS,
+    payload: 20
   })
 };
 

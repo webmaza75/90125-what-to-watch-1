@@ -12,7 +12,6 @@ it(`MovieDetails correctly renders`, () => {
       movie={film}
       films={filmList}
       comments={[]}
-      isAuthorized={false}
       onLoadComments={jest.fn()}
       onToggleFavorite={jest.fn()}
     />);

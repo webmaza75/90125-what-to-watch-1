@@ -23,6 +23,7 @@ it(`Main correctly renders after relaunch`, () => {
           onChangeFilter={jest.fn()}
           onLoadPromo={jest.fn()}
           promo={films[0]}
+          onResetMaxShowFilms={jest.fn()}
         />
       </MemoryRouter>
     </Provider>)

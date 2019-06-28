@@ -12,8 +12,7 @@ it(`FilmPromo correctly renders`, () => {
     released,
     backgroundImage,
     id,
-    isFavorite,
-    isAuthorized
+    isFavorite
   } = film;
 
   const renderer = new ShallowRenderer();
@@ -26,7 +25,6 @@ it(`FilmPromo correctly renders`, () => {
       backgroundImage={backgroundImage}
       id={id}
       isFavorite={isFavorite}
-      isAuthorized={isAuthorized}
     />);
 
   expect(result).toMatchSnapshot();

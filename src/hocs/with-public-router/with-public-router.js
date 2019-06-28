@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import {compose} from 'recompose';
 
 import {getUser} from '../../reducers/user/selectors.js';
 import {userInfo} from '../../models.js';
@@ -30,13 +31,16 @@ const withPublicRouter = (Component) => {
     user: userInfo
   };
 
-  const mapStateToProps = (state) => ({
-    user: getUser(state)
-  });
-
-  const wrapper = connect(mapStateToProps)(WithPublicRouter);
-
-  return wrapper;
+  return WithPublicRouter;
 };
 
-export default withPublicRouter;
+const mapStateToProps = (state) => ({
+  user: getUser(state)
+});
+
+export {withPublicRouter};
+
+export default compose(
+    connect(mapStateToProps),
+    withPublicRouter
+);

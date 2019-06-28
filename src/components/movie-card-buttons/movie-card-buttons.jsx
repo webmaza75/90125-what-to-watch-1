@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+
 import MyListButton from '../my-list-button/my-list-button.jsx';
 import withMyListButton from '../../hocs/with-my-list-button/with-my-list-button.js';
+import {ActionCreator} from '../../actions/actions.js';
+import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 
 const MyListButtonWrapped = withMyListButton(MyListButton);
 
-const MovieCardButtons = ({isAuthorized, isFavorite, id, showAddReviewLink}) => {
+const MovieCardButtons = ({isAuthorized, isFavorite, id, showAddReviewLink, onTogglePlayButton}) => {
   const needShowAddReviewlink = showAddReviewLink && isAuthorized;
 
   return <div className="movie-card__buttons">
-    <button className="btn btn--play movie-card__button" type="button">
+    <button className="btn btn--play movie-card__button" type="button" onClick={() => onTogglePlayButton(true)}>
       <svg viewBox="0 0 19 19" width="19" height="19">
         <use xlinkHref="#play-s"></use>
       </svg>
@@ -33,7 +37,20 @@ MovieCardButtons.propTypes = {
   isFavorite: PropTypes.bool,
   id: PropTypes.number,
   onMyListClick: PropTypes.func,
-  showAddReviewLink: PropTypes.bool
+  showAddReviewLink: PropTypes.bool,
+  onTogglePlayButton: PropTypes.func
 };
 
-export default MovieCardButtons;
+export {MovieCardButtons};
+
+const mapStateToProps = (state) => ({
+  isAuthorized: isAuthorizedUser(state)
+});
+
+export default connect(
+    mapStateToProps,
+    {
+      onTogglePlayButton: ActionCreator.togglePlayButton
+    }
+)(MovieCardButtons);
+
