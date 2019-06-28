@@ -1,4 +1,4 @@
-import ActionTypes from '../../actions/action-types.js';
+import ActionType from '../../actions/action-type.js';
 import {ALL_GENRES} from '../../consts.js';
 import {ActionCreator} from '../../actions/actions.js';
 import {sortComments} from '../../utils.js';
@@ -94,28 +94,28 @@ const Operation = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.LOAD_FILMS:
+    case ActionType.LOAD_FILMS:
       return ({
         ...state,
         films: action.payload,
       });
-    case ActionTypes.CHANGE_GENRE:
+    case ActionType.CHANGE_GENRE:
       return {
         ...state,
         filter: action.payload,
         maxShowFilms: MAX_FILMS_TO_SHOW
       };
-    case ActionTypes.LOAD_COMMENTS:
+    case ActionType.LOAD_COMMENTS:
       return ({
         ...state,
         comments: action.payload,
       });
-    case ActionTypes.ADD_COMMENT:
+    case ActionType.ADD_COMMENT:
       return ({
         ...state,
         comments: action.payload,
       });
-    case ActionTypes.UPDATE_FILMS:
+    case ActionType.UPDATE_FILMS:
       const item = action.payload;
       const filmList = updateFilmList(item, [...state.films]);
       const {promo} = state;
@@ -124,28 +124,28 @@ const reducer = (state = initialState, action) => {
         films: filmList,
         promo: promo.id === item.id ? item : promo
       });
-    case ActionTypes.LOAD_FAVORITES:
+    case ActionType.LOAD_FAVORITES:
       return ({
         ...state,
         favorites: action.payload
       });
-    case ActionTypes.LOAD_PROMO:
+    case ActionType.LOAD_PROMO:
       return ({
         ...state,
         promo: action.payload
       });
-    case ActionTypes.INCREASE_MAX_SHOW_FILMS:
+    case ActionType.INCREASE_MAX_SHOW_FILMS:
       const maxShowFilms = state.maxShowFilms + action.payload;
       return ({
         ...state,
         maxShowFilms
       });
-    case ActionTypes.TOGGLE_PLAY_BUTTON:
+    case ActionType.TOGGLE_PLAY_BUTTON:
       return ({
         ...state,
         playState: action.payload
       });
-    case ActionTypes.RESET_MAX_SHOW_FILMS:
+    case ActionType.RESET_MAX_SHOW_FILMS:
       return ({
         ...state,
         maxShowFilms: MAX_FILMS_TO_SHOW

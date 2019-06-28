@@ -1,4 +1,4 @@
-import ActionTypes from '../../actions/action-types.js';
+import ActionType from '../../actions/action-type.js';
 import {ActionCreator} from '../../actions/actions.js';
 
 const initialState = {
@@ -10,27 +10,27 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.REQUIRED_AUTHORIZATION:
+    case ActionType.REQUIRED_AUTHORIZATION:
       return {
         ...state,
         isAuthorizationRequired: action.payload,
       };
-    case ActionTypes.SIGN_IN_USER:
+    case ActionType.SIGN_IN_USER:
       return {
         ...state,
         userInfo: action.payload
       };
-    case ActionTypes.SIGN_IN_USER_ERROR:
+    case ActionType.SIGN_IN_USER_ERROR:
       return {
         ...state,
         error: action.payload
       };
-    case ActionTypes.VALIDATE_SIGN_IN_USER_ERROR:
+    case ActionType.VALIDATE_SIGN_IN_USER_ERROR:
       return {
         ...state,
         validationError: action.payload
       };
-    case ActionTypes.RESET_ERRORS:
+    case ActionType.RESET_ERRORS:
       return {
         ...state,
         validationError: action.payload,

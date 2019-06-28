@@ -79,7 +79,7 @@ class VideoPlayer extends PureComponent {
     if (video) {
       video.oncanplaythrough = null;
       video.ontimeupdate = null;
-      video.src = ``;
+      video.onfullscreenchange = null;
     }
   }
 

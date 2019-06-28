@@ -1,4 +1,4 @@
-const ActionTypes = {
+const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   LOAD_FILMS: `LOAD_FILMS`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
@@ -16,4 +16,4 @@ const ActionTypes = {
   RESET_MAX_SHOW_FILMS: `RESET_MAX_SHOW_FILMS`
 };
 
-export default ActionTypes;
+export default ActionType;
