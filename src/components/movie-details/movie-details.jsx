@@ -14,7 +14,6 @@ import {
   getComments,
   getPlayState
 } from '../../reducers/films/selectors.js';
-import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
@@ -51,7 +50,6 @@ class MovieDetails extends PureComponent {
       films,
       comments,
       location,
-      isAuthorized,
       showPlayer
     } = this.props;
 
@@ -96,7 +94,6 @@ class MovieDetails extends PureComponent {
                 id={id}
                 isFavorite={isFavorite}
                 showAddReviewLink={true}
-                isAuthorized={isAuthorized}
               />
 
             </div>
@@ -145,7 +142,6 @@ MovieDetails.propTypes = {
   onLoadComments: PropTypes.func,
   comments: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
-  isAuthorized: PropTypes.bool,
   history: PropTypes.object,
   showPlayer: PropTypes.bool
 };
@@ -154,7 +150,6 @@ const mapStateToProps = (state, {match}) => ({
   movie: getMovieById(state, match.params.id),
   films: getFilms(state),
   comments: getComments(state),
-  isAuthorized: isAuthorizedUser(state),
   showPlayer: getPlayState(state)
 });
 

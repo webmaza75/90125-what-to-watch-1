@@ -40,7 +40,7 @@ describe(`MockComponent and wrapper`, () => {
     const MockComponentWrapped = withPlayer(MockComponent);
     const wrapper = mount(<MockComponentWrapped />);
 
-    wrapper.find(MockComponent).prop(`onToggleFullScreen`)();
+    wrapper.find(MockComponent).prop(`onToggleFullScreen`)(true);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`isFullScreen`)).toBeTruthy();
   });

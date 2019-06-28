@@ -44,7 +44,7 @@ const withPlayer = (Component) => {
       });
     }
 
-    _handleToggleFullScreen(state = true) {
+    _handleToggleFullScreen(state) {
       this.setState({
         isFullScreen: state
       });

@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import MyListButton from '../my-list-button/my-list-button.jsx';
 import withMyListButton from '../../hocs/with-my-list-button/with-my-list-button.js';
 import {ActionCreator} from '../../actions/actions.js';
+import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 
 const MyListButtonWrapped = withMyListButton(MyListButton);
 
@@ -42,8 +43,12 @@ MovieCardButtons.propTypes = {
 
 export {MovieCardButtons};
 
+const mapStateToProps = (state) => ({
+  isAuthorized: isAuthorizedUser(state)
+});
+
 export default connect(
-    null,
+    mapStateToProps,
     {
       onTogglePlayButton: ActionCreator.togglePlayButton
     }

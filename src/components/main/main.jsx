@@ -16,7 +16,6 @@ import {
 } from '../../reducers/films/selectors.js';
 import Footer from '../footer/footer.jsx';
 import {Operation} from '../../reducers/films/films.js';
-import {isAuthorizedUser} from '../../reducers/user/selectors.js';
 import FilmPromo from '../film-promo/film-promo.jsx';
 import {itemShape} from '../../models.js';
 import ShowMoreButton from '../show-more-button/show-more-button.jsx';
@@ -47,7 +46,6 @@ class Main extends PureComponent {
       filter,
       genres,
       promo,
-      isAuthorized,
       showPlayer
     } = this.props;
 
@@ -78,7 +76,6 @@ class Main extends PureComponent {
           backgroundImage={backgroundImage}
           id={id}
           isFavorite={isFavorite}
-          isAuthorized={isAuthorized}
           posterImage={posterImage}
         />
       </section>
@@ -118,7 +115,6 @@ Main.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   promo: itemShape,
   onLoadPromo: PropTypes.func,
-  isAuthorized: PropTypes.bool,
   history: PropTypes.object,
   showPlayer: PropTypes.bool,
   onResetMaxShowFilms: PropTypes.func
@@ -129,7 +125,6 @@ const mapStateToProps = (state) => ({
   filmsGroup: getFilmsByGenre(state),
   genres: getGenres(state),
   promo: getPromo(state),
-  isAuthorized: isAuthorizedUser(state),
   showPlayer: getPlayState(state)
 });
 

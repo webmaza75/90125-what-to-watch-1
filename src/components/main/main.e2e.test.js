@@ -26,7 +26,6 @@ describe(`Main correctly renders after relaunch`, () => {
           onChangeFilter={jest.fn()}
           onLoadPromo={jest.fn()}
           onToggleFavorite={jest.fn()}
-          isAuthorized={false}
           promo={films[0]}
           onResetMaxShowFilms={jest.fn()}
         />
@@ -47,7 +46,6 @@ describe(`Main correctly renders after relaunch`, () => {
         onChangeFilter={jest.fn()}
         onLoadPromo={jest.fn()}
         onToggleFavorite={jest.fn()}
-        isAuthorized={false}
         promo={films[0]}
         onResetMaxShowFilms={jest.fn()}
       />
@@ -75,7 +73,6 @@ describe(`Main correctly renders after relaunch`, () => {
         onChangeFilter={jest.fn()}
         onLoadPromo={jest.fn()}
         onToggleFavorite={jest.fn()}
-        isAuthorized={false}
         promo={films[0]}
         onResetMaxShowFilms={jest.fn()}
       />

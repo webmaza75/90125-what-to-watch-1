@@ -1,6 +1,8 @@
 import {
   RatingLevels,
-  MONTHS
+  MONTHS,
+  SECONDS_IN_MINUTE,
+  SECONDS_IN_HOUR
 } from './consts.js';
 
 export const getMovieRatingLevel = (ratingValue) => {
@@ -26,11 +28,11 @@ export const getMoreFilmsByGenre = (films, movie, max = 4) => {
 };
 
 export const getRunTime = (runTime) => {
-  if (runTime < 60) {
+  if (runTime < SECONDS_IN_MINUTE) {
     return `${runTime}m`;
   }
 
-  return `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
+  return `${Math.floor(runTime / SECONDS_IN_MINUTE)}h ${runTime % SECONDS_IN_MINUTE}m`;
 };
 
 export const getCommentDate = (date) => {
@@ -48,22 +50,17 @@ export const getMonthName = (index) => {
   return MONTHS[index];
 };
 
-const getFormatMinutesAndSeconds = (time, useZeroBefore = false) => {
-  let minutes = Math.floor(time / 60);
-  const diff = time - minutes * 60;
-  minutes = useZeroBefore && (minutes < 10) ? `0${minutes}` : minutes;
-  const seconds = diff < 10 ? `0${diff}` : diff;
-  return `${minutes}:${seconds}`;
-};
-
-
 export const formatVideoTime = (time) => {
-  if (time < 60) {
-    return time < 10 ? `0:0${time}` : `0:${time}`;
-  } else if ((time >= 60) && (time < 60 * 60)) {
-    return `${getFormatMinutesAndSeconds(time)}`;
-  } else {
-    const hours = Math.floor(time / 3600);
-    return `${hours}:${getFormatMinutesAndSeconds(time - hours * 3600, true)}`;
+  const hours = Math.floor(time / SECONDS_IN_HOUR);
+  const secondsPerHours = hours * SECONDS_IN_HOUR;
+  const minutes = Math.floor((time - secondsPerHours) / SECONDS_IN_MINUTE);
+  const secondsPerMinutes = minutes * SECONDS_IN_MINUTE;
+  const seconds = time - secondsPerHours - secondsPerMinutes;
+  if (!hours && !minutes) {
+    return `${(`` + seconds).padStart(4, `0:0`)}`;
   }
+  if (!hours) {
+    return `${minutes}:${(`` + seconds).padStart(2, `0`)}`;
+  }
+  return `${hours}:${(`` + minutes).padStart(2, `0`)}:${(`` + seconds).padStart(2, `0`)}`;
 };

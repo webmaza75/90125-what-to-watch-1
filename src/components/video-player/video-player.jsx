@@ -28,9 +28,7 @@ class VideoPlayer extends PureComponent {
     }
 
     if (onSetCurrentTime) {
-      video.ontimeupdate = () => {
-        onSetCurrentTime(video.currentTime);
-      };
+      video.ontimeupdate = () => onSetCurrentTime(video.currentTime);
     }
   }
 
@@ -70,7 +68,7 @@ class VideoPlayer extends PureComponent {
         }
       }
       if (fullScreen) {
-        video.onfullscreenchange = onToggleFullScreen(false);
+        video.onfullscreenchange = () => onToggleFullScreen(false);
       }
     }
   }
