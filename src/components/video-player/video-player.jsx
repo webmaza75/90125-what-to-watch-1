@@ -75,8 +75,9 @@ class VideoPlayer extends PureComponent {
 
   componentWillUnmount() {
     const video = this._videoRef.current;
+    const {onToggleFullScreen} = this.props;
 
-    if (video) {
+    if (video && onToggleFullScreen) {
       video.oncanplaythrough = null;
       video.ontimeupdate = null;
       video.onfullscreenchange = null;
