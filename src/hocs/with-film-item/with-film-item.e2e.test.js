@@ -73,6 +73,7 @@ describe(`MockComponent and wrapper`, () => {
     wrapper.update();
 
     expect(wrapper.find(MockComponent).prop(`isPlaying`)).toBeFalsy();
+    expect(wrapper.find(MockComponent).prop(`isNeedReload`)).toBeTruthy();
     jest.clearAllTimers();
   });
 });

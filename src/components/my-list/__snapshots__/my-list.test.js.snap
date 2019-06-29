@@ -75,11 +75,11 @@ exports[`MyList correctly renders without any errors 1`] = `
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
-            <img
-              alt="War of the Worlds"
-              height="175"
-              src="https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg"
-              width="280"
+            <video
+              className="player__video"
+              muted={true}
+              poster="https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg"
+              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
           </div>
         </a>
@@ -107,11 +107,11 @@ exports[`MyList correctly renders without any errors 1`] = `
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
-            <img
-              alt="Macbeth"
-              height="175"
-              src="https://es31-server.appspot.com/wtw/static/film/preview/macbeth.jpg"
-              width="280"
+            <video
+              className="player__video"
+              muted={true}
+              poster="https://es31-server.appspot.com/wtw/static/film/preview/macbeth.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
           </div>
         </a>
@@ -139,11 +139,11 @@ exports[`MyList correctly renders without any errors 1`] = `
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
-            <img
-              alt="Moonrise Kingdom"
-              height="175"
-              src="https://es31-server.appspot.com/wtw/static/film/preview/moonrise-kingdom.jpg"
-              width="280"
+            <video
+              className="player__video"
+              muted={true}
+              poster="https://es31-server.appspot.com/wtw/static/film/preview/moonrise-kingdom.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
           </div>
         </a>

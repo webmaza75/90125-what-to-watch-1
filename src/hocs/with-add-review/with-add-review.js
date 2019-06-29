@@ -8,11 +8,13 @@ const withAddReview = (Component) => {
         selectedOption: null,
         text: null,
         validationError: null,
+        isDisabled: true,
         submiting: false
       };
       this._handleCheck = this._handleCheck.bind(this);
       this._handleChangeText = this._handleChangeText.bind(this);
       this._handleSubmit = this._handleSubmit.bind(this);
+      this._handleToggleDisabled = this._handleToggleDisabled.bind(this);
     }
 
     render() {
@@ -20,6 +22,7 @@ const withAddReview = (Component) => {
         selectedOption,
         text,
         validationError,
+        isDisabled,
         submiting
       } = this.state;
 
@@ -28,10 +31,12 @@ const withAddReview = (Component) => {
         selectedOption={selectedOption}
         text={text}
         validationError={validationError}
-        submiting={submiting}
         onCheck={this._handleCheck}
         onChangeText={this._handleChangeText}
         onSubmit={this._handleSubmit}
+        onToggleDisabled = {this._handleToggleDisabled}
+        isDisabled={isDisabled}
+        submiting={submiting}
       />;
     }
 
@@ -42,7 +47,8 @@ const withAddReview = (Component) => {
 
       this.setState({
         selectedOption,
-        validationError
+        validationError,
+        isDisabled: validationError ? true : false
       });
     }
 
@@ -53,13 +59,22 @@ const withAddReview = (Component) => {
 
       this.setState({
         text,
-        validationError
+        validationError,
+        isDisabled: validationError ? true : false
       });
     }
 
     _handleSubmit() {
       this.setState({
-        submiting: true
+        submiting: true,
+        isDisabled: true
+      });
+    }
+
+    _handleToggleDisabled(isSubmitButtonDisable, isInputDisable) {
+      this.setState({
+        isDisabled: isSubmitButtonDisable,
+        submiting: isInputDisable
       });
     }
 

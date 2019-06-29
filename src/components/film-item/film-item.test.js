@@ -31,6 +31,7 @@ describe(``, () => {
           isPlaying={true}
           onMouseOver={jest.fn()}
           onMouseOut={jest.fn()}
+          isNeedReload={false}
         />
       </MemoryRouter>)
       .toJSON();

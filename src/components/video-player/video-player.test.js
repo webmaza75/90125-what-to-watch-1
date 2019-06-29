@@ -6,13 +6,14 @@ import film from '../../mocks/film.js';
 
 window.HTMLMediaElement.prototype.play = () => {};
 
-const {src} = film;
+const {src, picture} = film;
 
 it(`VideoPlayer correctly renders`, () => {
   const videoPlayer = renderer
     .create(<VideoPlayer
       src={src}
       isPlaying={true}
+      poster={picture}
     />)
     .toJSON();
 

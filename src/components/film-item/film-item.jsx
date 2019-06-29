@@ -10,7 +10,8 @@ const FilmItem = (props) => {
     item,
     isPlaying,
     onMouseOver,
-    onMouseOut
+    onMouseOut,
+    isNeedReload
   } = props;
 
   const {
@@ -21,18 +22,15 @@ const FilmItem = (props) => {
   } = item;
   const path = `/film/${id}`;
 
-  // Формирование превью отображения карточки фильма
-  const preview = isPlaying ?
-    <VideoPlayer
-      src={src}
-      isPlaying={isPlaying}
-    /> :
-    <img src={picture} alt={title} width="280" height="175" />;
-
   return <article className="small-movie-card catalog__movies-card">
     <Link to={path}>
       <div className="small-movie-card__image" onMouseOver={() => onMouseOver(item)} onMouseOut={onMouseOut}>
-        {preview}
+        <VideoPlayer
+          src={src}
+          isPlaying={isPlaying}
+          poster={picture}
+          isNeedReload={isNeedReload}
+        />
       </div>
     </Link>
     <h3 className="small-movie-card__title">
@@ -44,6 +42,7 @@ const FilmItem = (props) => {
 FilmItem.propTypes = {
   item: itemShape.isRequired,
   isPlaying: PropTypes.bool,
+  isNeedReload: PropTypes.bool,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func
 };

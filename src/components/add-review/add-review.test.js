@@ -17,6 +17,7 @@ describe(`AddReview`, () => {
         onCheck={jest.fn()}
         onChangeText={jest.fn()}
         onAddComment={jest.fn()}
+        isDisabled={true}
       />);
 
     expect(result).toMatchSnapshot();

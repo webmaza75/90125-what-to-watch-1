@@ -26,7 +26,7 @@ describe(`MockComponent and wrapper`, () => {
         value
       }
     };
-
+    expect(wrapper.find(MockComponent).prop(`isDisabled`)).toBeTruthy();
     wrapper.find(MockComponent).prop(`onCheck`)(event);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`selectedOption`)).toEqual(value);
@@ -44,7 +44,7 @@ describe(`MockComponent and wrapper`, () => {
         value: text
       }
     };
-
+    expect(wrapper.find(MockComponent).prop(`isDisabled`)).toBeTruthy();
     wrapper.find(MockComponent).prop(`onChangeText`)(event);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`text`)).toEqual(text);
@@ -66,6 +66,7 @@ describe(`MockComponent and wrapper`, () => {
 
     wrapper.find(MockComponent).prop(`onSubmit`)(event);
     wrapper.update();
+    expect(wrapper.find(MockComponent).prop(`isDisabled`)).toBeTruthy();
     expect(wrapper.find(MockComponent).prop(`submiting`)).toBeTruthy();
   });
 });

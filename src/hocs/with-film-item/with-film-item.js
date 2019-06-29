@@ -7,7 +7,8 @@ const withFilmItem = (Component) => {
       super(props);
 
       this.state = {
-        isPlaying: false
+        isPlaying: false,
+        isNeedReload: false
       };
 
       this._handleMouseOver = this._handleMouseOver.bind(this);
@@ -20,13 +21,17 @@ const withFilmItem = (Component) => {
     }
 
     render() {
-      const {isPlaying} = this.state;
+      const {
+        isPlaying,
+        isNeedReload
+      } = this.state;
 
       return <Component
         {...this.props}
         isPlaying={isPlaying}
         onMouseOver={this._handleMouseOver}
         onMouseOut={this._handleMouseOut}
+        isNeedReload={isNeedReload}
       />;
     }
 
@@ -46,7 +51,8 @@ const withFilmItem = (Component) => {
     _handleMouseOut() {
       clearTimeout(this._timeOut);
       this.setState({
-        isPlaying: false
+        isPlaying: false,
+        isNeedReload: true
       });
     }
   }

@@ -19,6 +19,7 @@ describe(`Film and callbacks`, () => {
         isPlaying={false}
         onMouseOver={onMouseOver}
         onMouseOut={jest.fn()}
+        isNeedReload={false}
       />
     </MemoryRouter>);
 
@@ -37,6 +38,7 @@ describe(`Film and callbacks`, () => {
         isPlaying={true}
         onMouseOver={jest.fn()}
         onMouseOut={onMouseOut}
+        isNeedReload={false}
       />
     </MemoryRouter>);
 

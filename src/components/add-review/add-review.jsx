@@ -26,9 +26,10 @@ class AddReview extends PureComponent {
       movie,
       selectedOption,
       validationError,
-      submiting,
       onCheck,
-      onChangeText
+      onChangeText,
+      isDisabled,
+      submiting
     } = this.props;
 
     if (!movie) {
@@ -93,7 +94,7 @@ class AddReview extends PureComponent {
               (event) => onChangeText(event)
             }></textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit" disabled={validationError || submiting}>Post</button>
+              <button className="add-review__btn" type="submit" disabled={isDisabled}>Post</button>
             </div>
 
           </div>
@@ -109,7 +110,8 @@ class AddReview extends PureComponent {
       history,
       selectedOption,
       text,
-      onSubmit
+      onSubmit,
+      onToggleDisabled
     } = this.props;
 
     onSubmit();
@@ -117,7 +119,11 @@ class AddReview extends PureComponent {
     event.preventDefault();
     onAddComment(movie.id, {rating: +selectedOption, comment: text})
       .then(() => {
+        onToggleDisabled(true, false);
         history.push(`/film/${movie.id}`);
+      })
+      .catch(() => {
+        onToggleDisabled(false, false);
       });
   }
 }
@@ -129,10 +135,12 @@ AddReview.propTypes = {
   text: PropTypes.string,
   selectedOption: PropTypes.string,
   validationError: PropTypes.string,
-  submiting: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   onCheck: PropTypes.func,
   onChangeText: PropTypes.func,
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  onToggleDisabled: PropTypes.func,
+  submiting: PropTypes.bool
 };
 
 const mapStateToProps = (state, {match}) => ({

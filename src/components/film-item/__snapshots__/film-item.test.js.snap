@@ -13,11 +13,11 @@ exports[`Film item correctly renders with isPlaying false 1`] = `
       onMouseOut={[MockFunction]}
       onMouseOver={[Function]}
     >
-      <img
-        alt="War of the Worlds"
-        height="175"
-        src="https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg"
-        width="280"
+      <video
+        className="player__video"
+        muted={true}
+        poster="https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>
   </a>
@@ -51,6 +51,7 @@ exports[`Film item correctly renders with isPlaying true 1`] = `
       <video
         className="player__video"
         muted={true}
+        poster="https://es31-server.appspot.com/wtw/static/film/preview/war-of-the-worlds.jpg"
         src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
       />
     </div>

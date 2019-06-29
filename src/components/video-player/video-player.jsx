@@ -36,7 +36,8 @@ class VideoPlayer extends PureComponent {
     const {
       isPlaying,
       isFullScreen,
-      onToggleFullScreen
+      onToggleFullScreen,
+      isNeedReload
     } = this.props;
 
     const video = this._videoRef.current;
@@ -49,7 +50,11 @@ class VideoPlayer extends PureComponent {
       if (isPlaying) {
         video.play();
       } else {
-        video.pause();
+        if (isNeedReload) {
+          video.load();
+        } else {
+          video.pause();
+        }
       }
     }
 
@@ -104,7 +109,8 @@ VideoPlayer.propTypes = {
   onSetFullTime: PropTypes.func,
   isFullScreen: PropTypes.bool,
   poster: PropTypes.string,
-  onToggleFullScreen: PropTypes.func
+  onToggleFullScreen: PropTypes.func,
+  isNeedReload: PropTypes.bool
 };
 
 export default VideoPlayer;
