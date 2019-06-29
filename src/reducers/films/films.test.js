@@ -3,7 +3,7 @@ import {
   Operation,
   transform
 } from './films.js';
-import ActionTypes from '../../actions/action-types.js';
+import ActionType from '../../actions/action-type.js';
 import filmList from '../../mocks/films.js';
 import favorites from '../../mocks/favorites.js';
 import {ALL_GENRES} from '../../consts.js';
@@ -79,21 +79,21 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer loads films after relaunch`, () => {
     expect(reducer(initialState, {
-      type: ActionTypes.LOAD_FILMS,
+      type: ActionType.LOAD_FILMS,
       payload: filmList
     })).toEqual(afterLoadFilmsState);
   });
 
   it(`Reducer changes filter on Comedy when user choose the same menu item`, () => {
     expect(reducer(afterLoadFilmsState, {
-      type: ActionTypes.CHANGE_GENRE,
+      type: ActionType.CHANGE_GENRE,
       payload: `Comedy`
     })).toEqual(stateWithComedy);
   });
 
   it(`Reducer changes group of films by filter All genres`, () => {
     expect(reducer(stateWithComedy, {
-      type: ActionTypes.CHANGE_GENRE,
+      type: ActionType.CHANGE_GENRE,
       payload: ALL_GENRES
     })).toEqual(afterLoadFilmsState);
   });
@@ -113,7 +113,7 @@ describe(`Reducer works correctly`, () => {
         const result = [transform({fake: true})];
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.LOAD_FILMS,
+          type: ActionType.LOAD_FILMS,
           payload: result,
         });
       });
@@ -132,7 +132,7 @@ describe(`Reducer works correctly`, () => {
     return commentsLoader(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.LOAD_COMMENTS,
+          type: ActionType.LOAD_COMMENTS,
           payload: [{fake: true}],
         });
       });
@@ -140,7 +140,7 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer loads comments`, () => {
     expect(reducer(afterLoadFilmsState, {
-      type: ActionTypes.LOAD_COMMENTS,
+      type: ActionType.LOAD_COMMENTS,
       payload: reviews
     })).toEqual(afterLoadCommentsState);
   });
@@ -159,7 +159,7 @@ describe(`Reducer works correctly`, () => {
       .then(() => {
         const result = [transform({fake: true})];
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.LOAD_FAVORITES,
+          type: ActionType.LOAD_FAVORITES,
           payload: result,
         });
       });
@@ -167,7 +167,7 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer loads favorites`, () => {
     expect(reducer(afterLoadFilmsState, {
-      type: ActionTypes.LOAD_FAVORITES,
+      type: ActionType.LOAD_FAVORITES,
       payload: favorites
     })).toEqual(afterLoadFavoritesState);
   });
@@ -189,7 +189,7 @@ describe(`Reducer works correctly`, () => {
     return commentSender(dispatch, jest.fn(), api)
       .then(() => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.ADD_COMMENT,
+          type: ActionType.ADD_COMMENT,
           payload: [{fake: true}],
         });
       });
@@ -197,7 +197,7 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer adds comment`, () => {
     expect(reducer(afterLoadFilmsState, {
-      type: ActionTypes.ADD_COMMENT,
+      type: ActionType.ADD_COMMENT,
       payload: reviews
     })).toEqual(afterLoadCommentsState);
   });
@@ -218,7 +218,7 @@ describe(`Reducer works correctly`, () => {
       .then(() => {
         const result = transform({fake: true});
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.UPDATE_FILMS,
+          type: ActionType.UPDATE_FILMS,
           payload: result,
         });
       });
@@ -240,7 +240,7 @@ describe(`Reducer works correctly`, () => {
       .then(() => {
         const result = transform({fake: true});
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.UPDATE_FILMS,
+          type: ActionType.UPDATE_FILMS,
           payload: result,
         });
       });
@@ -248,7 +248,7 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer toggle favorites for Promo`, () => {
     expect(reducer(afterLoadFilmsState, {
-      type: ActionTypes.LOAD_PROMO,
+      type: ActionType.LOAD_PROMO,
       payload: favoritePromo
     })).toEqual(afterToggleFavoritesState);
   });
@@ -267,7 +267,7 @@ describe(`Reducer works correctly`, () => {
       .then(() => {
         const result = transform({fake: true});
         expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionTypes.LOAD_PROMO,
+          type: ActionType.LOAD_PROMO,
           payload: result,
         });
       });
@@ -295,7 +295,7 @@ describe(`Reducer works correctly`, () => {
     };
 
     expect(reducer(beforeShowMoreClickState, {
-      type: ActionTypes.INCREASE_MAX_SHOW_FILMS,
+      type: ActionType.INCREASE_MAX_SHOW_FILMS,
       payload: 20
     })).toEqual(afterShowMoreClickState);
   });
@@ -322,7 +322,7 @@ describe(`Reducer works correctly`, () => {
     };
 
     expect(reducer(disabledPlayVideoState, {
-      type: ActionTypes.TOGGLE_PLAY_BUTTON,
+      type: ActionType.TOGGLE_PLAY_BUTTON,
       payload: true
     })).toEqual(enabledPlayVideoState);
   });
@@ -349,7 +349,7 @@ describe(`Reducer works correctly`, () => {
     };
 
     expect(reducer(beforeResetShowMoreClickState, {
-      type: ActionTypes.RESET_MAX_SHOW_FILMS,
+      type: ActionType.RESET_MAX_SHOW_FILMS,
       payload: 20
     })).toEqual(afterResetShowMoreClickState);
   });

@@ -4,7 +4,7 @@ import {
   Operation,
   transform
 } from './user.js';
-import ActionTypes from '../../actions/action-types.js';
+import ActionType from '../../actions/action-type.js';
 import user from '../../mocks/user.js';
 import {createAPI} from '../../api.js';
 
@@ -33,7 +33,7 @@ describe(`Reducer works correctly`, () => {
     };
 
     expect(reducer(signInRequiredState, {
-      type: ActionTypes.SIGN_IN_USER,
+      type: ActionType.SIGN_IN_USER,
       payload: user
     })).toEqual(signInUserState);
   });
@@ -46,7 +46,7 @@ describe(`Reducer works correctly`, () => {
     };
 
     expect(reducer(signInRequiredState, {
-      type: ActionTypes.SIGN_IN_USER_ERROR,
+      type: ActionType.SIGN_IN_USER_ERROR,
       payload: `bad request`
     })).toEqual(signInUserWithErrorState);
   });
@@ -65,11 +65,11 @@ describe(`Reducer works correctly`, () => {
       .then(() => {
         const result = transform({fake: true});
         expect(dispatch).toHaveBeenCalledWith({
-          type: ActionTypes.SIGN_IN_USER,
+          type: ActionType.SIGN_IN_USER,
           payload: result,
         });
         expect(dispatch).toHaveBeenCalledWith({
-          type: ActionTypes.REQUIRED_AUTHORIZATION,
+          type: ActionType.REQUIRED_AUTHORIZATION,
           payload: status
         });
       }).catch(() => {
@@ -89,7 +89,7 @@ describe(`Reducer works correctly`, () => {
     return userLoader(dispatch, jest.fn(), api)
       .catch((error) => {
         expect(dispatch).toHaveBeenCalledWith({
-          type: ActionTypes.SIGN_IN_USER_ERROR,
+          type: ActionType.SIGN_IN_USER_ERROR,
           payload: error
         });
       });
