@@ -30,6 +30,8 @@ const reducer = (state = initialState, action) => {
         validationError: action.payload,
         error: action.payload
       };
+    case ActionType.LOGOUT_USER:
+      return initialState;
   }
   return state;
 };
@@ -48,7 +50,16 @@ const Operation = {
         dispatch(ActionCreator.signInUser(userInfo));
       }).catch((error) => {
         dispatch(ActionCreator.signInUserError(error.response.data.error));
-        throw (error.response.data.error);
+      });
+  },
+  checkUser: () => (dispatch, getState, api) => {
+    return api
+      .get(`/login`)
+      .then((res) => {
+        const userInfo = transformUserData(res.data);
+        dispatch(ActionCreator.signInUser(userInfo));
+      }).catch(() => {
+        dispatch(ActionCreator.logoutUser());
       });
   }
 };

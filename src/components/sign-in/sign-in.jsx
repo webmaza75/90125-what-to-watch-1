@@ -105,7 +105,9 @@ class SignIn extends PureComponent {
       onResetErrors();
       onLogin({email, password})
         .then(() => {
-          history.push(`/`);
+          if (!this.props.error) {
+            history.push(`/`);
+          }
         })
         .catch(() => {});
     } else {

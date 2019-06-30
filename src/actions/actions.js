@@ -56,6 +56,9 @@ const ActionCreator = {
   resetMaxShowFilms: () => ({
     type: ActionType.RESET_MAX_SHOW_FILMS,
     payload: 20
+  }),
+  logoutUser: () => ({
+    type: ActionType.LOGOUT_USER
   })
 };
 
