@@ -9,10 +9,6 @@ const ActionCreator = {
     type: ActionType.LOAD_FILMS,
     payload: films
   }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status
-  }),
   signInUser: (params) => ({
     type: ActionType.SIGN_IN_USER,
     payload: params

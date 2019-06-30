@@ -38,23 +38,24 @@ class MyList extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (state) => ({
-  user: getUser(state),
-  myList: getFavoriteList(state)
-});
-
-
 MyList.propTypes = {
   user: userInfo,
   myList: PropTypes.arrayOf(itemShape),
   onGetFavoriteList: PropTypes.func
 };
 
+const mapStateToProps = (state) => ({
+  user: getUser(state),
+  myList: getFavoriteList(state)
+});
+
+const mapDispatchToProps = {
+  onGetFavoriteList: Operation.loadFavorites
+};
+
 export {MyList};
 
 export default connect(
-    mapDispatchToProps,
-    {
-      onGetFavoriteList: Operation.loadFavorites
-    }
+    mapStateToProps,
+    mapDispatchToProps
 )(MyList);

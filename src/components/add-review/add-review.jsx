@@ -147,13 +147,15 @@ const mapStateToProps = (state, {match}) => ({
   movie: getMovieById(state, match.params.id)
 });
 
+const mapDispatchToProps = {
+  onAddComment: Operation.addComment
+};
+
 export {AddReview};
 
 export default compose(
     connect(
         mapStateToProps,
-        {
-          onAddComment: Operation.addComment
-        }
+        mapDispatchToProps
     ),
     withAddReview)(AddReview);

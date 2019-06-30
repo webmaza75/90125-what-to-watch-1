@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {isAuthorizedUser} from '../../reducers/user/selectors.js';
+import {checkIsAuthorizedUser} from '../../reducers/user/selectors.js';
 import {Operation} from '../../reducers/films/films.js';
 
 const withMyListButton = (Component) => {
@@ -58,14 +58,16 @@ const withMyListButton = (Component) => {
   };
 
   const mapStateToProps = (state) => ({
-    isAuthorized: isAuthorizedUser(state)
+    isAuthorized: checkIsAuthorizedUser(state)
   });
+
+  const mapDispatchToProps = {
+    onToggleFavorite: Operation.toggleFavorite
+  };
 
   const wrapper = connect(
       mapStateToProps,
-      {
-        onToggleFavorite: Operation.toggleFavorite
-      }
+      mapDispatchToProps
   )(WithMyListButton);
 
   return wrapper;

@@ -10,7 +10,6 @@ class VideoPlayer extends PureComponent {
 
   componentDidMount() {
     const {
-      isPlaying,
       onSetCurrentTime,
       onSetFullTime
     } = this.props;
@@ -21,10 +20,6 @@ class VideoPlayer extends PureComponent {
     }
     if (onSetFullTime) {
       video.oncanplaythrough = () => onSetFullTime(Math.floor(video.duration));
-    }
-
-    if (isPlaying) {
-      video.play();
     }
 
     if (onSetCurrentTime) {

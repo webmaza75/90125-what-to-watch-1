@@ -106,7 +106,8 @@ class SignIn extends PureComponent {
       onLogin({email, password})
         .then(() => {
           history.push(`/`);
-        });
+        })
+        .catch(() => {});
     } else {
       onSetError(validationError);
     }
@@ -122,7 +123,7 @@ SignIn.propTypes = {
   onSetError: PropTypes.func,
   onResetErrors: PropTypes.func,
   history: PropTypes.object,
-  error: PropTypes.object,
+  error: PropTypes.string,
   validationError: PropTypes.string
 };
 
@@ -131,15 +132,17 @@ const mapStateToProps = (state) => ({
   validationError: getValidationError(state)
 });
 
+const mapDispatchToProps = {
+  onLogin: Operation.signInUser,
+  onSetError: ActionCreator.setSignInError,
+  onResetErrors: ActionCreator.resetErrors
+};
+
 export {SignIn};
 
 export default compose(
     connect(
         mapStateToProps,
-        {
-          onLogin: Operation.signInUser,
-          onSetError: ActionCreator.setSignInError,
-          onResetErrors: ActionCreator.resetErrors
-        }
+        mapDispatchToProps
     ),
     withSignInUser)(SignIn);

@@ -90,13 +90,15 @@ Player.propTypes = {
   onTogglePlay: PropTypes.func
 };
 
+const mapDispatchToProps = {
+  onTogglePlayButton: ActionCreator.togglePlayButton
+};
+
 export {Player};
 
 export default compose(
     connect(
         null,
-        {
-          onTogglePlayButton: ActionCreator.togglePlayButton
-        }
+        mapDispatchToProps
     ),
     withPlayer)(Player);

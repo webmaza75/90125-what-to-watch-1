@@ -128,14 +128,16 @@ const mapStateToProps = (state) => ({
   showPlayer: getPlayState(state)
 });
 
+const mapDispatchToProps = {
+  onChangeFilter: ActionCreator.changeFilter,
+  onLoadPromo: Operation.loadPromo,
+  onToggleFavorite: Operation.toggleFavorite,
+  onResetMaxShowFilms: ActionCreator.resetMaxShowFilms
+};
+
 export {Main};
 
 export default connect(
     mapStateToProps,
-    {
-      onChangeFilter: ActionCreator.changeFilter,
-      onLoadPromo: Operation.loadPromo,
-      onToggleFavorite: Operation.toggleFavorite,
-      onResetMaxShowFilms: ActionCreator.resetMaxShowFilms
-    }
+    mapDispatchToProps
 )(Main);

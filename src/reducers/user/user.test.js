@@ -2,22 +2,33 @@ import MockAdapter from 'axios-mock-adapter';
 import {
   reducer,
   Operation,
-  transform
+  transformUserData
 } from './user.js';
 import ActionType from '../../actions/action-type.js';
 import user from '../../mocks/user.js';
 import {createAPI} from '../../api.js';
 
 const initialState = {
-  isAuthorizationRequired: false,
   userInfo: undefined,
   error: undefined
 };
 
 const signInRequiredState = {
-  isAuthorizationRequired: true,
   userInfo: undefined,
   error: undefined
+};
+
+const guestState = {
+  userInfo: undefined,
+  error: undefined,
+  validationError: undefined
+};
+
+const validationError = `email is not correct`;
+const signInUserWithValidationErrorState = {
+  userInfo: undefined,
+  error: undefined,
+  validationError
 };
 
 describe(`Reducer works correctly`, () => {
@@ -27,7 +38,6 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer loads userInfo`, () => {
     const signInUserState = {
-      isAuthorizationRequired: true,
       userInfo: user,
       error: undefined
     };
@@ -40,7 +50,6 @@ describe(`Reducer works correctly`, () => {
 
   it(`Reducer loads signInError`, () => {
     const signInUserWithErrorState = {
-      isAuthorizationRequired: true,
       userInfo: undefined,
       error: `bad request`
     };
@@ -63,14 +72,10 @@ describe(`Reducer works correctly`, () => {
 
     return userLoader(dispatch, jest.fn(), api)
       .then(() => {
-        const result = transform({fake: true});
+        const result = transformUserData({fake: true});
         expect(dispatch).toHaveBeenCalledWith({
           type: ActionType.SIGN_IN_USER,
           payload: result,
-        });
-        expect(dispatch).toHaveBeenCalledWith({
-          type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: status
         });
       }).catch(() => {
       });
@@ -93,5 +98,19 @@ describe(`Reducer works correctly`, () => {
           payload: error
         });
       });
+  });
+
+  it(`Reducer sets validationError`, () => {
+    expect(reducer(guestState, {
+      type: ActionType.VALIDATE_SIGN_IN_USER_ERROR,
+      payload: validationError
+    })).toEqual(signInUserWithValidationErrorState);
+  });
+
+  it(`Reducer resets validationError`, () => {
+    expect(reducer(signInUserWithValidationErrorState, {
+      type: ActionType.RESET_ERRORS,
+      payload: undefined
+    })).toEqual(guestState);
   });
 });

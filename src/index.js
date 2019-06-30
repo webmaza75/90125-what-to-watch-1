@@ -14,14 +14,21 @@ import history from './history.js';
 
 const init = () => {
   const api = createAPI();
+  let composeEnhancer;
+
+  if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+    composeEnhancer = compose(
+        applyMiddleware(thunk.withExtraArgument(api)),
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+    );
+  } else {
+    composeEnhancer = applyMiddleware(thunk.withExtraArgument(api));
+  }
 
   /* eslint-disable no-underscore-dangle */
   const store = createStore(
       reducer,
-      compose(
-          applyMiddleware(thunk.withExtraArgument(api)),
-          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-      )
+      composeEnhancer
   );
   /* eslint-enable */
 

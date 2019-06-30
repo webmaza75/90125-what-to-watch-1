@@ -30,7 +30,9 @@ const ExtendedHeader = ({user, movie}) => {
 
     <div className="user-block">
       <div className="user-block__avatar">
-        <img src={`${BASE_URL}${avatarUrl}`} alt="User avatar" width="63" height="63" />
+        <Link to={`/mylist`}>
+          <img src={`${BASE_URL}${avatarUrl}`} alt="User avatar" width="63" height="63" />
+        </Link>
       </div>
     </div>
   </header>;

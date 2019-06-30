@@ -1,12 +1,12 @@
 import {
-  RatingLevels,
+  ratingLevels,
   MONTHS,
   SECONDS_IN_MINUTE,
   SECONDS_IN_HOUR
 } from './consts.js';
 
 export const getMovieRatingLevel = (ratingValue) => {
-  const result = RatingLevels.find((element) => {
+  const result = ratingLevels.find((element) => {
     return element[0] <= ratingValue;
   });
 

@@ -1,16 +1,18 @@
 import {
   reducer,
   Operation,
-  transform
+  transformFilmData
 } from './films.js';
 import ActionType from '../../actions/action-type.js';
 import filmList from '../../mocks/films.js';
+import filmsWithFavoritePromo from '../../mocks/films-with-favorite-promo.js';
 import favorites from '../../mocks/favorites.js';
 import {ALL_GENRES} from '../../consts.js';
 import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '../../api.js';
 import reviews from '../../mocks/reviews.js';
 import favoritePromo from '../../mocks/favorite-promo.js';
+import film from '../../mocks/film.js';
 
 const initialState = {
   films: [],
@@ -110,7 +112,7 @@ describe(`Reducer works correctly`, () => {
 
     return filmsLoader(dispatch, jest.fn(), api)
       .then(() => {
-        const result = [transform({fake: true})];
+        const result = [transformFilmData({fake: true})];
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_FILMS,
@@ -157,7 +159,7 @@ describe(`Reducer works correctly`, () => {
 
     return favoritesLoader(dispatch, jest.fn(), api)
       .then(() => {
-        const result = [transform({fake: true})];
+        const result = [transformFilmData({fake: true})];
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_FAVORITES,
           payload: result,
@@ -216,7 +218,7 @@ describe(`Reducer works correctly`, () => {
 
     return toggleFavorites(dispatch, jest.fn(), api)
       .then(() => {
-        const result = transform({fake: true});
+        const result = transformFilmData({fake: true});
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.UPDATE_FILMS,
           payload: result,
@@ -238,12 +240,39 @@ describe(`Reducer works correctly`, () => {
 
     return toggleFavorites(dispatch, jest.fn(), api)
       .then(() => {
-        const result = transform({fake: true});
+        const result = transformFilmData({fake: true});
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.UPDATE_FILMS,
           payload: result,
         });
       });
+  });
+
+  it(`Reducer updates FilmList and Promo`, () => {
+    const withPromoState = {
+      filter: ALL_GENRES,
+      films: filmList,
+      comments: [],
+      favorites: [],
+      promo: film,
+      maxShowFilms: 20,
+      playState: false
+    };
+
+    const filmsWithFavoritePromoState = {
+      filter: ALL_GENRES,
+      films: filmsWithFavoritePromo,
+      comments: [],
+      favorites: [],
+      promo: favoritePromo,
+      maxShowFilms: 20,
+      playState: false
+    };
+
+    expect(reducer(withPromoState, {
+      type: ActionType.UPDATE_FILMS,
+      payload: favoritePromo
+    })).toEqual(filmsWithFavoritePromoState);
   });
 
   it(`Reducer toggle favorites for Promo`, () => {
@@ -265,7 +294,7 @@ describe(`Reducer works correctly`, () => {
 
     return promoLoader(dispatch, jest.fn(), api)
       .then(() => {
-        const result = transform({fake: true});
+        const result = transformFilmData({fake: true});
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_PROMO,
           payload: result,

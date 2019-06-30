@@ -150,11 +150,13 @@ const mapStateToProps = (state, {match}) => ({
   showPlayer: getPlayState(state)
 });
 
+const mapDispatchToProps = {
+  onLoadComments: Operation.loadComments
+};
+
 export {MovieDetails};
 
 export default connect(
     mapStateToProps,
-    {
-      onLoadComments: Operation.loadComments
-    }
+    mapDispatchToProps
 )(MovieDetails);

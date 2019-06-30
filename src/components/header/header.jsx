@@ -8,7 +8,7 @@ import {BASE_URL} from '../../consts.js';
 import {userInfo} from '../../models.js';
 import {
   getUser,
-  isAuthorizedUser
+  checkIsAuthorizedUser
 } from '../../reducers/user/selectors.js';
 
 const Header = (props) => {
@@ -45,7 +45,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: getUser(state),
-  isAuthorized: isAuthorizedUser(state)
+  isAuthorized: checkIsAuthorizedUser(state)
 });
 
 export {Header};

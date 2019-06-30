@@ -42,11 +42,13 @@ const mapStateToProps = (state) => ({
   filmsGroup: getFilmsByGenre(state)
 });
 
+const mapDispatchToProps = {
+  onShowMoreClick: ActionCreator.increaseMaxShowFilms
+};
+
 export {ShowMoreButton};
 
 export default connect(
     mapStateToProps,
-    {
-      onShowMoreClick: ActionCreator.increaseMaxShowFilms
-    }
+    mapDispatchToProps
 )(ShowMoreButton);

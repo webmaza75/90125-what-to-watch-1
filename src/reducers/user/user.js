@@ -2,7 +2,6 @@ import ActionType from '../../actions/action-type.js';
 import {ActionCreator} from '../../actions/actions.js';
 
 const initialState = {
-  isAuthorizationRequired: false,
   userInfo: undefined,
   error: undefined,
   validationError: undefined
@@ -10,11 +9,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.REQUIRED_AUTHORIZATION:
-      return {
-        ...state,
-        isAuthorizationRequired: action.payload,
-      };
     case ActionType.SIGN_IN_USER:
       return {
         ...state,
@@ -40,7 +34,7 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-const transform = (data) => {
+const transformUserData = (data) => {
   const {avatar_url: avatarUrl, ...other} = data;
   return {avatarUrl, ...other};
 };
@@ -50,11 +44,11 @@ const Operation = {
     return api
       .post(`/login`, params)
       .then((res) => {
-        const userInfo = transform(res.data);
+        const userInfo = transformUserData(res.data);
         dispatch(ActionCreator.signInUser(userInfo));
-        dispatch(ActionCreator.requireAuthorization(false));
       }).catch((error) => {
         dispatch(ActionCreator.signInUserError(error.response.data.error));
+        throw (error.response.data.error);
       });
   }
 };
@@ -62,5 +56,5 @@ const Operation = {
 export {
   Operation,
   reducer,
-  transform
+  transformUserData
 };

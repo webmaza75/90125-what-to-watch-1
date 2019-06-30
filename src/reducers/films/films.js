@@ -16,7 +16,7 @@ const initialState = {
   playState: false
 };
 
-export const transform = (data) => ({
+export const transformFilmData = (data) => ({
   backgroundColor: data.background_color,
   backgroundImage: data.background_image,
   description: data.description,
@@ -49,7 +49,7 @@ const Operation = {
   loadFilms: () => (dispatch, getState, api) => {
     return api.get(`/films`)
     .then((response) => {
-      const result = response.data.map(transform);
+      const result = response.data.map(transformFilmData);
       dispatch(ActionCreator.loadFilms(result));
     });
   },
@@ -71,14 +71,14 @@ const Operation = {
     return api
       .post(`/favorite/${filmId}/${status}`)
       .then((res) => {
-        dispatch(ActionCreator.updateFilms(transform(res.data)));
+        dispatch(ActionCreator.updateFilms(transformFilmData(res.data)));
       });
   },
   loadFavorites: () => (dispatch, getState, api) => {
     return api
       .get(`/favorite`)
       .then((res) => {
-        const result = res.data.map(transform);
+        const result = res.data.map(transformFilmData);
         dispatch(ActionCreator.loadFavorites(result));
       });
   },
@@ -86,7 +86,7 @@ const Operation = {
     return api
       .get(`/films/promo`)
       .then((res) => {
-        const result = transform(res.data);
+        const result = transformFilmData(res.data);
         dispatch(ActionCreator.loadPromo(result));
       });
   }

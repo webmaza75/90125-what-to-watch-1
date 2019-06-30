@@ -2,10 +2,6 @@ import NameSpace from '../name-spaces.js';
 
 const NAME_SPACE = NameSpace.USER;
 
-export const isAuthorizationRequired = (state) => {
-  return state[NAME_SPACE].isAuthorizationRequired;
-};
-
 export const getUser = (state) => {
   return state[NAME_SPACE].userInfo;
 };
@@ -18,7 +14,7 @@ export const getValidationError = (state) => {
   return state[NAME_SPACE].validationError;
 };
 
-export const isAuthorizedUser = (state) => {
+export const checkIsAuthorizedUser = (state) => {
   const user = state[NAME_SPACE].userInfo;
   return !!(user && user.id);
 };
