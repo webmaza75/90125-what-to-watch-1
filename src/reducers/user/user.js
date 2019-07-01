@@ -57,9 +57,8 @@ const Operation = {
       .then((res) => {
         const userInfo = transformUserData(res.data);
         dispatch(ActionCreator.signInUser(userInfo));
-      }).catch((error) => {
+      }).catch(() => {
         dispatch(ActionCreator.logoutUser());
-        dispatch(ActionCreator.signInUserError(error.message));
       });
   }
 };

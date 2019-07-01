@@ -5,6 +5,7 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
 import {Router} from 'react-router-dom';
+import {NotificationContainer} from 'react-notifications';
 
 import App from './components/app/app.jsx';
 import reducer from './reducers/reducer.js';
@@ -37,6 +38,7 @@ const init = () => {
   ReactDom.render(
       <Provider store={store}>
         <Router history={history}>
+          <NotificationContainer />
           <App />
         </Router>
       </Provider>,

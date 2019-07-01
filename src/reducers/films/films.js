@@ -3,6 +3,7 @@ import {ALL_GENRES} from '../../consts.js';
 import {ActionCreator} from '../../actions/actions.js';
 import {sortComments} from '../../utils.js';
 import {getMovieRatingLevel} from '../../utils.js';
+import {NotificationManager} from 'react-notifications';
 
 const MAX_FILMS_TO_SHOW = 20;
 
@@ -51,28 +52,32 @@ const Operation = {
     .then((response) => {
       const result = response.data.map(transformFilmData);
       dispatch(ActionCreator.loadFilms(result));
-    });
+    })
+    .catch((error) => NotificationManager.error(error.message));
   },
   loadComments: (filmId) => (dispatch, getState, api) => {
     return api.get(`/comments/${filmId}`)
     .then((response) => {
       const result = response.data.sort(sortComments);
       dispatch(ActionCreator.loadComments(result));
-    });
+    })
+    .catch((error) => NotificationManager.error(error.message));
   },
   addComment: (id, params) => (dispatch, getState, api) => {
     return api
       .post(`/comments/${id}`, params)
       .then((res) => {
         dispatch(ActionCreator.addComment(res.data));
-      });
+      })
+      .catch((error) => NotificationManager.error(error.message));
   },
   toggleFavorite: (filmId, status) => (dispatch, getState, api) => {
     return api
       .post(`/favorite/${filmId}/${status}`)
       .then((res) => {
         dispatch(ActionCreator.updateFilms(transformFilmData(res.data)));
-      });
+      })
+      .catch((error) => NotificationManager.error(error.message));
   },
   loadFavorites: () => (dispatch, getState, api) => {
     return api
@@ -80,7 +85,8 @@ const Operation = {
       .then((res) => {
         const result = res.data.map(transformFilmData);
         dispatch(ActionCreator.loadFavorites(result));
-      });
+      })
+      .catch((error) => NotificationManager.error(error.message));
   },
   loadPromo: () => (dispatch, getState, api) => {
     return api
@@ -88,7 +94,8 @@ const Operation = {
       .then((res) => {
         const result = transformFilmData(res.data);
         dispatch(ActionCreator.loadPromo(result));
-      });
+      })
+      .catch((error) => NotificationManager.error(error.message));
   }
 };
 
