@@ -10,16 +10,18 @@ import {createAPI} from '../../api.js';
 
 const initialState = {
   userInfo: undefined,
-  error: undefined
-};
-
-const signInRequiredState = {
-  userInfo: undefined,
-  error: undefined
+  error: undefined,
+  validationError: undefined
 };
 
 const guestState = {
   userInfo: undefined,
+  error: undefined,
+  validationError: undefined
+};
+
+const signInUserState = {
+  userInfo: user,
   error: undefined,
   validationError: undefined
 };
@@ -37,12 +39,7 @@ describe(`Reducer works correctly`, () => {
   });
 
   it(`Reducer loads userInfo`, () => {
-    const signInUserState = {
-      userInfo: user,
-      error: undefined
-    };
-
-    expect(reducer(signInRequiredState, {
+    expect(reducer(guestState, {
       type: ActionType.SIGN_IN_USER,
       payload: user
     })).toEqual(signInUserState);
@@ -51,10 +48,11 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer loads signInError`, () => {
     const signInUserWithErrorState = {
       userInfo: undefined,
-      error: `bad request`
+      error: `bad request`,
+      validationError: undefined
     };
 
-    expect(reducer(signInRequiredState, {
+    expect(reducer(guestState, {
       type: ActionType.SIGN_IN_USER_ERROR,
       payload: `bad request`
     })).toEqual(signInUserWithErrorState);
@@ -64,10 +62,33 @@ describe(`Reducer works correctly`, () => {
     const dispatch = jest.fn();
     const api = createAPI(dispatch);
     const apiMock = new MockAdapter(api);
-    const userLoader = Operation.signInUser();
+    const email = `qwe@qwe.ru`;
+    const password = 1;
+    const userLoader = Operation.signInUser(email, password);
 
     apiMock
       .onPost(`/login`)
+      .reply(200, [{fake: true}]);
+
+    return userLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        const result = transformUserData({fake: true});
+        expect(dispatch).toHaveBeenCalledWith({
+          type: ActionType.SIGN_IN_USER,
+          payload: result,
+        });
+      }).catch(() => {
+      });
+  });
+
+  it(`Should make a correct API call to /login with get`, () => {
+    const dispatch = jest.fn();
+    const api = createAPI(dispatch);
+    const apiMock = new MockAdapter(api);
+    const userLoader = Operation.signInUser();
+
+    apiMock
+      .onGet(`/login`)
       .reply(200, [{fake: true}]);
 
     return userLoader(dispatch, jest.fn(), api)
@@ -111,6 +132,12 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(signInUserWithValidationErrorState, {
       type: ActionType.RESET_ERRORS,
       payload: undefined
+    })).toEqual(guestState);
+  });
+
+  it(`Reducer should logout user`, () => {
+    expect(reducer(signInUserState, {
+      type: ActionType.LOGOUT_USER
     })).toEqual(guestState);
   });
 });

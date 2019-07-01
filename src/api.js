@@ -5,18 +5,23 @@ import history from './history.js';
 const TIME_OUT = 5000;
 export const createAPI = () => {
   const api = axios.create({
-    baseURL: `${BASE_URL}/wtw`,
+    baseURL: `${BASE_URL}/wtw7`,
     timeout: TIME_OUT,
     withCredentials: true,
   });
 
   const onSuccess = (response) => response;
   const onFail = (err) => {
-    if (err.response.status === 403) {
+    if(!err.response && !err.response.status) {
+      return Promise.reject(err);
+    }
+    if (err.response && err.response.status === 403) {
       history.push(`/login`);
     }
-    if ([404, 500, 503, 504].includes(err.response.status)) {
-      history.push(`/500`);
+    const errorMessage = err.response.data && err.response.data.error;
+    if (errorMessage) {
+      debugger;
+      return Promise.reject(new Error(errorMessage));
     }
     return Promise.reject(err);
   };

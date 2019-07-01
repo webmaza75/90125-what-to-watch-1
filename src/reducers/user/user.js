@@ -27,8 +27,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.RESET_ERRORS:
       return {
         ...state,
-        validationError: action.payload,
-        error: action.payload
+        validationError: action.payload
       };
     case ActionType.LOGOUT_USER:
       return initialState;
@@ -49,7 +48,7 @@ const Operation = {
         const userInfo = transformUserData(res.data);
         dispatch(ActionCreator.signInUser(userInfo));
       }).catch((error) => {
-        dispatch(ActionCreator.signInUserError(error.response.data.error));
+        dispatch(ActionCreator.signInUserError(error.message));
       });
   },
   checkUser: () => (dispatch, getState, api) => {
@@ -58,8 +57,9 @@ const Operation = {
       .then((res) => {
         const userInfo = transformUserData(res.data);
         dispatch(ActionCreator.signInUser(userInfo));
-      }).catch(() => {
+      }).catch((error) => {
         dispatch(ActionCreator.logoutUser());
+        dispatch(ActionCreator.signInUserError(error.message));
       });
   }
 };
