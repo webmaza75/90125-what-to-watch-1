@@ -4,7 +4,8 @@ import {ActionCreator} from '../../actions/actions.js';
 const initialState = {
   userInfo: undefined,
   error: undefined,
-  validationError: undefined
+  validationError: undefined,
+  isRequiredAuthorization: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +32,11 @@ const reducer = (state = initialState, action) => {
       };
     case ActionType.LOGOUT_USER:
       return initialState;
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        isRequiredAuthorization: action.payload
+      };
   }
   return state;
 };

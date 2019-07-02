@@ -12,7 +12,11 @@ const MockComponent = () => <div />;
 
 describe(`MockComponent and wrapper`, () => {
   it(`MockComponent should render wrapped component`, () => {
-    const props = {prop1: 1, user};
+    const props = {
+      prop1: 1,
+      user,
+      isRequiredAuthorization: false
+    };
     const MockComponentWrapped = withPrivateRouter(MockComponent);
     const wrapper = mount(<MockComponentWrapped
       {...props}
@@ -24,7 +28,10 @@ describe(`MockComponent and wrapper`, () => {
 
   it(`MockComponent renders Redirect`, () => {
     const to = `/login`;
-    const props = {prop1: 1};
+    const props = {
+      prop1: 1,
+      isRequiredAuthorization: true
+    };
     const MockComponentWrapped = withPrivateRouter(MockComponent);
     const wrapper = shallow(<MockComponentWrapped
       {...props}

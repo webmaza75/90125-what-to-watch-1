@@ -18,3 +18,7 @@ export const checkIsAuthorizedUser = (state) => {
   const user = state[NAME_SPACE].userInfo;
   return !!(user && user.id);
 };
+
+export const checkIsRequiredAuthorization = (state) => {
+  return state[NAME_SPACE].isRequiredAuthorization;
+};

@@ -59,6 +59,10 @@ const ActionCreator = {
   }),
   logoutUser: () => ({
     type: ActionType.LOGOUT_USER
+  }),
+  checkIsRequiredAuthorization: (isRequired) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: isRequired
   })
 };
 

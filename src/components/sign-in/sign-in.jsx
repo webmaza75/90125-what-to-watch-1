@@ -108,8 +108,7 @@ class SignIn extends PureComponent {
           if (!this.props.error) {
             history.push(`/`);
           }
-        })
-        .catch(() => {});
+        });
     } else {
       onSetError(validationError);
     }

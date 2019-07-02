@@ -4,14 +4,13 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {compose} from 'recompose';
-import {Router} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {NotificationContainer} from 'react-notifications';
 
 import App from './components/app/app.jsx';
 import reducer from './reducers/reducer.js';
 import {Operation} from './reducers/films/films.js';
 import {createAPI} from './api.js';
-import history from './history.js';
 
 const init = () => {
   const api = createAPI();
@@ -37,10 +36,10 @@ const init = () => {
 
   ReactDom.render(
       <Provider store={store}>
-        <Router history={history}>
+        <BrowserRouter>
           <NotificationContainer />
           <App />
-        </Router>
+        </BrowserRouter>
       </Provider>,
       document.getElementById(`root`)
   );

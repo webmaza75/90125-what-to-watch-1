@@ -11,26 +11,30 @@ import {createAPI} from '../../api.js';
 const initialState = {
   userInfo: undefined,
   error: undefined,
-  validationError: undefined
+  validationError: undefined,
+  isRequiredAuthorization: false
 };
 
 const guestState = {
   userInfo: undefined,
   error: undefined,
-  validationError: undefined
+  validationError: undefined,
+  isRequiredAuthorization: false
 };
 
 const signInUserState = {
   userInfo: user,
   error: undefined,
-  validationError: undefined
+  validationError: undefined,
+  isRequiredAuthorization: false
 };
 
 const validationError = `email is not correct`;
 const signInUserWithValidationErrorState = {
   userInfo: undefined,
   error: undefined,
-  validationError
+  validationError,
+  isRequiredAuthorization: false
 };
 
 describe(`Reducer works correctly`, () => {
@@ -49,7 +53,8 @@ describe(`Reducer works correctly`, () => {
     const signInUserWithErrorState = {
       userInfo: undefined,
       error: `bad request`,
-      validationError: undefined
+      validationError: undefined,
+      isRequiredAuthorization: false
     };
 
     expect(reducer(guestState, {
@@ -139,5 +144,18 @@ describe(`Reducer works correctly`, () => {
     expect(reducer(signInUserState, {
       type: ActionType.LOGOUT_USER
     })).toEqual(guestState);
+  });
+
+  it(`Reducer should check authorization user`, () => {
+    const needAuthorizationState = {
+      userInfo: undefined,
+      error: undefined,
+      validationError: undefined,
+      isRequiredAuthorization: true
+    };
+    expect(reducer(guestState, {
+      type: ActionType.REQUIRED_AUTHORIZATION,
+      payload: true
+    })).toEqual(needAuthorizationState);
   });
 });

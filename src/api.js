@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {BASE_URL} from './consts.js';
-import history from './history.js';
+import {ActionCreator} from './actions/actions.js';
+
 
 const TIME_OUT = 5000;
-export const createAPI = () => {
+export const createAPI = (dispatch) => {
   const api = axios.create({
     baseURL: `${BASE_URL}/wtw`,
     timeout: TIME_OUT,
@@ -16,7 +17,8 @@ export const createAPI = () => {
       return Promise.reject(err);
     }
     if (err.response && err.response.status === 403) {
-      history.push(`/login`);
+      dispatch(ActionCreator.checkIsRequiredAuthorization(true));
+      return Promise.reject(err);
     }
     const errorMessage = err.response.data && err.response.data.error;
     if (errorMessage) {
