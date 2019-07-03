@@ -12,6 +12,7 @@ import MovieDetails from '../movie-details/movie-details.jsx';
 import GlobalIcons from '../global-icons/global-icons.jsx';
 import AddReview from '../add-review/add-review.jsx';
 import {Operation} from '../../reducers/user/user.js';
+import {checkIsLoadedUserInfo} from '../../reducers/user/selectors.js';
 
 const PrivateRouterWrapper = withPrivateRouter(MyList);
 const PublicRouterWrapper = withPublicRouter(SignIn);
@@ -25,6 +26,11 @@ class App extends PureComponent {
   }
 
   render() {
+    const {isLoadedUserInfo} = this.props;
+    if (!isLoadedUserInfo) {
+      return null;
+    }
+
     return <Switch>
       <Fragment>
         <GlobalIcons />
@@ -40,7 +46,12 @@ class App extends PureComponent {
 
 App.propTypes = {
   onCheckUser: PropTypes.func,
+  isLoadedUserInfo: PropTypes.bool
 };
+
+const mapStateToProps = (state) => ({
+  isLoadedUserInfo: checkIsLoadedUserInfo(state)
+});
 
 const mapDispatchToProps = {
   onCheckUser: Operation.checkUser,
@@ -49,6 +60,6 @@ const mapDispatchToProps = {
 export {App};
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(App);

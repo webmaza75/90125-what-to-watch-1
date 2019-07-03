@@ -22,3 +22,7 @@ export const checkIsAuthorizedUser = (state) => {
 export const checkIsRequiredAuthorization = (state) => {
   return state[NAME_SPACE].isRequiredAuthorization;
 };
+
+export const checkIsLoadedUserInfo = (state) => {
+  return state[NAME_SPACE].isLoadedUserInfo;
+};

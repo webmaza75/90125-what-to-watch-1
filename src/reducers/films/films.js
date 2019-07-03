@@ -128,7 +128,7 @@ const reducer = (state = initialState, action) => {
       return ({
         ...state,
         films: filmList,
-        promo: promo.id === item.id ? item : promo
+        promo: promo && promo.id === item.id ? item : promo
       });
     case ActionType.LOAD_FAVORITES:
       return ({

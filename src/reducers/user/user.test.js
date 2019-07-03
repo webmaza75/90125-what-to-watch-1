@@ -12,21 +12,24 @@ const initialState = {
   userInfo: undefined,
   error: undefined,
   validationError: undefined,
-  isRequiredAuthorization: false
+  isRequiredAuthorization: false,
+  isLoadedUserInfo: false
 };
 
 const guestState = {
   userInfo: undefined,
   error: undefined,
   validationError: undefined,
-  isRequiredAuthorization: false
+  isRequiredAuthorization: false,
+  isLoadedUserInfo: true
 };
 
 const signInUserState = {
   userInfo: user,
   error: undefined,
   validationError: undefined,
-  isRequiredAuthorization: false
+  isRequiredAuthorization: false,
+  isLoadedUserInfo: true
 };
 
 const validationError = `email is not correct`;
@@ -34,7 +37,8 @@ const signInUserWithValidationErrorState = {
   userInfo: undefined,
   error: undefined,
   validationError,
-  isRequiredAuthorization: false
+  isRequiredAuthorization: false,
+  isLoadedUserInfo: true
 };
 
 describe(`Reducer works correctly`, () => {
@@ -54,7 +58,8 @@ describe(`Reducer works correctly`, () => {
       userInfo: undefined,
       error: `bad request`,
       validationError: undefined,
-      isRequiredAuthorization: false
+      isRequiredAuthorization: false,
+      isLoadedUserInfo: true
     };
 
     expect(reducer(guestState, {
@@ -143,7 +148,7 @@ describe(`Reducer works correctly`, () => {
   it(`Reducer should logout user`, () => {
     expect(reducer(signInUserState, {
       type: ActionType.LOGOUT_USER
-    })).toEqual(guestState);
+    })).toEqual(initialState);
   });
 
   it(`Reducer should check authorization user`, () => {
@@ -151,11 +156,27 @@ describe(`Reducer works correctly`, () => {
       userInfo: undefined,
       error: undefined,
       validationError: undefined,
-      isRequiredAuthorization: true
+      isRequiredAuthorization: true,
+      isLoadedUserInfo: true
     };
     expect(reducer(guestState, {
       type: ActionType.REQUIRED_AUTHORIZATION,
       payload: true
     })).toEqual(needAuthorizationState);
+  });
+
+  it(`Reducer should check is loaded user info`, () => {
+    const afterLoadedUserInfoState = {
+      userInfo: undefined,
+      error: undefined,
+      validationError: undefined,
+      isRequiredAuthorization: false,
+      isLoadedUserInfo: true
+    };
+
+    expect(reducer(guestState, {
+      type: ActionType.LOADED_USER_INFO,
+      payload: true
+    })).toEqual(afterLoadedUserInfoState);
   });
 });

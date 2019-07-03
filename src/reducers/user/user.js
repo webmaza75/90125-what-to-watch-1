@@ -5,7 +5,8 @@ const initialState = {
   userInfo: undefined,
   error: undefined,
   validationError: undefined,
-  isRequiredAuthorization: false
+  isRequiredAuthorization: false,
+  isLoadedUserInfo: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +38,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         isRequiredAuthorization: action.payload
       };
+    case ActionType.LOADED_USER_INFO:
+      return {
+        ...state,
+        isLoadedUserInfo: true
+      };
   }
   return state;
 };
@@ -65,6 +71,8 @@ const Operation = {
         dispatch(ActionCreator.signInUser(userInfo));
       }).catch(() => {
         dispatch(ActionCreator.logoutUser());
+      }).then(() => {
+        dispatch(ActionCreator.loadedUserInfo());
       });
   }
 };

@@ -63,6 +63,9 @@ const ActionCreator = {
   checkIsRequiredAuthorization: (isRequired) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: isRequired
+  }),
+  loadedUserInfo: () => ({
+    type: ActionType.LOADED_USER_INFO
   })
 };
 
