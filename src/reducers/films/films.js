@@ -68,8 +68,7 @@ const Operation = {
       .post(`/comments/${id}`, params)
       .then((res) => {
         dispatch(ActionCreator.addComment(res.data));
-      })
-      .catch((error) => NotificationManager.error(error.message));
+      });
   },
   toggleFavorite: (filmId, status) => (dispatch, getState, api) => {
     return api

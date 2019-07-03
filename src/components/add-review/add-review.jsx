@@ -2,6 +2,7 @@ import React, {Fragment, PureComponent} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {compose} from 'recompose';
+import {NotificationManager} from 'react-notifications';
 
 import ExtendedHeader from '../extended-header/extended-header.jsx';
 import {
@@ -122,8 +123,9 @@ class AddReview extends PureComponent {
         onToggleDisabled(true, false);
         history.push(`/film/${movie.id}`);
       })
-      .catch(() => {
+      .catch((error) => {
         onToggleDisabled(false, false);
+        return NotificationManager.error(error.message);
       });
   }
 }

@@ -13,7 +13,7 @@ export const createAPI = (dispatch) => {
 
   const onSuccess = (response) => response;
   const onFail = (err) => {
-    if (!err.response && !err.response.status) {
+    if (!err.response || !err.response.status) {
       return Promise.reject(err);
     }
     if (err.response && err.response.status === 403) {
