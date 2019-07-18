@@ -80,7 +80,7 @@ exports[`AddReview AddReview correctly renders 1`] = `
               disabled={false}
               id="star-1"
               name="rating"
-              onChange={[Function]}
+              onChange={[MockFunction]}
               type="radio"
               value="1"
             />
@@ -98,7 +98,7 @@ exports[`AddReview AddReview correctly renders 1`] = `
               disabled={false}
               id="star-2"
               name="rating"
-              onChange={[Function]}
+              onChange={[MockFunction]}
               type="radio"
               value="2"
             />
@@ -116,7 +116,7 @@ exports[`AddReview AddReview correctly renders 1`] = `
               disabled={false}
               id="star-3"
               name="rating"
-              onChange={[Function]}
+              onChange={[MockFunction]}
               type="radio"
               value="3"
             />
@@ -134,7 +134,7 @@ exports[`AddReview AddReview correctly renders 1`] = `
               disabled={false}
               id="star-4"
               name="rating"
-              onChange={[Function]}
+              onChange={[MockFunction]}
               type="radio"
               value="4"
             />
@@ -152,7 +152,7 @@ exports[`AddReview AddReview correctly renders 1`] = `
               disabled={false}
               id="star-5"
               name="rating"
-              onChange={[Function]}
+              onChange={[MockFunction]}
               type="radio"
               value="5"
             />
@@ -173,7 +173,7 @@ exports[`AddReview AddReview correctly renders 1`] = `
           id="review-text"
           maxLength={400}
           name="review-text"
-          onChange={[Function]}
+          onChange={[MockFunction]}
           placeholder="Review text"
           readOnly={false}
         />

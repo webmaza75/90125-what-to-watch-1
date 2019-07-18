@@ -9,7 +9,7 @@ exports[`MyListButton correctly renders MyListButton correctly renders for a gue
 exports[`MyListButton correctly renders MyListButton correctly renders for an authorized user 1`] = `
 <button
   className="btn btn--list movie-card__button"
-  onClick={[Function]}
+  onClick={[MockFunction]}
   type="button"
 >
   <svg

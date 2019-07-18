@@ -7,7 +7,7 @@ it(`App correctly renders`, () => {
   const renderer = new ShallowRenderer();
   const result = renderer
     .render(<App
-      onCheckUser={jest.fn()}
+      onUserCheck={jest.fn()}
       isLoadedUserInfo={true}
     />);
 

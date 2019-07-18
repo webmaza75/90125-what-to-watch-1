@@ -5,7 +5,7 @@ import {sortComments} from '../../utils.js';
 import {getMovieRatingLevel} from '../../utils.js';
 import {NotificationManager} from 'react-notifications';
 
-const MAX_FILMS_TO_SHOW = 20;
+import {MAX_FILMS_TO_SHOW} from '../../consts.js';
 
 const initialState = {
   films: [],

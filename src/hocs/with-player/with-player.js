@@ -11,8 +11,8 @@ const withPlayer = (Component) => {
         fullTime: 0
       };
       this._handleTogglePlay = this._handleTogglePlay.bind(this);
-      this._setCurrentTime = this._setCurrentTime.bind(this);
-      this._setFullTime = this._setFullTime.bind(this);
+      this._handleCurrentTimeSet = this._handleCurrentTimeSet.bind(this);
+      this._handleFullTimeSet = this._handleFullTimeSet.bind(this);
       this._handleToggleFullScreen = this._handleToggleFullScreen.bind(this);
     }
 
@@ -30,8 +30,8 @@ const withPlayer = (Component) => {
         isFullScreen={isFullScreen}
         currentTime={currentTime}
         fullTime={fullTime}
-        onSetFullTime={this._setFullTime}
-        onSetCurrentTime={this._setCurrentTime}
+        onFullTimeSet={this._handleFullTimeSet}
+        onCurrentTimeSet={this._handleCurrentTimeSet}
         onToggleFullScreen={this._handleToggleFullScreen}
         onTogglePlay={this._handleTogglePlay}
       />;
@@ -50,13 +50,13 @@ const withPlayer = (Component) => {
       });
     }
 
-    _setCurrentTime(time) {
+    _handleCurrentTimeSet(time) {
       this.setState({
         currentTime: Math.floor(time)
       });
     }
 
-    _setFullTime(time) {
+    _handleFullTimeSet(time) {
       this.setState({
         fullTime: time
       });

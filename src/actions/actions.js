@@ -1,4 +1,5 @@
 import ActionType from './action-type.js';
+import {MAX_FILMS_TO_SHOW} from '../consts.js';
 
 const ActionCreator = {
   changeFilter: (filter) => ({
@@ -47,7 +48,7 @@ const ActionCreator = {
   }),
   increaseMaxShowFilms: () => ({
     type: ActionType.INCREASE_MAX_SHOW_FILMS,
-    payload: 20
+    payload: MAX_FILMS_TO_SHOW
   }),
   togglePlayButton: (playState) => ({
     type: ActionType.TOGGLE_PLAY_BUTTON,
@@ -55,7 +56,7 @@ const ActionCreator = {
   }),
   resetMaxShowFilms: () => ({
     type: ActionType.RESET_MAX_SHOW_FILMS,
-    payload: 20
+    payload: MAX_FILMS_TO_SHOW
   }),
   logoutUser: () => ({
     type: ActionType.LOGOUT_USER

@@ -21,8 +21,8 @@ const AddReviewRouterWrapper = withPrivateRouter(AddReview);
 
 class App extends PureComponent {
   componentDidMount() {
-    const {onCheckUser} = this.props;
-    onCheckUser();
+    const {onUserCheck} = this.props;
+    onUserCheck();
   }
 
   render() {
@@ -45,7 +45,7 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  onCheckUser: PropTypes.func,
+  onUserCheck: PropTypes.func,
   isLoadedUserInfo: PropTypes.bool
 };
 
@@ -54,7 +54,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  onCheckUser: Operation.checkUser,
+  onUserCheck: Operation.checkUser,
 };
 
 export {App};

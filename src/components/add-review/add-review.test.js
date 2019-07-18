@@ -14,8 +14,8 @@ describe(`AddReview`, () => {
         validationError={null}
         selectedOption={null}
         submiting={false}
-        onCheck={jest.fn()}
-        onChangeText={jest.fn()}
+        onInputCheck={jest.fn()}
+        onTextChange={jest.fn()}
         onAddComment={jest.fn()}
         isDisabled={true}
       />);

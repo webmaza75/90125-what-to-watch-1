@@ -17,8 +17,8 @@ it(`Player correctly renders`, () => {
         isFullScreen={false}
         currentTime={0}
         fullTime={0}
-        onSetFullTime={jest.fn()}
-        onSetCurrentTime={jest.fn()}
+        onFullTimeSet={jest.fn()}
+        onCurrentTimeSet={jest.fn()}
         onToggleFullScreen={jest.fn()}
         onTogglePlay={jest.fn()}
       />

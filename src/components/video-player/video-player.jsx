@@ -10,20 +10,20 @@ class VideoPlayer extends PureComponent {
 
   componentDidMount() {
     const {
-      onSetCurrentTime,
-      onSetFullTime
+      onCurrentTimeSet,
+      onFullTimeSet
     } = this.props;
     const video = this._videoRef.current;
 
     if (!video) {
       return;
     }
-    if (onSetFullTime) {
-      video.oncanplaythrough = () => onSetFullTime(Math.floor(video.duration));
+    if (onFullTimeSet) {
+      video.oncanplaythrough = () => onFullTimeSet(Math.floor(video.duration));
     }
 
-    if (onSetCurrentTime) {
-      video.ontimeupdate = () => onSetCurrentTime(video.currentTime);
+    if (onCurrentTimeSet) {
+      video.ontimeupdate = () => onCurrentTimeSet(video.currentTime);
     }
   }
 
@@ -100,8 +100,8 @@ class VideoPlayer extends PureComponent {
 VideoPlayer.propTypes = {
   src: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool,
-  onSetCurrentTime: PropTypes.func,
-  onSetFullTime: PropTypes.func,
+  onCurrentTimeSet: PropTypes.func,
+  onFullTimeSet: PropTypes.func,
   isFullScreen: PropTypes.bool,
   poster: PropTypes.string,
   onToggleFullScreen: PropTypes.func,

@@ -13,11 +13,12 @@ import {
 } from '../../reducers/user/selectors.js';
 import {ActionCreator} from '../../actions/actions.js';
 import withSignInUser from '../../hocs/with-sign-in-user/with-sign-in-user.js';
+import {historyShape} from '../../models.js';
 
 class SignIn extends PureComponent {
   constructor(props) {
     super(props);
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
   render() {
@@ -36,7 +37,7 @@ class SignIn extends PureComponent {
         <SignInHeader />
 
         <div className="sign-in user-page__content">
-          <form className="sign-in__form" onSubmit={(event) => this._handleSubmit(event)}>
+          <form className="sign-in__form" onSubmit={this._handleFormSubmit}>
             {errorMessage && <div className="sign-in__message">
               <p>{errorMessage}</p>
             </div>}
@@ -49,7 +50,7 @@ class SignIn extends PureComponent {
                   name="user-email"
                   id="user-email"
                   value={email}
-                  onChange={(event) => onChangeEmail(event)}
+                  onChange={onChangeEmail}
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
@@ -61,7 +62,7 @@ class SignIn extends PureComponent {
                   name="user-password"
                   id="user-password"
                   value={password}
-                  onChange={(event) => onChangePassword(event)}
+                  onChange={onChangePassword}
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
@@ -95,7 +96,7 @@ class SignIn extends PureComponent {
     return null;
   }
 
-  _handleSubmit(event) {
+  _handleFormSubmit(event) {
     const {email, password, onLogin, onSetError, onResetErrors, history} = this.props;
     const validationError = this._getError();
 
@@ -123,7 +124,7 @@ SignIn.propTypes = {
   onLogin: PropTypes.func,
   onSetError: PropTypes.func,
   onResetErrors: PropTypes.func,
-  history: PropTypes.object,
+  history: historyShape,
   error: PropTypes.string,
   validationError: PropTypes.string
 };

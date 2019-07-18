@@ -11,15 +11,19 @@ import {
 import {
   getMovieById
 } from '../../reducers/films/selectors.js';
-import {MAX_TEXTAREA_LENGHT} from '../../consts.js';
+import {TextareaLengths} from '../../consts.js';
 import {Operation} from '../../reducers/films/films.js';
 import withAddReview from '../../hocs/with-add-review/with-add-review.js';
+import {
+  historyShape,
+  matchShape
+} from '../../models.js';
 
 class AddReview extends PureComponent {
   constructor(props) {
     super(props);
 
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
   render() {
@@ -27,8 +31,8 @@ class AddReview extends PureComponent {
       movie,
       selectedOption,
       validationError,
-      onCheck,
-      onChangeText,
+      onInputCheck,
+      onTextChange,
       isDisabled,
       submiting
     } = this.props;
@@ -58,7 +62,7 @@ class AddReview extends PureComponent {
         </div>
       </div>
 
-      <div className="add-review" onSubmit={(event) => this._handleSubmit(event)}>
+      <div className="add-review" onSubmit={this._handleFormSubmit}>
         <form action="#" className="add-review__form">
           {validationError && <div className="sign-in__message">
             <p>{validationError}</p>
@@ -75,9 +79,7 @@ class AddReview extends PureComponent {
                     value={`${i}`}
                     disabled={submiting}
                     checked={selectedOption === `${i}`}
-                    onChange={
-                      (event) => onCheck(event)
-                    }
+                    onChange={onInputCheck}
                   />
                   <label
                     className="rating__label"
@@ -91,8 +93,7 @@ class AddReview extends PureComponent {
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" readOnly={submiting} maxLength={MAX_TEXTAREA_LENGHT} onChange={
-              (event) => onChangeText(event)
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" readOnly={submiting} maxLength={TextareaLengths.MAX_TEXTAREA_LENGHT} onChange={onTextChange
             }></textarea>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit" disabled={isDisabled}>Post</button>
@@ -104,18 +105,17 @@ class AddReview extends PureComponent {
     </section>;
   }
 
-  _handleSubmit(event) {
+  _handleFormSubmit(event) {
     const {
       onAddComment,
       movie,
       history,
       selectedOption,
       text,
-      onSubmit,
+      onFormSubmit,
       onToggleDisabled
     } = this.props;
-
-    onSubmit();
+    onFormSubmit();
 
     event.preventDefault();
     onAddComment(movie.id, {rating: +selectedOption, comment: text})
@@ -132,17 +132,18 @@ class AddReview extends PureComponent {
 
 AddReview.propTypes = {
   movie: itemShape,
-  history: PropTypes.object,
+  history: historyShape,
   onAddComment: PropTypes.func,
   text: PropTypes.string,
   selectedOption: PropTypes.string,
   validationError: PropTypes.string,
   isDisabled: PropTypes.bool,
-  onCheck: PropTypes.func,
-  onChangeText: PropTypes.func,
-  onSubmit: PropTypes.func,
+  onInputCheck: PropTypes.func,
+  onTextChange: PropTypes.func,
+  onFormSubmit: PropTypes.func,
   onToggleDisabled: PropTypes.func,
-  submiting: PropTypes.bool
+  submiting: PropTypes.bool,
+  match: matchShape
 };
 
 const mapStateToProps = (state, {match}) => ({

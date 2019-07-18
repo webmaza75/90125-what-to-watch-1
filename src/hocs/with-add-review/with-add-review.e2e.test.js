@@ -15,7 +15,7 @@ const text = `It was well acted, directed, and the music was good.`;
 const value = `4`;
 
 describe(`MockComponent and wrapper`, () => {
-  it(`MockComponent should has correctly props when user calls onCheck for radio`, () => {
+  it(`MockComponent should has correctly props when user calls onInputCheck for radio`, () => {
     const MockComponentWrapped = withAddReview(MockComponent);
     const wrapper = mount(<Provider store={createStore(reducer)}>
       <MockComponentWrapped />
@@ -27,13 +27,13 @@ describe(`MockComponent and wrapper`, () => {
       }
     };
     expect(wrapper.find(MockComponent).prop(`isDisabled`)).toBeTruthy();
-    wrapper.find(MockComponent).prop(`onCheck`)(event);
+    wrapper.find(MockComponent).prop(`onInputCheck`)(event);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`selectedOption`)).toEqual(value);
     expect(wrapper.find(MockComponent).prop(`validationError`)).toEqual(`Message is not allowed to be empty.`);
   });
 
-  it(`MockComponent should has correctly props when user calls onChangeText for textarea`, () => {
+  it(`MockComponent should has correctly props when user calls onTextChange for textarea`, () => {
     const MockComponentWrapped = withAddReview(MockComponent);
     const wrapper = mount(<Provider store={createStore(reducer)}>
       <MockComponentWrapped />
@@ -45,13 +45,13 @@ describe(`MockComponent and wrapper`, () => {
       }
     };
     expect(wrapper.find(MockComponent).prop(`isDisabled`)).toBeTruthy();
-    wrapper.find(MockComponent).prop(`onChangeText`)(event);
+    wrapper.find(MockComponent).prop(`onTextChange`)(event);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`text`)).toEqual(text);
     expect(wrapper.find(MockComponent).prop(`validationError`)).toEqual(`Rating is not allowed to be empty.`);
   });
 
-  it(`MockComponent should has correctly props when user calls onSubmit`, () => {
+  it(`MockComponent should has correctly props when user calls onFormSubmit`, () => {
     const MockComponentWrapped = withAddReview(MockComponent);
     const wrapper = mount(<Provider store={createStore(reducer)}>
       <MockComponentWrapped />
@@ -64,7 +64,7 @@ describe(`MockComponent and wrapper`, () => {
       validationError: null
     });
 
-    wrapper.find(MockComponent).prop(`onSubmit`)(event);
+    wrapper.find(MockComponent).prop(`onFormSubmit`)(event);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`isDisabled`)).toBeTruthy();
     expect(wrapper.find(MockComponent).prop(`submiting`)).toBeTruthy();

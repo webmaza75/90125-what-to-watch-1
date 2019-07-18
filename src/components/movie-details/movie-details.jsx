@@ -23,6 +23,7 @@ import {Operation} from '../../reducers/films/films.js';
 import {Tabs} from '../../consts.js';
 import MovieCardButtons from '../movie-card-buttons/movie-card-buttons.jsx';
 import Player from '../player/player.jsx';
+import {locationShape} from '../../models.js';
 
 const FilmListWrapped = withActiveItem(FilmList);
 const MovieTabsWrapped = withActiveItem(MovieTabs);
@@ -135,11 +136,10 @@ class MovieDetails extends PureComponent {
 MovieDetails.propTypes = {
   movie: itemShape,
   films: PropTypes.arrayOf(itemShape),
-  location: PropTypes.object,
+  location: locationShape,
   onLoadComments: PropTypes.func,
   comments: PropTypes.arrayOf(PropTypes.object),
   match: PropTypes.object,
-  history: PropTypes.object,
   showPlayer: PropTypes.bool
 };
 

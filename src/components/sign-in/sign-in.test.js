@@ -12,7 +12,7 @@ describe(`SignIn correctly renders`, () => {
         <SignIn
           email={`qwe@qwe.ru`}
           password={`123`}
-          onSubmit={jest.fn()}
+          onFormSubmit={jest.fn()}
           onChangeEmail={jest.fn()}
           onChangePassword={jest.fn()}
           validationError={null}
@@ -30,7 +30,7 @@ describe(`SignIn correctly renders`, () => {
         <SignIn
           email={`qwe@qwe.ru`}
           password={` `}
-          onSubmit={jest.fn()}
+          onFormSubmit={jest.fn()}
           onChangeEmail={jest.fn()}
           onChangePassword={jest.fn()}
           validationError={ValidationErrors.INVALID_PASSWORD}

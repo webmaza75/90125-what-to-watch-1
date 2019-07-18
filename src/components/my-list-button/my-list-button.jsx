@@ -30,11 +30,7 @@ const MyListButton = (props) => {
     };
   }
 
-  return <button className="btn btn--list movie-card__button" type="button" onClick={
-    (event) => {
-      onMyListClick(event);
-    }
-  }>
+  return <button className="btn btn--list movie-card__button" type="button" onClick={onMyListClick}>
     <svg viewBox={btnMyListParams.viewBox} width={btnMyListParams.width} height={btnMyListParams.height}>
       <use xlinkHref={btnMyListParams.xlinkHref}></use>
     </svg>

@@ -4,6 +4,8 @@ import {ActionCreator} from './actions/actions.js';
 
 
 const TIME_OUT = 5000;
+const REQUIRED_AUTHORIZATION_ERROR = 403;
+
 export const createAPI = (dispatch) => {
   const api = axios.create({
     baseURL: `${BASE_URL}/wtw`,
@@ -16,7 +18,7 @@ export const createAPI = (dispatch) => {
     if (!err.response || !err.response.status) {
       return Promise.reject(err);
     }
-    if (err.response && err.response.status === 403) {
+    if (err.response && err.response.status === REQUIRED_AUTHORIZATION_ERROR) {
       dispatch(ActionCreator.checkIsRequiredAuthorization(true));
       return Promise.reject(err);
     }

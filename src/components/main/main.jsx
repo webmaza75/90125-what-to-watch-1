@@ -115,7 +115,6 @@ Main.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string),
   promo: itemShape,
   onLoadPromo: PropTypes.func,
-  history: PropTypes.object,
   showPlayer: PropTypes.bool,
   onResetMaxShowFilms: PropTypes.func
 };

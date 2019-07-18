@@ -13,7 +13,7 @@ export const ratingLevels = [
   [0, `Bad`]
 ];
 export const MAX_GENRES = 10;
-export const MAX_FILMS = 20;
+export const MAX_FILMS_TO_SHOW = 20;
 export const tabs = [
   `Overview`,
   `Details`,
@@ -24,8 +24,12 @@ export const Tabs = {
   DETAILS: `Details`,
   REVIEWS: `Reviews`
 };
-export const MIN_TEXTAREA_LENGHT = 50;
-export const MAX_TEXTAREA_LENGHT = 400;
+
+export const TextareaLengths = {
+  MIN_TEXTAREA_LENGHT: 50,
+  MAX_TEXTAREA_LENGHT: 400
+};
+
 export const MONTHS = [
   `January`,
   `February`,
@@ -41,5 +45,7 @@ export const MONTHS = [
   `December`
 ];
 
-export const SECONDS_IN_MINUTE = 60;
-export const SECONDS_IN_HOUR = 3600;
+export const DurationIntervals = {
+  SECONDS_IN_MINUTE: 60,
+  SECONDS_IN_HOUR: 3600
+};

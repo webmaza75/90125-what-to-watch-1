@@ -1,8 +1,7 @@
 import {
   ratingLevels,
   MONTHS,
-  SECONDS_IN_MINUTE,
-  SECONDS_IN_HOUR
+  DurationIntervals
 } from './consts.js';
 
 export const getMovieRatingLevel = (ratingValue) => {
@@ -28,11 +27,11 @@ export const getMoreFilmsByGenre = (films, movie, max = 4) => {
 };
 
 export const getRunTime = (runTime) => {
-  if (runTime < SECONDS_IN_MINUTE) {
+  if (runTime < DurationIntervals.SECONDS_IN_MINUTE) {
     return `${runTime}m`;
   }
 
-  return `${Math.floor(runTime / SECONDS_IN_MINUTE)}h ${runTime % SECONDS_IN_MINUTE}m`;
+  return `${Math.floor(runTime / DurationIntervals.SECONDS_IN_MINUTE)}h ${runTime % DurationIntervals.SECONDS_IN_MINUTE}m`;
 };
 
 export const getCommentDate = (date) => {
@@ -51,10 +50,10 @@ export const getMonthName = (index) => {
 };
 
 export const formatVideoTime = (time) => {
-  const hours = Math.floor(time / SECONDS_IN_HOUR);
-  const secondsPerHours = hours * SECONDS_IN_HOUR;
-  const minutes = Math.floor((time - secondsPerHours) / SECONDS_IN_MINUTE);
-  const secondsPerMinutes = minutes * SECONDS_IN_MINUTE;
+  const hours = Math.floor(time / DurationIntervals.SECONDS_IN_HOUR);
+  const secondsPerHours = hours * DurationIntervals.SECONDS_IN_HOUR;
+  const minutes = Math.floor((time - secondsPerHours) / DurationIntervals.SECONDS_IN_MINUTE);
+  const secondsPerMinutes = minutes * DurationIntervals.SECONDS_IN_MINUTE;
   const seconds = time - secondsPerHours - secondsPerMinutes;
   if (!hours && !minutes) {
     return `${(`` + seconds).padStart(4, `0:0`)}`;

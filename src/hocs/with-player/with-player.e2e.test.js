@@ -18,20 +18,20 @@ describe(`MockComponent and wrapper`, () => {
     expect(wrapper.find(MockComponent).prop(`isPlaying`)).toBeTruthy();
   });
 
-  it(`MockComponent should has correctly props when user calls onSetFullTime`, () => {
+  it(`MockComponent should has correctly props when user calls onFullTimeSet`, () => {
     const MockComponentWrapped = withPlayer(MockComponent);
     const wrapper = mount(<MockComponentWrapped />);
 
-    wrapper.find(MockComponent).prop(`onSetFullTime`)(734);
+    wrapper.find(MockComponent).prop(`onFullTimeSet`)(734);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`fullTime`)).toEqual(734);
   });
 
-  it(`MockComponent should has correctly props when user calls onSetCurrentTime`, () => {
+  it(`MockComponent should has correctly props when user calls onCurrentTimeSet`, () => {
     const MockComponentWrapped = withPlayer(MockComponent);
     const wrapper = mount(<MockComponentWrapped />);
 
-    wrapper.find(MockComponent).prop(`onSetCurrentTime`)(337);
+    wrapper.find(MockComponent).prop(`onCurrentTimeSet`)(337);
     wrapper.update();
     expect(wrapper.find(MockComponent).prop(`currentTime`)).toEqual(337);
   });

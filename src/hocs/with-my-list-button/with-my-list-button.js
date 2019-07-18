@@ -5,6 +5,11 @@ import {connect} from 'react-redux';
 import {checkIsAuthorizedUser} from '../../reducers/user/selectors.js';
 import {Operation} from '../../reducers/films/films.js';
 
+const FavoriteStatus = {
+  ADD_TO_FAVORITE_LIST: 1,
+  REMOVE_FROM_FAVORITE_LIST: 0
+};
+
 const withMyListButton = (Component) => {
   class WithMyListButton extends PureComponent {
     constructor(props) {
@@ -42,9 +47,9 @@ const withMyListButton = (Component) => {
         });
       } else {
         if (isFavorite) {
-          onToggleFavorite(id, 0);
+          onToggleFavorite(id, FavoriteStatus.REMOVE_FROM_FAVORITE_LIST);
         } else {
-          onToggleFavorite(id, 1);
+          onToggleFavorite(id, FavoriteStatus.ADD_TO_FAVORITE_LIST);
         }
       }
     }

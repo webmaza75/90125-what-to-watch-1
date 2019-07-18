@@ -17,8 +17,8 @@ const Player = (props) => {
     isFullScreen,
     currentTime,
     fullTime,
-    onSetFullTime,
-    onSetCurrentTime,
+    onFullTimeSet,
+    onCurrentTimeSet,
     onToggleFullScreen,
     onTogglePlay
   } = props;
@@ -33,8 +33,8 @@ const Player = (props) => {
       isPlaying={isPlaying}
       poster={backgroundImage}
       isFullScreen={isFullScreen}
-      onSetFullTime={onSetFullTime}
-      onSetCurrentTime={onSetCurrentTime}
+      onFullTimeSet={onFullTimeSet}
+      onCurrentTimeSet={onCurrentTimeSet}
       onToggleFullScreen={onToggleFullScreen}
     />
 
@@ -84,8 +84,8 @@ Player.propTypes = {
   isFullScreen: PropTypes.bool,
   currentTime: PropTypes.number,
   fullTime: PropTypes.number,
-  onSetFullTime: PropTypes.func,
-  onSetCurrentTime: PropTypes.func,
+  onFullTimeSet: PropTypes.func,
+  onCurrentTimeSet: PropTypes.func,
   onToggleFullScreen: PropTypes.func,
   onTogglePlay: PropTypes.func
 };

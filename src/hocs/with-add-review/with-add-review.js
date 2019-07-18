@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react';
 
+import {TextareaLengths} from '../../consts.js';
+
 const withAddReview = (Component) => {
   class WithAddReview extends PureComponent {
     constructor(props) {
@@ -11,9 +13,9 @@ const withAddReview = (Component) => {
         isDisabled: true,
         submiting: false
       };
-      this._handleCheck = this._handleCheck.bind(this);
-      this._handleChangeText = this._handleChangeText.bind(this);
-      this._handleSubmit = this._handleSubmit.bind(this);
+      this._handleInputCheck = this._handleInputCheck.bind(this);
+      this._handleTextChange = this._handleTextChange.bind(this);
+      this._handleFormSubmit = this._handleFormSubmit.bind(this);
       this._handleToggleDisabled = this._handleToggleDisabled.bind(this);
     }
 
@@ -31,16 +33,16 @@ const withAddReview = (Component) => {
         selectedOption={selectedOption}
         text={text}
         validationError={validationError}
-        onCheck={this._handleCheck}
-        onChangeText={this._handleChangeText}
-        onSubmit={this._handleSubmit}
+        onInputCheck={this._handleInputCheck}
+        onTextChange={this._handleTextChange}
+        onFormSubmit={this._handleFormSubmit}
         onToggleDisabled = {this._handleToggleDisabled}
         isDisabled={isDisabled}
         submiting={submiting}
       />;
     }
 
-    _handleCheck(event) {
+    _handleInputCheck(event) {
       const {text} = this.state;
       const selectedOption = event.target.value;
       const validationError = this._getError(selectedOption, text);
@@ -52,7 +54,7 @@ const withAddReview = (Component) => {
       });
     }
 
-    _handleChangeText(event) {
+    _handleTextChange(event) {
       const {selectedOption} = this.state;
       const text = event.target.value;
       const validationError = this._getError(selectedOption, text);
@@ -64,7 +66,7 @@ const withAddReview = (Component) => {
       });
     }
 
-    _handleSubmit() {
+    _handleFormSubmit() {
       this.setState({
         submiting: true,
         isDisabled: true
@@ -88,10 +90,10 @@ const withAddReview = (Component) => {
       if (!text) {
         return `Message is not allowed to be empty.`;
       }
-      if (text.length < 50) {
+      if (text.length < TextareaLengths.MIN_TEXTAREA_LENGHT) {
         return `Message is too short (${text.length}). Its length has to be from 50 to 400 characters.`;
       }
-      if (text.length > 400) {
+      if (text.length > TextareaLengths.MAX_TEXTAREA_LENGHT) {
         return `Message is too long (${text.length}). Its length has to be from 50 to 400 characters.`;
       }
       return null;

@@ -38,3 +38,34 @@ export const reviewShape = PropTypes.shape({
   comment: PropTypes.string,
   date: PropTypes.string
 });
+
+export const locationShape = PropTypes.shape({
+  hash: PropTypes.string,
+  key: PropTypes.string,
+  pathname: PropTypes.string,
+  search: PropTypes.string,
+  state: PropTypes.any
+});
+
+export const historyShape = PropTypes.shape({
+  action: PropTypes.string,
+  block: PropTypes.func,
+  createHref: PropTypes.func,
+  go: PropTypes.func,
+  goBack: PropTypes.func,
+  goForward: PropTypes.func,
+  length: PropTypes.number,
+  listen: PropTypes.func,
+  location: locationShape,
+  push: PropTypes.func,
+  replace: PropTypes.func
+});
+
+export const matchShape = PropTypes.shape({
+  isExact: PropTypes.bool,
+  params: PropTypes.shape({
+    id: PropTypes.string
+  }),
+  path: PropTypes.string,
+  url: PropTypes.string,
+});
